@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
   public appPages = [
     {
       title: 'Home',
@@ -33,8 +34,22 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      const toggle = document.querySelector('#themeToggle');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+      toggle.addEventListener('ionChange', (ev) => {
+        document.body.classList.toggle('dark', (ev as any).detail.checked);
+      });
+
+      // tslint:disable-next-line: deprecation
+      prefersDark.addListener((e) => {
+        (toggle as any).checked = e.matches;
+      });
+
     });
   }
 }
