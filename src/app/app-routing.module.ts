@@ -14,7 +14,16 @@ const routes: Routes = [
   {
     path: 'events',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
+  },
+  {
+    path: 'notifications',
+    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
   }
+
 ];
 
 @NgModule({

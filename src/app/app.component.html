@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu type="overlay">
+  <ion-split-pane contentId="main-content">
+    <ion-menu type="overlay" contentId="main-content">
       <ion-content>
 
         <ion-card class="hide-card ion-padding ion-no-margin" [ngStyle]="userCoverImgStyle">
@@ -10,9 +10,9 @@
         </ion-card>
 
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item *ngIf="i < appPages.length - 1" [routerDirection]="'root'" [routerLink]="[p.url]" routerLinkActive="active">
+              <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
                 {{ p.title }}
               </ion-label>
@@ -21,19 +21,25 @@
         </ion-list>
 
         <ion-list>
-          <ion-list-header>Miscellaneous</ion-list-header>
+          <ion-list-header>Lainnya</ion-list-header>
           <ion-item lines="full">
             <ion-icon slot="start" name="moon"></ion-icon>
-            <ion-label>
-              Dark Mode
-            </ion-label>
+            <ion-label>Mode Gelap</ion-label>
             <ion-toggle id="themeToggle" slot="end"></ion-toggle>
           </ion-item>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item [routerDirection]="'root'" [routerLink]="[appPages[appPages.length - 1].url]" routerLinkActive="active">
+              <ion-icon slot="start" [name]="appPages[appPages.length - 1].icon" routerLinkActive="active"></ion-icon>
+              <ion-label>
+                {{ appPages[appPages.length - 1].title }}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
 
       </ion-content>
     </ion-menu>
 
-    <ion-router-outlet main></ion-router-outlet>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

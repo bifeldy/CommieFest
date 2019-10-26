@@ -20,8 +20,23 @@ export class AppComponent {
     },
     {
       title: 'Cari Semua Event',
+      url: '/search',
+      icon: 'search'
+    },
+    {
+      title: 'Event Saya',
       url: '/events',
       icon: 'list'
+    },
+    {
+      title: 'Pemberitahuan',
+      url: '/notifications',
+      icon: 'notifications'
+    },
+    {
+      title: 'Pengaturan',
+      url: '/settings',
+      icon: 'settings'
     }
   ];
 
