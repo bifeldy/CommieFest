@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { UserService } from './_shared/_services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,23 +14,35 @@ export class AppComponent {
 
   public appPages = [
     {
-      title: 'Home',
+      title: 'Beranda Saya',
       url: '/home',
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
+      title: 'Cari Semua Event',
+      url: '/events',
       icon: 'list'
     }
   ];
 
+  userCoverImgStyle = {};
+  user = {};
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private userService: UserService
   ) {
     this.initializeApp();
+
+    this.user = this.userService.getUser();
+    this.userCoverImgStyle = {
+      background: 'url("/assets/shapes.svg"), linear-gradient(to bottom, #0066cc 0%, #4c8dff 100%)',
+      'background-position': 'center',
+      'background-repeat': 'no-repeat',
+      'background-size': 'cover'
+    };
   }
 
   initializeApp() {
