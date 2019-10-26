@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ScrollDetail } from '@ionic/core';
+import { UserService } from '../_shared/_services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import { ScrollDetail } from '@ionic/core';
 })
 export class HomePage {
 
-  userId = 'Bifeldy';
+  user = {};
   showToolbar = false;
 
   bannerImgStyle = {
@@ -19,7 +20,11 @@ export class HomePage {
     'background-size': 'cover'
   };
 
-  constructor() {}
+  constructor(
+    private userService: UserService
+  ) {
+    this.user = this.userService.getUser();
+  }
 
   onScroll($event: CustomEvent<ScrollDetail>) {
     if ($event && $event.detail && $event.detail.scrollTop) {
