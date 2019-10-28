@@ -38,8 +38,12 @@ export class NotificationsPage implements OnInit {
     await alert.present();
   }
 
-  deleteNotif(id: number, slidingEl: IonItemSliding) {
-    slidingEl.close();
+  // deleteNotif(id: number, slidingEl: IonItemSliding) {
+  //   slidingEl.close();
+  //   this.eventService.deleteMyEvent(id);
+  //   this.loadedEvents = this.eventService.getAllEvents();
+  // }
+  deleteNotif(id: number) {
     this.eventService.deleteMyEvent(id);
     this.loadedEvents = this.eventService.getAllEvents();
   }
