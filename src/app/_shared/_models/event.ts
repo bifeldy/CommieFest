@@ -1,11 +1,13 @@
-export interface Event {
-    id: number;
-    name: string;
-    description: string;
-    imageUrl: string;
-    location: string;
-    ticketPrice: number;
-    pricePool: number;
-    dateStart: Date;
-    dateEnd: Date;
+export class Event {
+    constructor(
+        public id: number,
+        public name: string,
+        public description: string,
+        public imageUrl: string,
+        public location: string,
+        public category: string,
+        public ticketPrice: number,
+        public pricePool: number,
+        public dateStart: Date,
+        public dateEnd: Date) { }
 }
