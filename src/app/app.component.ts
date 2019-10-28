@@ -40,7 +40,7 @@ export class AppComponent {
     },
     {
       title: 'Logout',
-      url: '/logout',
+      url: '/login',
       icon: 'exit'
     }
   ];
