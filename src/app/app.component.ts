@@ -37,6 +37,11 @@ export class AppComponent {
       title: 'Pengaturan',
       url: '/settings',
       icon: 'settings'
+    },
+    {
+      title: 'Logout',
+      url: '/logout',
+      icon: 'exit'
     }
   ];
 

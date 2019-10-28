@@ -4,14 +4,15 @@
       <ion-content>
 
         <ion-card class="hide-card ion-padding ion-no-margin" [ngStyle]="userCoverImgStyle">
-            <img src="{{ user['profile'] }}" class="custom-avatar"/>
-            <h6 class="ion-no-margin">{{ user['name'] }}</h6>
-            {{ user['email']}}
+          <img src="{{ user['profile'] }}" class="custom-avatar" />
+          <h6 class="ion-no-margin">{{ user['name'] }}</h6>
+          {{ user['email']}}
         </ion-card>
 
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item *ngIf="i < appPages.length - 1" [routerDirection]="'root'" [routerLink]="[p.url]" routerLinkActive="active">
+            <ion-item *ngIf="i < appPages.length - 1" [routerDirection]="'root'" [routerLink]="[p.url]"
+              routerLinkActive="active">
               <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
                 {{ p.title }}
@@ -22,13 +23,14 @@
 
         <ion-list>
           <ion-list-header>Lainnya</ion-list-header>
-          <ion-item lines="full">
+          <ion-item>
             <ion-icon slot="start" name="moon"></ion-icon>
             <ion-label>Mode Gelap</ion-label>
             <ion-toggle id="themeToggle" slot="end"></ion-toggle>
           </ion-item>
           <ion-menu-toggle auto-hide="false">
-            <ion-item [routerDirection]="'root'" [routerLink]="[appPages[appPages.length - 1].url]" routerLinkActive="active">
+            <ion-item [routerDirection]="'root'" [routerLink]="[appPages[appPages.length - 1].url]"
+              routerLinkActive="active">
               <ion-icon slot="start" [name]="appPages[appPages.length - 1].icon" routerLinkActive="active"></ion-icon>
               <ion-label>
                 {{ appPages[appPages.length - 1].title }}
