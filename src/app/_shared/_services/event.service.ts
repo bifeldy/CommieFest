@@ -29,6 +29,18 @@ export class EventService {
       6000000,
       new Date('2019-01-01'),
       new Date('2019-12-31')
+    ),
+    new Event(
+      3,
+      'Panjat Gunung',
+      'Panjat gunung adalah olahraga, hobi, ataupun profesi berjalan dan mendaki pegunungan. Bermula sebagai usaha total seluruh kemampuan hidup untuk mencapai titik tertinggi pegunungan tak terdaki',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT9t891bAiPoalt7fksSRQHkLF8k46Va4bDffWhzZfBf21pzwBH',
+      'Gunung Dieng',
+      'Olahraga',
+      300000,
+      6000000,
+      new Date('2019-01-01'),
+      new Date('2019-12-31')
     )
   ]
   constructor() { }
