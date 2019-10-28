@@ -30,6 +30,10 @@ export class ListPage implements OnInit {
     }
   }
 
+  getDummyDate() {
+    return new Date();
+  }
+
   ngOnInit() {
   }
   // add back when alpha.4 is out
