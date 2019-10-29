@@ -14,9 +14,9 @@
         <ion-list>
           <ion-item-sliding *ngFor="let e of loadedEvents" #slidingItem>
             <app-notif-item [e]="e"></app-notif-item>
-            <ion-item-options side="end" (ionSwipe)="deleteNotif(e.id)">
-              <button ion-button color="danger" expandable (click)="deleteNotif(e.id)"></button>
-            </ion-item-options>
+              <ion-item-options side="end" (ionSwipe)="deleteNotif(e.id)">
+                <button ion-button color="danger" expandable (click)="deleteNotif(e.id)"></button>
+              </ion-item-options>
             <!-- <ion-item-options>
               <ion-item-option color="danger" (click)="deleteNotif(e.id, slidingItem)">
                 <ion-icon name="trash" slot="icon-only"></ion-icon>

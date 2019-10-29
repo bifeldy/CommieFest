@@ -3,6 +3,8 @@ import { ScrollDetail } from '@ionic/core';
 import { UserService } from '../_shared/_services/user.service';
 import { EventService } from '../_shared/_services/event.service';
 import { Event } from '../_shared/_models/event';
+import { NavController } from '@ionic/angular';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +26,7 @@ export class HomePage implements OnInit {
   };
 
   constructor(
+    public navCtrl: NavController,
     private userService: UserService,
     private eventService: EventService
   ) {
@@ -43,6 +46,39 @@ export class HomePage implements OnInit {
       const scrollTop = $event.detail.scrollTop;
       this.showToolbar = scrollTop >= 225;
     }
+  }
+
+  // getTitle(ev) {
+  //   var ev = 
+  //   // Reset items back to all of the items
+  //   this.ngOnInit();
+  //   this.loadedEvents
+  //   // set val to the value of the ev target
+  //   var val = ev.target.value;
+
+  //   // if the value is an empty string don't filter the items
+  //   if (val && val.trim() != '') {
+  //     this.eventService. = this.loadedEvents.filter((e) => {
+  //       return (e.toLowerCase().indexOf(val.toLowerCase()) > -1);
+  //     })
+  //   }
+  // }
+  getTitle(event){
+    this.eventService.getAllEvents();
+    // this.loadedEvents;
+    // var valuee = event.prize
+    var valuee = event.name.value;
+    if(valuee && valuee.trim() != ''){
+      this.loadedEvents = this.loadedEvents.filter((e)=>{
+        return (e.toLowerCase().indexOf(valuee.toLowerCase())>-1);
+      })
+    }
+  }
+  filterData(){
+    this.loadedEvents = this.loadedEvents.filter((e) =>{
+      // return e.name = "Touring Balap";
+      return false;
+    });
   }
 
 }
