@@ -19,15 +19,20 @@ export class ListPage implements OnInit {
     'bluetooth',
     'build'
   ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
+  public items: Array<{ title: string; note: string; icon: string, location: string, hadiah: string }> = [];
+
   constructor() {
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i < 10; i++) {
       this.items.push({
-        title: 'Item ' + i,
+        title: 'Event ' + i,
         note: 'This is item #' + i,
+        location: 'Loc ' + i,
+        hadiah: i + "00.000",
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
+
+
   }
 
   getDummyDate() {

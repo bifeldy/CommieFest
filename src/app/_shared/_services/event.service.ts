@@ -41,6 +41,30 @@ export class EventService {
       6000000,
       new Date('2019-01-01'),
       new Date('2019-12-31')
+    ),
+    new Event(
+      4,
+      'Basket Team',
+      'Bola basket (bahasa Inggris: basketball) adalah olahraga bola berkelompok yang terdiri atas dua tim beranggotakan masing-masing lima orang yang saling bertanding mencetak poin dengan memasukkan bola ke dalam keranjang lawan. Bola basket sangat cocok untuk ditonton karena biasa dimainkan di ruang olahraga tertutup dan hanya memerlukan lapangan yang relatif kecil.',
+      'https://www.campbellrivermirror.com/wp-content/uploads/2019/05/17072610_web1_raptors-pacers.jpg',
+      'Gedung Olahraga',
+      'Olahraga',
+      400000,
+      6000000,
+      new Date('2019-01-01'),
+      new Date('2019-12-31')
+    ),
+    new Event(
+      5,
+      'Tekken 7',
+      'Tekken 7 berfokus pada pertempuran 1v1 . [3] Dua mekanisme diperkenalkan dalam game. Yang pertama, Seni Rage, memungkinkan pemain untuk melakukan serangan kritis yang menangani sekitar 30% kerusakan tergantung pada karakter setelah bar kesehatan mereka sangat rendah. Yang kedua, Power Crush, memungkinkan pemain melanjutkan serangan mereka bahkan ketika sedang dihantam oleh musuh, meskipun mereka masih akan menerima kerusakan yang ditangani oleh serangan musuh.',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRtxxoJGeeCMpEYPYk6dEjYhvFXoJnz7PxRsv1pkG5C-uU4HGpR',
+      'Lobby B',
+      'Tournament',
+      30000,
+      4000000,
+      new Date('2019-01-01'),
+      new Date('2019-12-31')
     )
   ]
   constructor() { }

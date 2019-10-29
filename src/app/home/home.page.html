@@ -40,12 +40,12 @@
         <ion-card-subtitle>
           <ion-row>
             <ion-col>
-              <ion-icon name="pin"></ion-icon>
+              <ion-icon name="pin" color="danger"></ion-icon>
               <ion-label> {{e.location}} </ion-label>
             </ion-col>
             <ion-col class="ion-text-end">
-              <ion-icon name="calendar"></ion-icon>
-              <ion-label> {{getDummyDate() | date}}</ion-label>
+              <ion-icon name="calendar" color="warning"></ion-icon>
+              <ion-label color="warning"> {{getDummyDate() | date}}</ion-label>
             </ion-col>
           </ion-row>
         </ion-card-subtitle>
@@ -58,8 +58,8 @@
         <ion-row>
           <ion-col>
             <ion-button expand="block" fill="none">
-              <ion-icon name="wallet" color="danger"></ion-icon> &nbsp;
-              <ion-text color="danger">{{e.ticketPrice | currency}}</ion-text>
+              <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
+              <ion-text color="success">{{e.ticketPrice | currency}}</ion-text>
             </ion-button>
           </ion-col>
           <ion-col class="ion-text-end">
