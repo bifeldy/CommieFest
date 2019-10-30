@@ -13,10 +13,10 @@ import { NgIf } from '@angular/common';
 })
 export class HomePage implements OnInit {
   loadedEvents: Event[];
-
+  filterLoadedEvents = [];
   user = {};
   showToolbar = false;
-
+  searchTerm: string = "";
   bannerImgStyle = {
     height: '45%',
     background: 'url("/assets/season/fall.svg"), linear-gradient(to bottom, #0066cc 0%, #4c8dff 100%)',
@@ -35,6 +35,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadedEvents = this.eventService.getAllEvents();
+    this.filterLoadedEvents = this.loadedEvents;
   }
 
   getDummyDate() {
@@ -70,15 +71,21 @@ export class HomePage implements OnInit {
     // var valuee = event.prize
     var valuee = event.name.value;
     if(valuee && valuee.trim() != ''){
-      this.loadedEvents = this.loadedEvents.filter((e)=>{
-        return (e.toLowerCase().indexOf(valuee.toLowerCase())>-1);
+      this.loadedEvents = this.loadedEvents.filter((event)=>{
+        return (event.toLowerCase().indexOf(valuee.toLowerCase())>-1);
       })
     }
   }
-  filterData(){
-    this.loadedEvents = this.loadedEvents.filter((e) =>{
-      // return e.name = "Touring Balap";
-      return false;
+  // filterData(){
+  //   this.loadedEvents = this.loadedEvents.filter((e) =>{
+  //     // return e.name = "Touring Balap";
+  //     return false;
+  //   });
+  // }
+  setFilteredEvents(){
+    
+    this.filterLoadedEvents = this.loadedEvents.filter((e) =>{
+      return e.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
     });
   }
 
