@@ -11,7 +11,7 @@
 
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item *ngIf="i < appPages.length - 1" [routerDirection]="'root'" [routerLink]="[p.url]"
+            <ion-item *ngIf="i < appPages.length - 2" [routerDirection]="'root'" [routerLink]="[p.url]"
               routerLinkActive="active">
               <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
@@ -28,12 +28,12 @@
             <ion-label>Mode Gelap</ion-label>
             <ion-toggle id="themeToggle" slot="end"></ion-toggle>
           </ion-item>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item [routerDirection]="'root'" [routerLink]="[appPages[appPages.length - 1].url]"
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item *ngIf="i >= appPages.length - 2" [routerDirection]="'root'" [routerLink]="[p.url]"
               routerLinkActive="active">
-              <ion-icon slot="start" [name]="appPages[appPages.length - 1].icon" routerLinkActive="active"></ion-icon>
+              <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
-                {{ appPages[appPages.length - 1].title }}
+                {{ p.title }}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>

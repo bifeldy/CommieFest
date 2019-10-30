@@ -19,7 +19,7 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'Search by Category',
+      title: 'Cari Event',
       url: '/search',
       icon: 'search'
     },
