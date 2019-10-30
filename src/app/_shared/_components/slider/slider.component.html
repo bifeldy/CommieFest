@@ -1,43 +1,93 @@
-<ion-slides [options]="slidersConfig">
+<div *ngIf="events.length == 0; then noData; else haveData"></div>
 
-  <ion-slide *ngFor="let event of events">
-    <ion-card routerLink="/event/{{ event.id }}">
-      <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
-      <ion-card-header>
-        <ion-card-subtitle>
+<ng-template #noData>
+  <ion-label class="ion-float-right ion-padding-end" color="primary" routerLink="/nearby">
+    <ion-skeleton-text animated style="width: 128px;"></ion-skeleton-text>
+  </ion-label>
+  <ion-title>
+    <ion-skeleton-text animated style="width: 256px;"></ion-skeleton-text>
+  </ion-title>
+  <ion-slides [options]="slidersConfig">
+    <ion-slide>
+      <ion-card style="width: 100%;">
+        <ion-skeleton-text animated style="width: 100%; height:256px;"></ion-skeleton-text>
+        <ion-card-header>
+          <ion-card-subtitle>
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 75%;"></ion-skeleton-text>
+              </ion-col>
+              <ion-col class="ion-float-right">
+                <ion-skeleton-text animated class="ion-float-right" style="width: 50%;"></ion-skeleton-text>
+              </ion-col>
+            </ion-row>
+          </ion-card-subtitle>
+          <ion-card-title>
+            <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-skeleton-text animated style="width: 75%;"></ion-skeleton-text>
           <ion-row>
-            <ion-col class="ion-text-start">
-              <ion-icon name="pin" color="danger"></ion-icon>
-              <ion-label> {{ event.location }} </ion-label>
+            <ion-col>
+              <ion-skeleton-text animated style="width: 100%; height: 24px;"></ion-skeleton-text>
             </ion-col>
             <ion-col class="ion-text-end">
-              <ion-icon name="calendar" color="warning"></ion-icon>
-              <ion-label color="warning"> {{ event.dateStart | date }}</ion-label>
+              <ion-skeleton-text animated style="width: 100%; height: 24px;"></ion-skeleton-text>
             </ion-col>
           </ion-row>
-        </ion-card-subtitle>
-        <ion-card-title class="ion-text-start">{{ event.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content class="ion-text-justify truncate">
-        {{ event.description }}
-      </ion-card-content>
-      <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" fill="none">
-              <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
-              <ion-text color="success">{{ event.ticketPrice | currency }}</ion-text>
-            </ion-button>
-          </ion-col>
-          <ion-col class="ion-text-end">
-            <ion-button expand="block">
-              <ion-icon name="add"></ion-icon> &nbsp;
-              <ion-text>Ikuti</ion-text>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </ion-slide>]
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>]
 
-</ion-slides>
+  </ion-slides>
+</ng-template>
+
+<ng-template #haveData>
+  <ion-label class="ion-float-right ion-padding-end" color="primary" routerLink="/nearby">
+    Lihat Semua!
+  </ion-label>
+  <ion-title>Ada Di Sekitar Anda ..</ion-title>
+  <ion-slides [options]="slidersConfig">
+    <ion-slide *ngFor="let event of events">
+      <ion-card routerLink="/event/{{ event.id }}">
+        <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
+        <ion-card-header>
+          <ion-card-subtitle>
+            <ion-row>
+              <ion-col class="ion-text-start">
+                <ion-icon name="pin" color="danger"></ion-icon>
+                <ion-label> {{ event.location }} </ion-label>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-icon name="calendar" color="warning"></ion-icon>
+                <ion-label color="warning"> {{ event.dateStart | date }}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-card-subtitle>
+          <ion-card-title class="ion-text-start">{{ event.name }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-justify truncate">
+          {{ event.description }}
+        </ion-card-content>
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" fill="none">
+                <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
+                <ion-text color="success">{{ event.ticketPrice | currency }}</ion-text>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-button expand="block">
+                <ion-icon name="add"></ion-icon> &nbsp;
+                <ion-text>Ikuti</ion-text>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>]
+
+  </ion-slides>
+</ng-template>

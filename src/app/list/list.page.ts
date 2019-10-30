@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -21,7 +22,9 @@ export class ListPage implements OnInit {
   ];
   public items: Array<{ title: string; note: string; icon: string, location: string, hadiah: string }> = [];
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     for (let i = 1; i < 10; i++) {
       this.items.push({
         title: 'Event ' + i,

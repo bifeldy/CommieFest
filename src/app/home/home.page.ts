@@ -17,8 +17,7 @@ export class HomePage implements OnInit {
 
   user = {};
 
-  events: Event[];
-  nearbyEvents = [];
+  nearbyEvents: Event[] = [];
 
   isSearchBarOpened = false;
   showToolbar = false;
@@ -42,12 +41,12 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.events = this.eventService.getAllEvents();
-    this.nearbyEvents = this.events;
-  }
 
-  getDummyDate() {
-    return new Date();
+    // Test Isi Data Dummy
+    setTimeout(() => {
+      this.nearbyEvents = this.eventService.getAllEvents();
+    }, 3000);
+
   }
 
   onScroll($event: CustomEvent<ScrollDetail>) {
