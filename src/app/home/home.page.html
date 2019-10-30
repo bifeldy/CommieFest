@@ -8,11 +8,11 @@
       <ion-searchbar *ngIf = "isSearchBarOpened" showCancelButton = "true" (ionCancel) = "isSearchBarOpened = false" [(ngModel)] = "searchTerm" (ionInput) = "setFilteredEvents()"></ion-searchbar>
       <ion-buttons slot = "end" >
         <button ion button slot ="icon-only" *ngIf = "!isSearchBarOpened" (click) = "isSearchBarOpened = true">
-          <ion-icon slot = "icon-only " name = "search"></ion-icon>
+          <ion-icon slot = "icon-only" size = "medium" name = "search"></ion-icon>
         </button>
-        <button ion-button slot = "icon-only" (click) = "filterData()">
+        <!-- <button ion-button slot = "icon-only" (click) = "filterData()">
           <ion-icon name = "funnel"></ion-icon>
-        </button>
+        </button> -->
       <!-- </ion-buttons> -->
       <!-- <ion-searchbar slot = "end" [class.has-content]="!!searchTerm" [(ngModel)]="searchTerm" [showCancelButton]="true" display></ion-searchbar> -->
       <!-- <ion-button routerLink="/search">
