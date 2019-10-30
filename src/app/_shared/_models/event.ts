@@ -1,5 +1,4 @@
 export class Event {
-  toLowerCase: any;
     constructor(
         public id: number,
         public name: string,
@@ -10,5 +9,6 @@ export class Event {
         public ticketPrice: number,
         public pricePool: number,
         public dateStart: Date,
-        public dateEnd: Date) { }
+        public dateEnd: Date
+    ) { }
 }

@@ -5,6 +5,7 @@ import { EventService } from '../_shared/_services/event.service';
 import { Event } from '../_shared/_models/event';
 import { NavController } from '@ionic/angular';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,11 +13,16 @@ import { NgIf } from '@angular/common';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  loadedEvents: Event[];
-  filterLoadedEvents = [];
+
   user = {};
+
+  events: Event[];
+  nearbyEvents = [];
+
+  isSearchBarOpened = false;
   showToolbar = false;
-  searchTerm: string = "";
+  searchTerm = '';
+
   bannerImgStyle = {
     height: '45%',
     background: 'url("/assets/season/fall.svg"), linear-gradient(to bottom, #0066cc 0%, #4c8dff 100%)',
@@ -27,6 +33,7 @@ export class HomePage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
+    private router: Router,
     private userService: UserService,
     private eventService: EventService
   ) {
@@ -34,8 +41,8 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadedEvents = this.eventService.getAllEvents();
-    this.filterLoadedEvents = this.loadedEvents;
+    this.events = this.eventService.getAllEvents();
+    this.nearbyEvents = this.events;
   }
 
   getDummyDate() {
@@ -47,46 +54,10 @@ export class HomePage implements OnInit {
       const scrollTop = $event.detail.scrollTop;
       this.showToolbar = scrollTop >= 225;
     }
-    
   }
 
-  // getTitle(ev) {
-  //   var ev = 
-  //   // Reset items back to all of the items
-  //   this.ngOnInit();
-  //   this.loadedEvents
-  //   // set val to the value of the ev target
-  //   var val = ev.target.value;
-
-  //   // if the value is an empty string don't filter the items
-  //   if (val && val.trim() != '') {
-  //     this.eventService. = this.loadedEvents.filter((e) => {
-  //       return (e.toLowerCase().indexOf(val.toLowerCase()) > -1);
-  //     })
-  //   }
-  // }
-  getTitle(event){
-    this.eventService.getAllEvents();
-    // this.loadedEvents;
-    // var valuee = event.prize
-    var valuee = event.name.value;
-    if(valuee && valuee.trim() != ''){
-      this.loadedEvents = this.loadedEvents.filter((event)=>{
-        return (event.toLowerCase().indexOf(valuee.toLowerCase())>-1);
-      })
-    }
-  }
-  // filterData(){
-  //   this.loadedEvents = this.loadedEvents.filter((e) =>{
-  //     // return e.name = "Touring Balap";
-  //     return false;
-  //   });
-  // }
-  setFilteredEvents(){
-    
-    this.filterLoadedEvents = this.loadedEvents.filter((e) =>{
-      return e.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-    });
+  search($event) {
+    this.router.navigateByUrl('/search?q=' + $event.target.value);
   }
 
 }
