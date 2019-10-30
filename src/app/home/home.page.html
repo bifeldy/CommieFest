@@ -37,43 +37,7 @@
     </ion-label>
 
     <ion-title>Ada Di Sekitar Anda ..</ion-title>
-    <ion-card routerLink="/event/{{ event.id }}" *ngFor="let event of nearbyEvents">
-      <img src="{{ event.imageUrl }}" alt="" />
-      <ion-card-header>
-        <ion-card-subtitle>
-          <ion-row>
-            <ion-col>
-              <ion-icon name="pin" color="danger"></ion-icon>
-              <ion-label> {{ event.location }} </ion-label>
-            </ion-col>
-            <ion-col class="ion-text-end">
-              <ion-icon name="calendar" color="warning"></ion-icon>
-              <ion-label color="warning"> {{ event.dateStart | date }}</ion-label>
-            </ion-col>
-          </ion-row>
-        </ion-card-subtitle>
-        <ion-card-title>{{ event.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        {{ event.description }}
-      </ion-card-content>
-      <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" fill="none">
-              <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
-              <ion-text color="success">{{ event.ticketPrice | currency }}</ion-text>
-            </ion-button>
-          </ion-col>
-          <ion-col class="ion-text-end">
-            <ion-button expand="block">
-              <ion-icon name="add"></ion-icon> &nbsp;
-              <ion-text>Ikuti</ion-text>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
+    <app-swiper-slider [events]="nearbyEvents"></app-swiper-slider>
   </div>
 
 </ion-content>

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/core';
-import { UserService } from '../_shared/_services/user.service';
-import { EventService } from '../_shared/_services/event.service';
-import { Event } from '../_shared/_models/event';
 import { NavController } from '@ionic/angular';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+
+import { UserService } from '../_shared/_services/user.service';
+import { EventService } from '../_shared/_services/event.service';
+import { Event } from '../_shared/_models/event';
 
 @Component({
   selector: 'app-home',
