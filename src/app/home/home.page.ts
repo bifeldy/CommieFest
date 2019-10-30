@@ -26,7 +26,7 @@ export class HomePage implements OnInit {
   bannerImgStyle = {
     height: '45%',
     background: 'url("/assets/season/fall.svg"), linear-gradient(to bottom, #0066cc 0%, #4c8dff 100%)',
-    'background-position': 'center',
+    'background-position': 'bottom right',
     'background-repeat': 'no-repeat',
     'background-size': 'cover'
   };

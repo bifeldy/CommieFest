@@ -12,7 +12,7 @@ export class SliderComponent implements OnInit {
   @Input() events: Event[];
 
   slidersConfig = {
-    slidesPerView: 4,
+    slidesPerView: 3,
     spaceBetween: 0,
     freeMode: true,
     grabCursor: true,
@@ -33,9 +33,6 @@ export class SliderComponent implements OnInit {
         },
       992: {
           slidesPerView: 3,
-        },
-      1200: {
-          slidesPerView: 4,
         }
     }
   };

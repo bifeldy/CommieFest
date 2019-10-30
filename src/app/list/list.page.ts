@@ -30,7 +30,7 @@ export class ListPage implements OnInit {
         title: 'Event ' + i,
         note: 'This is item #' + i,
         location: 'Loc ' + i,
-        hadiah: i + "00.000",
+        hadiah: i + '00.000',
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
