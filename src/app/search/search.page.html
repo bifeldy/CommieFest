@@ -14,5 +14,42 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  Halaman Pencarian
+
+  <ion-row class="ion-margin-bottom">
+    <ion-col>
+      <ion-searchbar showCancelButton="focus" [value]="searchQuery" animated
+      placeholder="Cari Event">
+    </ion-searchbar>
+    </ion-col>
+  </ion-row>
+
+  <!-- TODO: List Kategori -->
+  <ion-row class="ion-margin-bottom">
+    <ion-chip color="primary">
+      <ion-label>Kategori</ion-label>
+    </ion-chip>
+    <ion-chip color="secondary">
+      <ion-label>Kategori</ion-label>
+    </ion-chip>
+    <ion-chip color="tertiary">
+      <ion-label>Kategori</ion-label>
+    </ion-chip>
+    <ion-chip color="success">
+      <ion-label>Kategori</ion-label>
+    </ion-chip>
+    <ion-chip color="warning">
+      <ion-label>Kategori</ion-label>
+    </ion-chip>
+    <ion-chip color="danger">
+      <ion-label>Kategori</ion-label>
+    </ion-chip>
+  </ion-row>
+
+  <!-- TODO: Hasil Pencarian -->
+  <ion-row class="ion-margin-bottom">
+    <ion-col>
+      Hasil Pencarian
+    </ion-col>
+  </ion-row>
+
 </ion-content>

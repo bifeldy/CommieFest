@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title *ngIf="showToolbar && !isSearchBarOpened">Hi, {{ user['id'] }}!</ion-title>
-      <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus"
+      <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
         (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (change)="search($event)"></ion-searchbar>
       <ion-buttons slot="end">
         <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">

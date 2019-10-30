@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -8,11 +9,20 @@ import { NavController } from '@ionic/angular';
 })
 export class SearchPage implements OnInit {
 
+  searchQuery = '';
+
   constructor(
-    public navCtrl: NavController
+    private navCtrl: NavController,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+
+    // Get Data From URL
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params.q;
+    });
+
   }
 
 }
