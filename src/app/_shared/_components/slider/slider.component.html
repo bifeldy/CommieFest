@@ -67,15 +67,16 @@
           </ion-card-subtitle>
           <ion-card-title class="ion-text-start">{{ event.name }}</ion-card-title>
         </ion-card-header>
-        <ion-card-content class="ion-text-justify truncate">
+        <ion-card-content class="ion-text-justify truncate ion-no-padding ion-padding-start ion-padding-end">
           {{ event.description }}
         </ion-card-content>
-        <ion-card-content>
+        <ion-card-content class="ion-no-padding ion-padding-start ion-padding-end ion-padding-bottom">
           <ion-row>
             <ion-col>
               <ion-button expand="block" fill="none">
                 <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
-                <ion-text color="success">{{ event.ticketPrice | currency }}</ion-text>
+                <ion-text color="success" *ngIf="event.ticketPrice <= 0">GRATIS</ion-text>
+                <ion-text color="success" *ngIf="event.ticketPrice > 0">{{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
               </ion-button>
             </ion-col>
             <ion-col class="ion-text-end">
