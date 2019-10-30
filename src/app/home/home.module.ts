@@ -5,14 +5,14 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { SwiperSliderModule } from '../_shared/_components/swiper-slider/swiper-slider.module';
+import { SliderModule } from '../_shared/_components/slider/slider.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SwiperSliderModule,
+    SliderModule,
     RouterModule.forChild([
       {
         path: '',

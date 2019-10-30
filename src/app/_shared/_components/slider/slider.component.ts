@@ -3,23 +3,23 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Event } from '../../_models/event';
 
 @Component({
-  selector: 'app-swiper-slider',
-  templateUrl: './swiper-slider.component.html',
-  styleUrls: ['./swiper-slider.component.scss'],
+  selector: 'app-slider',
+  templateUrl: './slider.component.html',
+  styleUrls: ['./slider.component.scss'],
 })
-export class SwiperSliderComponent implements OnInit {
+export class SliderComponent implements OnInit {
 
   @Input() events: Event[];
 
-  swiperConfig = {
+  slidersConfig = {
     slidesPerView: 4,
     spaceBetween: 0,
     freeMode: true,
     grabCursor: true,
-    // autoplay: {
-    //   delay: 2500,
-    //   disableOnInteraction: false,
-    // },
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
