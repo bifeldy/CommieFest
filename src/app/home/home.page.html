@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="showToolbar">Hi, {{ user['id'] }}!</ion-title>
+    <ion-title *ngIf="showToolbar && !isSearchBarOpened">Hi, {{ user['id'] }}!</ion-title>
     <!-- <ion-buttons slot="end"> -->
       <ion-searchbar *ngIf = "isSearchBarOpened" showCancelButton = "true" (ionCancel) = "isSearchBarOpened = false" (ionInput) = "getTitle($event)"></ion-searchbar>
       <ion-buttons slot = "end" >

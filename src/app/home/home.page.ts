@@ -46,6 +46,7 @@ export class HomePage implements OnInit {
       const scrollTop = $event.detail.scrollTop;
       this.showToolbar = scrollTop >= 225;
     }
+    
   }
 
   // getTitle(ev) {
