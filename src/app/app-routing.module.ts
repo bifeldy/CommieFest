@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'events',
+    path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   {
@@ -22,10 +22,7 @@ const routes: Routes = [
   {
     path: 'search',
     loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
-  },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
-
-
+  }
 ];
 
 @NgModule({

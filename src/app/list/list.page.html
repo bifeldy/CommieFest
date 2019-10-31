@@ -1,40 +1,12 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>My Event List</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/notifications">
-        <ion-icon slot="icon-only" name="notifications"></ion-icon>
-        <ion-badge class="notifications-badge" color="danger">5</ion-badge>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-list>
-    &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <b>Event
-    </b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<b>Hadiah
-    </b> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<b>Lokasi</b>
-    &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<b>Diselenggarakan</b><br><br>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start" color="primary"></ion-icon>
-      {{item.title}} &nbsp; &nbsp;
-      <ion-icon name="logo-usd" color="success"></ion-icon>
-      {{item.hadiah}} &nbsp; &nbsp;
-      <ion-icon name="pin" color="danger"></ion-icon>
-      {{item.location}}
-      <div class="item-note" slot="end">
-        <ion-icon name="calendar" color="warning"></ion-icon>
-        {{getDummyDate() | date}}
-      </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
-</ion-content>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="joined-events">
+      <ion-icon name="list-box"></ion-icon>
+      <ion-label>Yang Saya Ikuti</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="my-events">
+      <ion-icon name="checkbox-outline"></ion-icon>
+      <ion-label>Buatan Saya</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

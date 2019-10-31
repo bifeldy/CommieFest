@@ -14,7 +14,31 @@ import { ListPage } from './list.page';
     RouterModule.forChild([
       {
         path: '',
-        component: ListPage
+        component: ListPage,
+        children: [
+          {
+            path: 'joined-events',
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('./joined-events/joined-events.module').then(m => m.JoinedEventsPageModule)
+              }
+            ]
+          },
+          {
+            path: 'my-events',
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('./my-events/my-events.module').then(m => m.MyEventsPageModule)
+              }
+            ]
+          },
+          {
+            path: '',
+            redirectTo: 'joined-events'
+          }
+        ]
       }
     ])
   ],

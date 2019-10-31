@@ -25,7 +25,7 @@ export class AppComponent {
     },
     {
       title: 'Event Saya',
-      url: '/events',
+      url: '/list',
       icon: 'list'
     },
     {
