@@ -4,14 +4,14 @@
       <ion-content>
 
         <ion-card class="hide-card ion-padding ion-no-margin" [ngStyle]="userCoverImgStyle">
-          <img src="{{ user['profile'] }}" class="custom-avatar" />
-          <h6 class="ion-no-margin">{{ user['name'] }}</h6>
-          {{ user['email']}}
+          <img src="{{ (currentUser == null ? 'http://placehold.it/64x64' : currentUser.profileImg) }}" class="custom-avatar" />
+          <h6 class="ion-no-margin">{{ (currentUser == null ? 'Guest' : currentUser.firstName + ' ' + currentUser.lastName) }}</h6>
+          {{ (currentUser == null ? 'guest@email.com' : currentUser.email)}}
         </ion-card>
 
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item *ngIf="i < appPages.length - 2" [routerDirection]="'root'" [routerLink]="[p.url]"
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item *ngIf="!p.shouldLogin || currentUser != null" [routerDirection]="'root'" [routerLink]="[p.url]"
               routerLinkActive="active">
               <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
@@ -28,13 +28,25 @@
             <ion-label>Mode Gelap</ion-label>
             <ion-toggle id="themeToggle" slot="end"></ion-toggle>
           </ion-item>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item *ngIf="i >= appPages.length - 2" [routerDirection]="'root'" [routerLink]="[p.url]"
+          <ion-menu-toggle auto-hide="false">
+            <ion-item *ngIf="currentUser == null" routerLinkActive="active" routerLink="/login">
+              <ion-icon slot="start" name="log-in" routerLinkActive="active"></ion-icon>
+              <ion-label>Login</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of miscPages">
+            <ion-item *ngIf="!p.shouldLogin || currentUser != null" [routerDirection]="'root'" [routerLink]="[p.url]"
               routerLinkActive="active">
               <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
                 {{ p.title }}
               </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item *ngIf="currentUser != null" routerLinkActive="active" (click)="logout()">
+              <ion-icon slot="start" name="log-out" routerLinkActive="active"></ion-icon>
+              <ion-label>Logout</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>

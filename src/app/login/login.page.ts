@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { NgForm } from '@angular/forms';
+import {FormGroup, NgForm} from '@angular/forms';
 import { LogibService } from './logib.service';
+import {first} from 'rxjs/operators';
+import {AuthService} from '../_shared/_services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,50 +12,49 @@ import { LogibService } from './logib.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  isLoading = false;
-  isLogin = true;
+
+  loading = false;
+  returnUrl: string;
+  error = '';
 
   constructor(
-    private authService: LogibService,
     private router: Router,
-    private loadingCtrl: LoadingController
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private loadingCtrl: LoadingController,
+    private authService: AuthService
+  ) {
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
-    // this.authService.login();
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/';
   }
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return;
     }
-    const email = form.value.email;
-    const password = form.value.password;
-
-    console.log(email, password);
-
-    if (this.isLogin) {
-
-    } else {
-
-    }
-  }
-
-  onSwitchAuthMode() {
-    this.isLogin = !this.isLogin;
-  }
-
-  onLogin() {
-    this.isLoading = true;
+    console.log(form.value.userName, form.value.password);
+    this.loading = true;
     this.loadingCtrl.create({ keyboardClose: true, message: 'Logging in...' })
       .then(loadingEl => {
         loadingEl.present();
-        setTimeout(() => {
-          this.isLoading = false;
-          loadingEl.dismiss();
-          this.router.navigateByUrl('/home');
-        }, 1500);
+        this.authService.login(form.value.userName, form.value.password)
+          .pipe(first())
+          .subscribe(
+            data => {
+              this.loading = false;
+              loadingEl.dismiss();
+              this.router.navigate([this.returnUrl]);
+            },
+            error => {
+              this.error = error;
+              this.loading = false;
+              loadingEl.dismiss();
+            }
+          );
       });
-    this.authService.login();
   }
 }

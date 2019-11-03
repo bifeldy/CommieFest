@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="showToolbar && !isSearchBarOpened">Hi, {{ user['id'] }}!</ion-title>
+    <ion-title *ngIf="showToolbar && !isSearchBarOpened">Hi, {{ (authService.currentUserValue == null ? 'Guest' : authService.currentUserValue.userName) }}!</ion-title>
       <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
         (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (change)="search($event)"></ion-searchbar>
       <ion-buttons slot="end">
@@ -24,7 +24,7 @@
     <div class="home-banner-content">
       <div class="home-banner-content-data">
         <ion-text style="color: whitesmoke;">
-          <h1>Hi, {{ user['name'] }}!</h1>
+          <h1>Hi, {{ authService.currentUserValue == null ? 'Guest' : authService.currentUserValue.firstName + ' ' + authService.currentUserValue.lastName }}!</h1>
           Yuk Cari Event Disekitarmu Sekarang~
         </ion-text>
       </div>

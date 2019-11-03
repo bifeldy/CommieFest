@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/core';
-import { NavController } from '@ionic/angular';
-import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { UserService } from '../_shared/_services/user.service';
 import { EventService } from '../_shared/_services/event.service';
 import { Event } from '../_shared/_models/event';
+import {UserService} from '../_shared/_services/user.service';
+import {AuthService} from '../_shared/_services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +13,6 @@ import { Event } from '../_shared/_models/event';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  user = {};
 
   nearbyEvents: Event[] = [];
 
@@ -32,17 +29,13 @@ export class HomePage implements OnInit {
   };
 
   constructor(
-    public navCtrl: NavController,
     private router: Router,
-    private userService: UserService,
-    private eventService: EventService
-  ) {
-    this.user = this.userService.getUser();
-  }
+    private authService: AuthService,
+    private eventService: EventService,
+  ) { }
 
   ngOnInit() {
 
-    // Test Isi Data Dummy
     setTimeout(() => {
       this.nearbyEvents = this.eventService.getAllEvents();
     }, 3000);
