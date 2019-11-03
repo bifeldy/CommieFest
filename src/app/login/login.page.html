@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h2>Masukkan Kredensial Anda!</h2>
+  <h2 class="ion-text-center">Masukkan Kredensial Anda!</h2>
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <ion-row>
       <ion-col>
@@ -40,8 +40,8 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col *ngIf="error" class="ion-text-danger">
-        {{ error }}
+      <ion-col *ngIf="error" class="ion-text-center">
+        <ion-text color="danger">{{ error }}</ion-text>
       </ion-col>
     </ion-row>
   </form>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import {FormGroup, NgForm} from '@angular/forms';
-import { LogibService } from './logib.service';
-import {first} from 'rxjs/operators';
-import {AuthService} from '../_shared/_services/auth.service';
+import { NgForm } from '@angular/forms';
+import { first } from 'rxjs/operators';
+
+import { AuthService } from '../_shared/_services/auth.service';
 
 @Component({
   selector: 'app-login',

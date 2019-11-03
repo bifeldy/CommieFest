@@ -6,6 +6,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { User } from '../_shared/_models/user';
 import {environment} from '../../environments/environment';
 
+// TODO: Remove fake users account below
 const users: User[] = [
   {
     id: 1,
@@ -47,6 +48,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
     }
 
+    // TODO: Remove fake server function below
+
     function authenticate() {
       const { userName, password } = body;
       const user = users.find(x => x.userName === userName && x.password === password);
@@ -84,11 +87,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function isLoggedIn() {
       return headers.get('Authorization') === 'Bearer fake-jwt-token';
     }
+
+    // TODO: Remove fake server function above
   }
 }
 
 export let fakeBackendProvider = {
-  // use fake backend in place of Http service for backend-less development
   provide: HTTP_INTERCEPTORS,
   useClass: FakeBackendInterceptor,
   multi: true

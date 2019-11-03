@@ -15,9 +15,17 @@ export class AuthService {
   public currentUser: Observable<User>;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    if (localStorage.getItem('currentUser') == null || localStorage.getItem('currentUser') === '') {
+      localStorage.clear();
+    }
+    try {
+      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(window.atob(localStorage.getItem('currentUser'))));
+    } catch (e) {
+      localStorage.clear();
+      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    }
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -29,7 +37,7 @@ export class AuthService {
     return this.http.post<any>(environment.server.apiUrl + environment.server.authUrl, {
       userName, password
     }).pipe(map(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('currentUser', window.btoa(JSON.stringify(user)));
         this.currentUserSubject.next(user);
         return user;
       })
