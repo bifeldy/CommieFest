@@ -56,7 +56,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (!user) { return error('Nama pengguna atau kata sandi salah!'); }
       return ok({
         id: user.id,
-        username: user.userName,
+        userName: user.userName,
         firstName: user.firstName,
         lastName: user.lastName,
         profileImg: user.profileImg,
