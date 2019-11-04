@@ -10,7 +10,7 @@
         <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
           <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>
         </ion-button>
-      <ion-button routerLink="/notifications">
+      <ion-button routerLink="/notifications" *ngIf="authService.currentUserValue != null && !isSearchBarOpened">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
         <ion-badge class="notifications-badge" color="danger">5</ion-badge>
       </ion-button>

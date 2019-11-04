@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
+import { AuthService } from '../_shared/_services/auth.service';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
@@ -13,7 +15,8 @@ export class SearchPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {

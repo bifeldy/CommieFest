@@ -18,12 +18,12 @@ export class AuthService {
     private http: HttpClient,
   ) {
     if (localStorage.getItem('currentUser') == null || localStorage.getItem('currentUser') === '') {
-      localStorage.clear();
+      localStorage.removeItem('currentUser');
     }
     try {
       this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(window.atob(localStorage.getItem('currentUser'))));
     } catch (e) {
-      localStorage.clear();
+      localStorage.removeItem('currentUser');
       this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     }
     this.currentUser = this.currentUserSubject.asObservable();

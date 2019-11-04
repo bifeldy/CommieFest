@@ -36,7 +36,6 @@ export class LoginPage implements OnInit {
     if (!form.valid) {
       return;
     }
-    console.log(form.value.userName, form.value.password);
     this.loading = true;
     this.loadingCtrl.create({ keyboardClose: true, message: 'Logging in...' })
       .then(loadingEl => {

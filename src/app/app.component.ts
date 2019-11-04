@@ -42,6 +42,8 @@ export class AppComponent {
     }
   ];
 
+  public darkMode;
+
   public miscPages = [
     {
       title: 'Pengaturan',
@@ -71,8 +73,13 @@ export class AppComponent {
       this.splashScreen.hide();
       const toggle = document.querySelector('#themeToggle');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+      this.darkMode = JSON.parse(localStorage.getItem('darkMode'));
+      if (this.darkMode) {
+        document.body.classList.toggle('dark', this.darkMode as boolean);
+      }
       toggle.addEventListener('ionChange', (ev) => {
         document.body.classList.toggle('dark', (ev as any).detail.checked);
+        localStorage.setItem('darkMode', (ev as any).detail.checked);
       });
       // tslint:disable-next-line: deprecation
       prefersDark.addListener((e) => {
