@@ -29,10 +29,19 @@
           <ion-item *ngIf="!passwordCtrl.valid && passwordCtrl.touched" lines="none">
             <small>Harap Isi Kata Sandi</small>
           </ion-item>
+          <ion-item>
+            <ion-checkbox color="warning" name="rememberMe" [(ngModel)]="rememberMe"></ion-checkbox>
+            <ion-label> &nbsp; Remember Me?</ion-label>
+          </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
     <ion-row>
+      <ion-col>
+        <ion-button type="button" color="warning" expand="block" routerLink="/register">
+          Daftar~
+        </ion-button>
+      </ion-col>
       <ion-col>
         <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">
           Masuk!

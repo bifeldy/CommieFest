@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class LoginPage implements OnInit {
 
   loading = false;
   returnUrl: string;
+  rememberMe = false;
   error = '';
 
   constructor(
@@ -40,7 +41,7 @@ export class LoginPage implements OnInit {
     this.loadingCtrl.create({ keyboardClose: true, message: 'Logging in...' })
       .then(loadingEl => {
         loadingEl.present();
-        this.authService.login(form.value.userName, form.value.password)
+        this.authService.login(form.value.userName, form.value.password, form.value.rememberMe)
           .pipe(first())
           .subscribe(
             data => {

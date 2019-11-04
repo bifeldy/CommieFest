@@ -3,9 +3,9 @@ import { ScrollDetail } from '@ionic/core';
 import { Router } from '@angular/router';
 
 import { EventService } from '../_shared/_services/event.service';
+import { AuthService } from '../_shared/_services/auth.service';
+
 import { Event } from '../_shared/_models/event';
-import {UserService} from '../_shared/_services/user.service';
-import {AuthService} from '../_shared/_services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -31,11 +31,12 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private eventService: EventService,
+    private eventService: EventService
   ) { }
 
   ngOnInit() {
 
+    // TODO: Remove This Dummy Data
     setTimeout(() => {
       this.nearbyEvents = this.eventService.getAllEvents();
     }, 3000);

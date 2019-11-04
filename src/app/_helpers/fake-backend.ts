@@ -41,8 +41,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       switch (true) {
         case url.endsWith(environment.server.authUrl) && method === 'POST':
           return authenticate();
-        case url.endsWith(environment.server.userUrl) && method === 'GET':
-          return getUsers();
+        case url.includes(environment.server.userUrl) && method === 'GET':
+          return getUsers(url.slice(environment.server.apiUrl.length + environment.server.userUrl.length + 1, url.length));
         default:
           return next.handle(request);
       }
@@ -66,9 +66,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       });
     }
 
-    function getUsers() {
+    function getUsers(userName: string) {
       if (!isLoggedIn()) { return unauthorized(); }
-      return ok(users);
+      return ok(users.find(x => x.userName === userName));
     }
 
     // tslint:disable-next-line:no-shadowed-variable

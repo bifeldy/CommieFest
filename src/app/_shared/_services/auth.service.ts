@@ -33,13 +33,15 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(userName: string, password: string) {
+  login(userName: string, password: string, rememberMe: boolean) {
     return this.http.post<any>(environment.server.apiUrl + environment.server.authUrl, {
       userName, password
     }).pipe(map(user => {
-        localStorage.setItem('currentUser', window.btoa(JSON.stringify(user)));
-        this.currentUserSubject.next(user);
-        return user;
+      if (rememberMe) {
+          localStorage.setItem('currentUser', window.btoa(JSON.stringify(user)));
+        }
+      this.currentUserSubject.next(user);
+      return user;
       })
     );
   }
