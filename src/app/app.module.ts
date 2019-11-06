@@ -42,4 +42,4 @@ import { fakeBackendProvider } from './_helpers/fake-backend';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

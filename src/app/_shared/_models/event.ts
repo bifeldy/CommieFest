@@ -1,15 +1,19 @@
-export class Event {
-    toLowerCase: any;
-    constructor(
-        public id: number,
-        public name: string,
-        public description: string,
-        public imageUrl: string,
-        public location: string,
-        public category: string,
-        public ticketPrice: number,
-        public pricePool: number,
-        public dateStart: Date,
-        public dateEnd: Date
-    ) { }
+export interface Event {
+    id: number;
+    name: string;
+    description: string;
+    imageUrl: string;
+    location: string;
+    category: string;
+    ticketPrice: number;
+    pricePool: number;
+    dateStart: {
+        seconds: number,
+        nanoseconds: number;
+    };
+    dateEnd: {
+        seconds: number,
+        nanoseconds: number;
+    };
 }
+

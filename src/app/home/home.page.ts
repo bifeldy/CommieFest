@@ -6,6 +6,7 @@ import { EventService } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
 
 import { Event } from '../_shared/_models/event';
+import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { Event } from '../_shared/_models/event';
 export class HomePage implements OnInit {
 
   nearbyEvents: Event[] = [];
+  events: Event[] = [];
 
   isSearchBarOpened = false;
   showToolbar = false;
@@ -37,9 +39,12 @@ export class HomePage implements OnInit {
   ngOnInit() {
 
     // TODO: Remove This Dummy Data
-    setTimeout(() => {
-      this.nearbyEvents = this.eventService.getAllEvents();
-    }, 3000);
+    this.eventService.getEvents().subscribe(res => {
+      this.events = res;
+      // const kalender: Timestamp = new Timestamp(res[0].dateStart.seconds, res[0].dateStart.nanoseconds);
+      //console.log(kalender.to);
+      console.log(new Date(res[0].dateStart.seconds * 1000));
+    });
 
   }
 

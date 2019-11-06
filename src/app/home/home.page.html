@@ -3,13 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="showToolbar && !isSearchBarOpened">Hi, {{ (authService.currentUserValue == null ? 'Guest' : authService.currentUserValue.userName) }}!</ion-title>
-      <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
-        (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (change)="search($event)"></ion-searchbar>
-      <ion-buttons slot="end">
-        <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
-          <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>
-        </ion-button>
+    <ion-title *ngIf="showToolbar && !isSearchBarOpened">Hi,
+      {{ (authService.currentUserValue == null ? 'Guest' : authService.currentUserValue.userName) }}!</ion-title>
+    <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
+      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (change)="search($event)"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
+        <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>
+      </ion-button>
       <ion-button routerLink="/notifications" *ngIf="authService.currentUserValue != null && !isSearchBarOpened">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
         <ion-badge class="notifications-badge" color="danger">5</ion-badge>
@@ -24,15 +25,21 @@
     <div class="home-banner-content">
       <div class="home-banner-content-data">
         <ion-text style="color: whitesmoke;">
-          <h1>Hi, {{ authService.currentUserValue == null ? 'Guest' : authService.currentUserValue.firstName + ' ' + authService.currentUserValue.lastName }}!</h1>
+          <h1>Hi,
+            {{ authService.currentUserValue == null ? 'Guest' : authService.currentUserValue.firstName + ' ' + authService.currentUserValue.lastName }}!
+          </h1>
           Yuk Cari Event Disekitarmu Sekarang~
         </ion-text>
       </div>
     </div>
   </div>
 
-  <div class="ion-padding-top ion-padding-bottom">
+  <!-- <div class="ion-padding-top ion-padding-bottom">
     <app-slider [events]="nearbyEvents"></app-slider>
+  </div> -->
+
+  <div class="ion-padding-top ion-padding-bottom">
+    <app-slider [events]="events"></app-slider>
   </div>
 
 </ion-content>

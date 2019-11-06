@@ -15,38 +15,38 @@ export class NotificationsPage implements OnInit {
     private alertCtrl: AlertController) { }
 
   ngOnInit() {
-    this.loadedEvents = this.eventService.getAllEvents();
+    // this.loadedEvents = this.eventService.getAllEvents();
   }
 
-  async presentAlert(id: number, slidingEl: IonItemSliding) {
-    const alert = await this.alertCtrl.create({
-      header: 'Beneran Mau Hapus?',
-      buttons: [
-        {
-          text: 'Batal',
-          role: 'cancel'
-        },
-        {
-          text: 'Serius',
-          handler: () => {
-            slidingEl.close();
-            this.eventService.deleteMyEvent(id);
-            this.loadedEvents = this.eventService.getAllEvents();
-          }
-        }]
-    });
-    await alert.present();
-  }
+  // async presentAlert(id: number, slidingEl: IonItemSliding) {
+  //   const alert = await this.alertCtrl.create({
+  //     header: 'Beneran Mau Hapus?',
+  //     buttons: [
+  //       {
+  //         text: 'Batal',
+  //         role: 'cancel'
+  //       },
+  //       {
+  //         text: 'Serius',
+  //         handler: () => {
+  //           slidingEl.close();
+  //           this.eventService.deleteMyEvent(id);
+  //           this.loadedEvents = this.eventService.getAllEvents();
+  //         }
+  //       }]
+  //   });
+  //   await alert.present();
+  // }
 
   // deleteNotif(id: number, slidingEl: IonItemSliding) {
   //   slidingEl.close();
   //   this.eventService.deleteMyEvent(id);
   //   this.loadedEvents = this.eventService.getAllEvents();
   // }
-  deleteNotif(id: number) {
-    this.eventService.deleteMyEvent(id);
-    this.loadedEvents = this.eventService.getAllEvents();
-  }
+  // deleteNotif(id: number) {
+  //   this.eventService.deleteMyEvent(id);
+  //   this.loadedEvents = this.eventService.getAllEvents();
+  // }
 
 
 
