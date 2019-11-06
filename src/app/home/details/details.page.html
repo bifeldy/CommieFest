@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-input required type="number" placeholder="Id" [(ngModel)]="event.id">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="text" placeholder="Name" [(ngModel)]="event.name">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="text" placeholder="Description" [(ngModel)]="event.description">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="text" placeholder="Image URL" [(ngModel)]="event.imageUrl">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="text" placeholder="Location" [(ngModel)]="event.location">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="text" placeholder="Category" [(ngModel)]="event.category">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="number" placeholder="Ticket Price" [(ngModel)]="event.ticketPrice">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input required type="number" placeholder="Price Pool" [(ngModel)]="event.pricePool">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" required placeholder="Start Date" [(ngModel)]="event.dateStart">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-datetime required displayFormat="MMM DD, YYYY HH:mm" placeholder="End Date" [(ngModel)]="event.dateEnd">
+      </ion-datetime>
+    </ion-item>
+
+  </ion-list>
+  <ion-button expand="block" (click)="saveEvent()">Save</ion-button>
+</ion-content>

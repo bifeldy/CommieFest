@@ -26,7 +26,18 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
-  { path: '**', redirectTo: '' }
+  {
+    path: 'details',
+    loadChildren: () => import('./home/details/details.module').then(m => m.DetailsPageModule)
+  },
+  {
+    path: 'details/:id',
+    loadChildren: () => import('./home/details/details.module').then(m => m.DetailsPageModule)
+  },
+
+
+  { path: '**', redirectTo: '' },
+
 ];
 
 @NgModule({
