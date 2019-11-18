@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 
 import { AuthService } from '../_shared/_services/auth.service';
@@ -15,6 +16,7 @@ import { SignupComponent } from '../_shared/_components/signup/signup.component'
 })
 export class LoginPage implements OnInit {
 
+  form: FormGroup;
   loading = false;
   returnUrl: string;
   rememberMe = false;
