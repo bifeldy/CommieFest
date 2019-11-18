@@ -38,8 +38,8 @@
     <app-slider [events]="nearbyEvents"></app-slider>
   </div> -->
 
-  <div class="ion-padding-top ion-padding-bottom">
-    <app-slider [events]="events"></app-slider>
+  <div class="ion-padding-top ion-padding-bottom" *ngFor="let item of events">
+    <app-slider button [routerLink]="['/details', item.id]" [events]="events"></app-slider>
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

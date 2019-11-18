@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Event } from '../_models/event';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+export interface Event {
+  name: string;
+  description: string;
+  imageUrl: string;
+  location: string;
+  category: string;
+  ticketPrice: number;
+  pricePool: number;
+  dateStart: string;
+  dateEnd: string;
+}
 
 @Injectable({
   providedIn: 'root'

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/core';
 import { Router } from '@angular/router';
 
-import { EventService } from '../_shared/_services/event.service';
+import { EventService, Event } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
 
-import { Event } from '../_shared/_models/event';
+// import { Event } from '../_shared/_models/event';
 import { Timestamp } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ import { Timestamp } from 'rxjs';
 })
 export class HomePage implements OnInit {
 
-  nearbyEvents: Event[] = [];
+  // nearbyEvents: Event[] = [];
   events: Event[] = [];
 
   isSearchBarOpened = false;
@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
       this.events = res;
       // const kalender: Timestamp = new Timestamp(res[0].dateStart.seconds, res[0].dateStart.nanoseconds);
       //console.log(kalender.to);
-      console.log(new Date(res[0].dateStart.seconds * 1000));
+      // console.log(new Date(res[0].dateStart.seconds * 1000));
     });
 
   }

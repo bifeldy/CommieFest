@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from 'src/app/_shared/_services/event.service';
+import { EventService, Event } from 'src/app/_shared/_services/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
-import { Event } from 'src/app/_shared/_models/event';
+// import { Event } from 'src/app/_shared/_models/event';
 
 @Component({
   selector: 'app-details',
@@ -12,7 +12,6 @@ import { Event } from 'src/app/_shared/_models/event';
 export class DetailsPage implements OnInit {
 
   event: Event = {
-    id: 0,
     name: '',
     description: '',
     imageUrl: '',
@@ -20,16 +19,8 @@ export class DetailsPage implements OnInit {
     category: '',
     ticketPrice: 0,
     pricePool: 0,
-    dateStart: {
-      seconds: new
-        Date().getTime(),
-      nanoseconds: 0
-    },
-    dateEnd: {
-      seconds: new
-        Date().getTime(),
-      nanoseconds: 0
-    }
+    dateStart: '',
+    dateEnd: ''
   };
 
   eventId = null;
