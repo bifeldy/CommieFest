@@ -1,11 +1,15 @@
 export class User {
-    id: number;
-    userName: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    profileImg: string;
-    coverImg: string;
-    email: string;
-    token?: string;
+    constructor(
+        public id: string,
+        public email: string,
+        private _token: string,
+        private tokenExpirationDate: Date,
+    ) { }
+
+    get token() {
+        if (!this.tokenExpirationDate || this.tokenExpirationDate <= new Date()) {
+            return null;
+        }
+        return this._token;
+    }
 }

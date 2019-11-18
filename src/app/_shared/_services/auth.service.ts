@@ -1,53 +1,81 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { User } from '../_models/user';
 import { environment } from '../../../environments/environment';
+
+interface AuthResponseData {
+  kind: string;
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  localId: string;
+  expiresIn: string;
+  registered?: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private _user = new BehaviorSubject<User>(null);
+
+  _isAuthenticated = false;
+  userId = null;
 
   constructor(
     private http: HttpClient,
-  ) {
-    if (localStorage.getItem('currentUser') == null || localStorage.getItem('currentUser') === '') {
-      localStorage.removeItem('currentUser');
-    }
-    try {
-      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(window.atob(localStorage.getItem('currentUser'))));
-    } catch (e) {
-      localStorage.removeItem('currentUser');
-      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    }
-    this.currentUser = this.currentUserSubject.asObservable();
+  ) { }
+
+  get isAuthenticated() {
+    return this._user.asObservable().pipe(map(user => {
+      if (user) {
+        return !!user.token;
+      } else {
+        return null;
+      }
+    }));
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }
-
-  login(userName: string, password: string, rememberMe: boolean) {
-    return this.http.post<any>(environment.server.apiUrl + environment.server.authUrl, {
-      userName, password
-    }).pipe(map(user => {
-      if (rememberMe) {
-          localStorage.setItem('currentUser', window.btoa(JSON.stringify(user)));
-        }
-      this.currentUserSubject.next(user);
-      return user;
+  signup(email: string, password: string) {
+    //firebase singup API here
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebase.apiKey}`,
+      {
+        email,
+        password,
+        returnSecureToken: true
+      }
+    ).pipe(
+      tap(userData => {
+        const expTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000));
+        this._user.next(new User(userData.localId, userData.email, userData.idToken, expTime));
       })
     );
   }
 
-  logout() {
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+  setUser(userId: string) {
+    this.userId = userId;
+    this._isAuthenticated = true;
   }
+
+  login(email: string, password: string) {
+    //firebase login API here
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
+      {
+        email,
+        password,
+        returnSecureToken: true,
+      }
+    );
+  }
+
+  logout() {
+    this._user.next(null);
+  }
+
 }

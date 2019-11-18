@@ -63,7 +63,6 @@ export class AppComponent {
     private router: Router,
     private authService: AuthService
   ) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
     this.initializeApp();
   }
 
@@ -87,7 +86,7 @@ export class AppComponent {
       });
       this.userCoverImgStyle = {
         // tslint:disable-next-line:max-line-length
-        background: `url("${ (this.currentUser == null ? '/assets/shapes.svg' : this.currentUser.coverImg) }"), linear-gradient(to bottom, #0066cc 0%, #4c8dff 100%)`,
+        background: `url('/assets/shapes.svg'), linear-gradient(to bottom, #0066cc 0%, #4c8dff 100%)`,
         'background-position': 'center',
         'background-repeat': 'no-repeat',
         'background-size': 'cover'

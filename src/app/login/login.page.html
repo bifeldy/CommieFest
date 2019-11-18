@@ -1,62 +1,23 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+  <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2 class="ion-text-center">Masukkan Kredensial Anda!</h2>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <ion-row>
-      <ion-col>
-        <ion-list>
-          <ion-item>
-            <ion-label position="floating">Nama Pengguna</ion-label>
-            <ion-input inputmode="text" type="text" name="userName" ngModel required #userNameCtrl="ngModel" autocomplete="off">
-            </ion-input>
-          </ion-item>
-          <ion-item *ngIf="!userNameCtrl.valid && userNameCtrl.touched" lines="none">
-            <small>Harap Isi Nama Pengguna</small>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" name="password" ngModel required minlength="6" #passwordCtrl="ngModel" autocomplete="off">
-            </ion-input>
-          </ion-item>
-          <ion-item *ngIf="!passwordCtrl.valid && passwordCtrl.touched" lines="none">
-            <small>Harap Isi Kata Sandi</small>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="ion-padding">
-        <ion-checkbox color="warning" name="rememberMe" [(ngModel)]="rememberMe"></ion-checkbox>
-        <ion-label> &nbsp; Tetap Login</ion-label>
-      </ion-col>
-      <ion-col class="ion-padding ion-text-end">
-        <ion-label color="danger" routerLink="/reset">Lupa Kata Sandi ?</ion-label>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button type="button" color="warning" expand="block" routerLink="/register">
-          Daftar~
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">
-          Masuk!
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col *ngIf="error" class="ion-text-center">
-        <ion-text color="danger">{{ error }}</ion-text>
-      </ion-col>
-    </ion-row>
+<ion-content class='ion-padding'>
+  <h1 class="ion-text-center ion-padding-bottom">Firebase Auth</h1>
+  <form #f="ngForm" (ngSubmit)="onLogin(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label position="fixed">Email</ion-label>
+        <ion-input required ngModel name="email" type="email" placeholder="Your email here"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">Password</ion-label>
+        <ion-input required ngModel name="pwd" type="password" minlength='6' placeholder="******"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="block" [disabled]="!f.valid" type="submit">Login</ion-button>
+    <ion-button expand="block" fill='clear' (click)='presentSignUpModal()'>Sign Up</ion-button>
   </form>
 </ion-content>

@@ -16,10 +16,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { JwtInterceptor } from './_helpers/_interceptors/jwt.interceptor';
-import { ErrorInterceptor } from './_helpers/_interceptors/error.interceptor';
-import { fakeBackendProvider } from './_helpers/fake-backend';
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -36,9 +32,6 @@ import { fakeBackendProvider } from './_helpers/fake-backend';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
