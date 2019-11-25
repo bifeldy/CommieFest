@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FirebaseApp } from '@angular/fire';
 
 export interface Event {
   name: string;
@@ -51,9 +52,5 @@ export class EventService {
 
   addEvent(event: Event) {
     return this.eventsCollection.add(event);
-  }
-
-  removeEvent(id) {
-    return this.eventsCollection.doc(id).delete();
   }
 }

@@ -100,7 +100,7 @@
                   </ion-col>
                   <ion-col class="ion-text-end">
                     <ion-icon name="calendar" color="warning"></ion-icon>
-                    <ion-label color="warning"> {{ event.dateStart | date }}</ion-label>
+                    <ion-label> {{ event.dateStart | date }}</ion-label>
                   </ion-col>
                 </ion-row>
               </ion-card-subtitle>
@@ -115,7 +115,7 @@
                   <ion-button expand="block" fill="none">
                     <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
                     <ion-text color="success" *ngIf="event.ticketPrice <= 0">GRATIS</ion-text>
-                    <ion-text color="success" *ngIf="event.ticketPrice > 0">
+                    <ion-text *ngIf="event.ticketPrice > 0">
                       {{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
                   </ion-button>
                 </ion-col>

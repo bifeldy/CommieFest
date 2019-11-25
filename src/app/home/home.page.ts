@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 
 import { EventService, Event } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
-
-// import { Event } from '../_shared/_models/event';
 import { Timestamp } from 'rxjs';
 
 @Component({
@@ -16,6 +14,7 @@ import { Timestamp } from 'rxjs';
 export class HomePage implements OnInit {
 
   // nearbyEvents: Event[] = [];
+
   events: Event[] = [];
 
   slidersConfig = {
@@ -59,7 +58,7 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private eventService: EventService
+    private eventService: EventService,
   ) { }
 
   ngOnInit() {
@@ -80,9 +79,4 @@ export class HomePage implements OnInit {
       this.showToolbar = scrollTop >= 225;
     }
   }
-
-  search($event) {
-    this.router.navigateByUrl('/search?q=' + $event.target.value);
-  }
-
 }
