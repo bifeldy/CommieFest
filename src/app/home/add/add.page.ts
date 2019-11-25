@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService, Event } from 'src/app/_shared/_services/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -9,6 +10,7 @@ import { LoadingController, NavController } from '@ionic/angular';
   styleUrls: ['./add.page.scss'],
 })
 export class AddPage implements OnInit {
+  form: FormGroup;
 
   event: Event = {
     name: '',
@@ -35,6 +37,45 @@ export class AddPage implements OnInit {
     if (this.eventId) {
       this.loadEvent();
     }
+
+    this.form = new FormGroup({
+      nama: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      deskripsi: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      gambar: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      lokasi: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      kategori: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      hargatiket: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      hargadoorprize: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      datestart: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      dateend: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      })
+    })
   }
 
   async loadEvent() {
@@ -51,7 +92,7 @@ export class AddPage implements OnInit {
 
   async saveEvent() {
     const loading = await this.loadCtrl.create({
-      message: 'Updating Event'
+      message: 'Saving Event'
     });
     await loading.present();
 
