@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { EventService, Event } from 'src/app/_shared/_services/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
-// import { Event } from 'src/app/_shared/_models/event';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.page.html',
-  styleUrls: ['./details.page.scss'],
+  selector: 'app-add',
+  templateUrl: './add.page.html',
+  styleUrls: ['./add.page.scss'],
 })
-export class DetailsPage implements OnInit {
+export class AddPage implements OnInit {
 
   event: Event = {
     name: '',
@@ -24,7 +23,6 @@ export class DetailsPage implements OnInit {
   };
 
   eventId = null;
-
   constructor(
     private eventSvc: EventService,
     private route: ActivatedRoute,
@@ -69,7 +67,5 @@ export class DetailsPage implements OnInit {
       });
     }
   }
-
-
 
 }

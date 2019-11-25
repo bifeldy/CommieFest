@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class='ion-padding'>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating" color="success">Nama Event</ion-label>
+      <ion-input required type="text" placeholder="Name">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-label position="floating" color="success">Deskripsi</ion-label>
+      <ion-input required type="text" placeholder="Description">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-label position="floating" color="success">URL Gambar</ion-label>
+      <ion-input required type="text" placeholder="Image URL">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-label position="floating" color="success">Lokasi</ion-label>
+      <ion-input required type="text" placeholder="Location">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-label position="floating" color="success">Kategori</ion-label>
+      <ion-input required type="text" placeholder="Category">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-label position="floating" color="success">Harga Tiket</ion-label>
+      <ion-input required type="number" placeholder="Ticket Price">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="success">Harga Doorprize</ion-label>
+      <ion-input required type="number" placeholder="Price Pool">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-label position="floating" color="success">Tanggal Mulai Event</ion-label>
+      <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-label position="floating" color="success">Tanggal Akhir Event</ion-label>
+      <ion-datetime required displayFormat="DD MMMM YYYY" placeholder="End Date">
+      </ion-datetime>
+    </ion-item>
+
+  </ion-list>
+  <ion-button expand="block" (click)="saveEvent()" color="success">Save</ion-button>
+</ion-content>

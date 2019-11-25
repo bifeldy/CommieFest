@@ -34,8 +34,15 @@ const routes: Routes = [
   },
 
 
-  { path: '**', redirectTo: '' },
+  {
+    path: 'add',
+    loadChildren: () => import('./home/add/add.module').then(m => m.AddPageModule)
+  },
 
+  {
+    path: 'add:/id',
+    loadChildren: () => import('./home/add/add.module').then(m => m.AddPageModule)
+  }
 ];
 
 @NgModule({
