@@ -71,6 +71,7 @@ export class HomePage implements OnInit {
     });
   }
 
+
   onScroll($event: CustomEvent<ScrollDetail>) {
     if ($event && $event.detail && $event.detail.scrollTop) {
       const scrollTop = $event.detail.scrollTop;
@@ -81,6 +82,4 @@ export class HomePage implements OnInit {
   search($event) {
     this.router.navigateByUrl('/search?q=' + $event.target.value);
   }
-
 }
-

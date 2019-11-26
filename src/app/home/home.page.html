@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title *ngIf="showToolbar && !isSearchBarOpened">{{ currentLocation }}</ion-title>
     <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
-      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (change)="search($event)"></ion-searchbar>
+      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
         <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>
@@ -95,18 +95,18 @@
             </ion-card-subtitle>
             <ion-card-title class="ion-text-start">{{ event.name }}</ion-card-title>
           </ion-card-header>
-          <ion-card-content class="ion-text-justify truncate ion-no-padding ion-padding-start ion-padding-end">
+          <!-- <ion-card-content class="ion-text-justify truncate ion-no-padding ion-padding-start ion-padding-end">
             {{ event.description }}
-          </ion-card-content>
+          </ion-card-content> -->
           <ion-card-content class="ion-no-padding ion-padding-start ion-padding-end ion-padding-bottom">
             <ion-row>
               <ion-col>
-                <ion-button expand="block" fill="none">
+                <!-- <ion-button expand="block" fill="none">
                   <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
                   <ion-text color="success" *ngIf="event.ticketPrice <= 0">GRATIS</ion-text>
                   <ion-text *ngIf="event.ticketPrice > 0">
                     {{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
-                </ion-button>
+                </ion-button> -->
               </ion-col>
               <ion-col class="ion-text-end">
                 <ion-button expand="block">
@@ -118,6 +118,12 @@
           </ion-card-content>
         </ion-card>
       </ion-list>
+
+      <!-- infinite Scroll -->
+      <ion-infinite-scroll (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more events ...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ng-template>
   </div>
 
