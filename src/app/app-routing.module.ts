@@ -42,7 +42,8 @@ const routes: Routes = [
   {
     path: 'add:/id',
     loadChildren: () => import('./home/add/add.module').then(m => m.AddPageModule)
-  }
+  },  { path: 'edit', loadChildren: './home/edit/edit.module#EditPageModule' }
+
 ];
 
 @NgModule({
