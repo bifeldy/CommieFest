@@ -14,10 +14,8 @@ import { Timestamp } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  // nearbyEvents: Event[] = [];
   events: Event[] = [];
-  filterData = [];
+  item: any;
 
   slidersConfig = {
     slidesPerView: 3,
@@ -47,8 +45,6 @@ export class HomePage implements OnInit {
   scrollActive = false;
   isSearchBarOpened = false;
   showToolbar = false;
-  searchQuery = '';
-  searchTerm: string = "";
 
   bannerImgStyle = {
     height: '45%',
@@ -63,27 +59,33 @@ export class HomePage implements OnInit {
     private authService: AuthService,
     private eventService: EventService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
 
     // TODO: Remove This Dummy Data
-    this.eventService.getEvents().subscribe(res => {
-      this.events = res;
-      this.filterData = this.events;
-      this.setFilter();
-
-
-      // const kalender: Timestamp = new Timestamp(res[0].dateStart.seconds, res[0].dateStart.nanoseconds);
-      //console.log(kalender.to);
-      // console.log(new Date(res[0].dateStart.seconds * 1000));
-    });
-
-    this.route.queryParams.subscribe(params => {
-      this.searchQuery = params.q;
-    });
-
+    this.eventService
+      .getEvents()
+      .subscribe(res => {
+        this.events = res;
+        this.item = this.events;
+      });
   }
+
+  loadData(infiniteScroll) {
+    this.eventService
+      .getEvents()
+      .subscribe(res => {
+        this.item = res;
+        for (let i = 0; i < this.item.length; i++) {
+          this.events.push(this.item[i]);
+        }
+        infiniteScroll.complete();
+      }
+      )
+  }
+
 
   onScroll($event: CustomEvent<ScrollDetail>) {
     if ($event && $event.detail && $event.detail.scrollTop) {
@@ -95,20 +97,5 @@ export class HomePage implements OnInit {
   search($event) {
     this.router.navigateByUrl('/search?q=' + $event.target.value);
   }
-
-
-  setFilter() {
-    this.filterData = this.events.filter((event) => {
-      return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
-    });
-  }
-
-  setFilteredEvents() {
-    this.router.navigateByUrl('/search');
-    this.filterData = this.events.filter((event) => {
-      return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-    });
-  }
-
 }
 
