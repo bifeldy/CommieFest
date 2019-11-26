@@ -70,10 +70,6 @@ export class HomePage implements OnInit {
     });
   }
 
-  loadMoreData($event) {
-
-  }
-
   onScroll($event: CustomEvent<ScrollDetail>) {
     if ($event && $event.detail && $event.detail.scrollTop) {
       const scrollTop = $event.detail.scrollTop;

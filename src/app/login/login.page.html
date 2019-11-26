@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary" [class.show-background]="showToolbar" translucent="true">
+  <ion-toolbar color="primary" translucent="true">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -39,11 +39,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-list>
-      <ion-button expand="block" fill="outline" color="primary" (click)="googleLogin()">
-        <ion-icon name="logo-google"></ion-icon>
-        &nbsp; Login Dengan Akun Google!
-      </ion-button>
-    </ion-list>
+    <ion-button expand="block" fill="outline" color="primary" (click)="googleLogin()">
+      <ion-icon name="logo-google"></ion-icon>
+      &nbsp; Login Dengan Akun Google!
+    </ion-button>
   </form>
 </ion-content>
