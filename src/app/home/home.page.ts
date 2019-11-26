@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
       }
     }
   };
-
+  scrollActive = false;
   isSearchBarOpened = false;
   showToolbar = false;
   searchTerm = '';
