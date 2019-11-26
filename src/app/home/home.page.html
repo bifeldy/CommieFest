@@ -37,7 +37,9 @@
   </div>
 
   <div class="ion-padding-top ion-padding-bottom">
+
     <div *ngIf="nearbyEvents.length == 0; then noData; else haveData"></div>
+
     <ng-template #noData>
       <ion-title>
         <ion-skeleton-text animated style="width: 256px;"></ion-skeleton-text>
@@ -120,10 +122,10 @@
       </ion-list>
 
       <!-- infinite Scroll -->
-      <ion-infinite-scroll (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more events ...">
-        </ion-infinite-scroll-content>
+      <ion-infinite-scroll (ionInfinite)="loadMoreData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Sedang Memuat ..."></ion-infinite-scroll-content>
       </ion-infinite-scroll>
+
     </ng-template>
   </div>
 

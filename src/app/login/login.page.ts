@@ -35,11 +35,7 @@ export class LoginPage implements OnInit {
         this.authService.SetUserData(res.user).then(result => {
           this.loading = false;
           loadingEl.dismiss();
-          if (this.returnUrl === '') {
-            this.router.navigateByUrl('/home');
-          } else {
-            this.router.navigate([this.returnUrl]);
-          }
+          this.reDirectSuccessLogin();
         });
       }).catch(err => {
         this.errorInfo = 'Email / Kata Sandi Salah!';
@@ -50,6 +46,16 @@ export class LoginPage implements OnInit {
   }
 
   googleLogin() {
-    this.authService.GoogleAuth();
+    this.authService.GoogleAuth().then(res => {
+      this.reDirectSuccessLogin();
+    })
+  }
+
+  reDirectSuccessLogin() {
+    if (this.returnUrl === '') {
+      this.router.navigateByUrl('/home');
+    } else {
+      this.router.navigate([this.returnUrl]);
+    }
   }
 }

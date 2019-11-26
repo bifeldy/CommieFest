@@ -36,7 +36,7 @@ export class EventService {
           return { id, ...data };
         });
       })
-    );;
+    );
   }
 
   getEvent(id) {
