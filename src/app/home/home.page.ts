@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { EventService, Event } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
 
   // nearbyEvents: Event[] = [];
   events: Event[] = [];
+  filterData = [];
 
   slidersConfig = {
     slidesPerView: 3,
@@ -46,7 +47,8 @@ export class HomePage implements OnInit {
 
   isSearchBarOpened = false;
   showToolbar = false;
-  searchTerm = '';
+  searchQuery = '';
+  searchTerm: string = "";
 
   bannerImgStyle = {
     height: '45%',
@@ -59,7 +61,8 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private eventService: EventService
+    private eventService: EventService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -67,9 +70,17 @@ export class HomePage implements OnInit {
     // TODO: Remove This Dummy Data
     this.eventService.getEvents().subscribe(res => {
       this.events = res;
+      this.filterData = this.events;
+      this.setFilter();
+
+
       // const kalender: Timestamp = new Timestamp(res[0].dateStart.seconds, res[0].dateStart.nanoseconds);
       //console.log(kalender.to);
       // console.log(new Date(res[0].dateStart.seconds * 1000));
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params.q;
     });
 
   }
@@ -83,6 +94,19 @@ export class HomePage implements OnInit {
 
   search($event) {
     this.router.navigateByUrl('/search?q=' + $event.target.value);
+  }
+
+  setFilter() {
+    this.filterData = this.events.filter((event) => {
+      return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
+    });
+  }
+
+  setFilteredEvents() {
+    this.router.navigateByUrl('/search');
+    this.filterData = this.events.filter((event) => {
+      return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    });
   }
 
 }

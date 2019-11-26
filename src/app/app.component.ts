@@ -19,26 +19,26 @@ export class AppComponent {
     {
       title: 'Beranda',
       url: '/home',
-      icon: 'home',
-      shouldLogin: false
+      icon: 'home'
+      // shouldLogin: false
     },
     {
       title: 'Cari Event',
       url: '/search',
-      icon: 'search',
-      shouldLogin: false
+      icon: 'search'
+      // shouldLogin: false
     },
     {
       title: 'Event Saya',
       url: '/list',
-      icon: 'list',
-      shouldLogin: true
+      icon: 'list'
+      // shouldLogin: true
     },
     {
       title: 'Pemberitahuan',
       url: '/notifications',
-      icon: 'notifications',
-      shouldLogin: true
+      icon: 'notifications'
+      // shouldLogin: true
     }
   ];
 
@@ -48,8 +48,8 @@ export class AppComponent {
     {
       title: 'Pengaturan',
       url: '/settings',
-      icon: 'settings',
-      shouldLogin: true
+      icon: 'settings'
+      // shouldLogin: true
     }
   ];
 
