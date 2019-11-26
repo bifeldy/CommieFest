@@ -42,7 +42,7 @@
 
     <ng-template #noData>
       <ion-title class="ion-padding-bottom ion-margin-bottom">
-        <ion-skeleton-text animated style="width: 256px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 16px; width: 256px;"></ion-skeleton-text>
       </ion-title>
       <ion-list>
         <ion-card button>
@@ -122,8 +122,8 @@
       </ion-list>
 
       <!-- infinite Scroll -->
-      <ion-infinite-scroll (ionInfinite)="loadMoreData($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Sedang Memuat ..."></ion-infinite-scroll-content>
+      <ion-infinite-scroll (ionInfinite)="loadMoreData($event)" class="ion-padding-top ion-margin-top">
+        <ion-infinite-scroll-content class="ion-padding-top" loadingSpinner="bubbles" loadingText="Sedang Memuat ..."></ion-infinite-scroll-content>
       </ion-infinite-scroll>
 
     </ng-template>

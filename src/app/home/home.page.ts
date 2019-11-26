@@ -80,4 +80,6 @@ export class HomePage implements OnInit {
   search($event) {
     this.router.navigateByUrl('/search?q=' + $event.target.value);
   }
+
+  loadMoreData($event) { }
 }
