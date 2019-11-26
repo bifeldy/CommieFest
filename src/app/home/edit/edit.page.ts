@@ -9,17 +9,17 @@ import { LoadingController, NavController } from '@ionic/angular';
   styleUrls: ['./edit.page.scss'],
 })
 export class EditPage implements OnInit {
-  event: Event = {
-    name: '',
-    description: '',
-    imageUrl: '',
-    location: '',
-    category: '',
-    ticketPrice: 0,
-    pricePool: 0,
-    dateStart: '',
-    dateEnd: ''
-  };
+  // event: Event = {
+  //   name: '',
+  //   description: '',
+  //   imageUrl: '',
+  //   location: '',
+  //   category: '',
+  //   ticketPrice: 0,
+  //   pricePool: 0,
+  //   dateStart: '',
+  //   dateEnd: ''
+  // };
   constructor(
     private eventSvc: EventService,
     private route: ActivatedRoute,
@@ -28,10 +28,10 @@ export class EditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.eventId = this.route.snapshot.params['id'];
-    if (this.eventId) {
-      this.loadEvent();
-    }
+    // this.eventId = this.route.snapshot.params['id'];
+    // if (this.eventId) {
+    //   this.loadEvent();
+    // }
   }
 
 }

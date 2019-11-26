@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./add.page.scss'],
 })
 export class AddPage implements OnInit {
-  form: FormGroup;
+  // form: FormGroup;
 
   event: Event = {
     name: '',
@@ -38,44 +38,44 @@ export class AddPage implements OnInit {
       this.loadEvent();
     }
 
-    this.form = new FormGroup({
-      nama: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      deskripsi: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      gambar: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      lokasi: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      kategori: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      hargatiket: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      hargadoorprize: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      datestart: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      dateend: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      })
-    })
+    // this.form = new FormGroup({
+    //   nama: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   deskripsi: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   gambar: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   lokasi: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   kategori: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   hargatiket: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   hargadoorprize: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   datestart: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   dateend: new FormControl(null, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   })
+    // })
   }
 
   async loadEvent() {
