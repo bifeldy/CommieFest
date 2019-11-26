@@ -139,7 +139,7 @@
         <small (click)="scrollActive = true">Lihat lebih sedikit !</small>
       </ion-label>
       <ion-title>Ada Di Sekitar Anda ..</ion-title>
-      <ion-list *ngFor="let event of events | slice:0:3; let i=index;">
+      <ion-list *ngFor="let event of events">
         <ion-card button [routerLink]="['/details', event.id]">
           <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
           <ion-card-header>
