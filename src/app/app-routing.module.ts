@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-// import { AuthGuard } from './_helpers/_guards/auth.guard';
+
+import { AuthGuard } from './_shared/_guard/auth.guard';
+import { SecureInnerPagesGuard } from './_shared/_guard/secure-inner-pages.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
@@ -21,9 +24,20 @@ const routes: Routes = [
     loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
   },
   {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule),
+    canActivate: [SecureInnerPagesGuard]
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
+    canActivate: [SecureInnerPagesGuard]
+  },
+
+
+
+
+
   {
     path: 'details',
     loadChildren: () => import('./home/details/details.module').then(m => m.DetailsPageModule)
@@ -53,6 +67,7 @@ const routes: Routes = [
     path: 'edit:/id',
     loadChildren: () => import('./home/edit/edit.module').then(m => m.EditPageModule)
   },
+
 
 ];
 

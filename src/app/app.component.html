@@ -4,14 +4,14 @@
       <ion-content>
 
         <ion-card class="hide-card ion-padding ion-no-margin" [ngStyle]="userCoverImgStyle">
-          <img src="{{ (currentUser == null ? 'http://placehold.it/64x64' : currentUser.profileImg) }}" class="custom-avatar" />
-          <h6 class="ion-no-margin">{{ (currentUser == null ? 'Guest' : currentUser.firstName + ' ' + currentUser.lastName) }}</h6>
-          {{ (currentUser == null ? 'guest@email.com' : currentUser.email)}}
+          <img src="{{ (authService.isLoggedIn ? (authService.userData.photoURL ? authService.userData.photoURL : 'http://placehold.it/64x64') : 'http://placehold.it/64x64') }}" class="custom-avatar" />
+          <h6 class="ion-no-margin">{{ authService.isLoggedIn ? (authService.userData.displayName ? authService.userData.displayName : 'User') : 'Pengunjung' }}</h6>
+          {{ authService.isLoggedIn ? authService.userData.email : 'pengunjung@email.com' }}
         </ion-card>
 
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item *ngIf="!p.shouldLogin || currentUser != null" [routerDirection]="'root'" [routerLink]="[p.url]"
+            <ion-item *ngIf="!p.shouldLogin || authService.isLoggedIn" [routerDirection]="'root'" [routerLink]="[p.url]"
               routerLinkActive="active">
               <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
@@ -29,13 +29,19 @@
             <ion-toggle id="themeToggle" slot="end" [checked]="darkMode"></ion-toggle>
           </ion-item>
           <ion-menu-toggle auto-hide="false">
-            <ion-item *ngIf="currentUser == null" routerLinkActive="active" routerLink="/login">
+            <ion-item *ngIf="!authService.isLoggedIn" routerLinkActive="active" routerLink="/login">
               <ion-icon slot="start" name="log-in" routerLinkActive="active"></ion-icon>
               <ion-label>Login</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item *ngIf="!authService.isLoggedIn" routerLinkActive="active" routerLink="/register">
+              <ion-icon slot="start" name="person-add" routerLinkActive="active"></ion-icon>
+              <ion-label>Register</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of miscPages">
-            <ion-item *ngIf="!p.shouldLogin || currentUser != null" [routerDirection]="'root'" [routerLink]="[p.url]"
+            <ion-item *ngIf="!p.shouldLogin || authService.isLoggedIn" [routerDirection]="'root'" [routerLink]="[p.url]"
               routerLinkActive="active">
               <ion-icon slot="start" [name]="p.icon" routerLinkActive="active"></ion-icon>
               <ion-label>
@@ -44,7 +50,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item *ngIf="currentUser != null" routerLinkActive="active" (click)="logout()">
+            <ion-item *ngIf="authService.isLoggedIn" routerLinkActive="active" (click)="logout()">
               <ion-icon slot="start" name="log-out" routerLinkActive="active"></ion-icon>
               <ion-label>Logout</ion-label>
             </ion-item>

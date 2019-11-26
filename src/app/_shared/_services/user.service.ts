@@ -12,8 +12,4 @@ export class UserService {
   constructor(
     private http: HttpClient
   ) { }
-
-  getUserByUserName(userName: string) {
-    return this.http.get<User>(`${environment.server.apiUrl + environment.server.userUrl}/${userName}`);
-  }
 }

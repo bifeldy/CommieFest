@@ -1,81 +1,86 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+import { auth } from 'firebase/app';
 import { User } from '../_models/user';
-import { environment } from '../../../environments/environment';
-
-interface AuthResponseData {
-  kind: string;
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  localId: string;
-  expiresIn: string;
-  registered?: boolean;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private _user = new BehaviorSubject<User>(null);
-
-  _isAuthenticated = false;
-  userId = null;
+  public userData: any;
 
   constructor(
-    private http: HttpClient,
-  ) { }
-
-  get isAuthenticated() {
-    return this._user.asObservable().pipe(map(user => {
+    private router: Router,
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
+  ) {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.userData = JSON.parse(localStorage.getItem('user'));
+    }
+    this.afAuth.authState.subscribe(user => {
       if (user) {
-        return !!user.token;
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
       } else {
-        return null;
+        localStorage.setItem('user', null);
       }
-    }));
+      JSON.parse(localStorage.getItem('user'));
+    });
   }
 
-  signup(email: string, password: string) {
-    //firebase singup API here
-    return this.http.post<AuthResponseData>(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebase.apiKey}`,
-      {
-        email,
-        password,
-        returnSecureToken: true
-      }
-    ).pipe(
-      tap(userData => {
-        const expTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000));
-        this._user.next(new User(userData.localId, userData.email, userData.idToken, expTime));
-      })
-    );
+  SignIn(email, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  setUser(userId: string) {
-    this.userId = userId;
-    this._isAuthenticated = true;
+  SignUp(email, password) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  login(email: string, password: string) {
-    //firebase login API here
-    return this.http.post<AuthResponseData>(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebase.apiKey}`,
-      {
-        email,
-        password,
-        returnSecureToken: true,
-      }
-    );
+  SendVerificationMail() {
+    return this.afAuth.auth.currentUser.sendEmailVerification();
   }
 
-  logout() {
-    this._user.next(null);
+  ForgotPassword(passwordResetEmail) {
+    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
+  }
+
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null) ? true : false;
+  }
+
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
+  }
+
+  AuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider).then((result) => {
+      this.SetUserData(result.user);
+    });
+  }
+
+  SetUserData(user) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified
+    };
+    return userRef.set(userData, { merge: true });
+  }
+
+  SignOut() {
+    return this.afAuth.auth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigateByUrl('/login');
+    });
   }
 
 }

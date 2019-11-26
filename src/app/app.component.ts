@@ -19,39 +19,32 @@ export class AppComponent {
     {
       title: 'Beranda',
       url: '/home',
-      icon: 'home'
-      // shouldLogin: false
+      icon: 'home',
+      shouldLogin: false
     },
     {
       title: 'Cari Event',
       url: '/search',
-      icon: 'search'
-      // shouldLogin: false
+      icon: 'search',
+      shouldLogin: false
     },
     {
       title: 'Event Saya',
       url: '/list',
-      icon: 'list'
-      // shouldLogin: true
+      icon: 'list',
+      shouldLogin: true
     },
     {
       title: 'Pemberitahuan',
       url: '/notifications',
-      icon: 'notifications'
-      // shouldLogin: true
+      icon: 'notifications',
+      shouldLogin: true
     }
   ];
 
   public darkMode;
 
-  public miscPages = [
-    {
-      title: 'Pengaturan',
-      url: '/settings',
-      icon: 'settings'
-      // shouldLogin: true
-    }
-  ];
+  public miscPages = [];
 
   userCoverImgStyle = {};
   currentUser: User;
@@ -60,7 +53,6 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router,
     private authService: AuthService
   ) {
     this.initializeApp();
@@ -95,7 +87,6 @@ export class AppComponent {
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigateByUrl('/login');
+    this.authService.SignOut();
   }
 }

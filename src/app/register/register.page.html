@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary" [class.show-background]="showToolbar" translucent="true">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Pendaftaran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="ion-padding-bottom">
+    <h1 class="ion-text-center ion-padding-bottom">Hai! Selamat Datang & Bergabung Dengan Kami~</h1>
+    <div class="ion-text-center">
+      <ion-text color="danger" class="ion-text-center ion-padding-bottom" *ngIf="errorInfo != ''">
+        {{ errorInfo }}
+      </ion-text>
+      <ion-text color="success" class="ion-text-center ion-padding-bottom" *ngIf="suksesInfo != ''">
+        {{ suksesInfo }}
+      </ion-text>
+    </div>
+  </div>
+  <form #f="ngForm" (ngSubmit)="onRegister(f)">
+    <div class="ion-padding-bottom">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">E-Mail</ion-label>
+          <ion-input required ngModel name="email" type="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Kata Sandi</ion-label>
+          <ion-input required ngModel name="password" type="password" minlength="6"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Konfirmasi Kata Sandi</ion-label>
+          <ion-input required ngModel name="confirmPwd" type="password" minlength="6"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <ion-button expand="block" [disabled]="!f.valid" type="submit">Daftar</ion-button>
+    <ion-button expand="block" fill="clear" color="primary" routerLink="/login">Masuk</ion-button>
+  </form>
+</ion-content>

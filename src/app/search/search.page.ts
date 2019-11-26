@@ -11,10 +11,10 @@ import { AuthService } from '../_shared/_services/auth.service';
 })
 export class SearchPage implements OnInit {
   events: Event[] = [];
-  public loadedEvent : any[];
+  public loadedEvent: any[];
   filterData = [];
   searchQuery = '';
-  searchTerm : string = "";
+  searchTerm = '';
   constructor(
     private router: Router,
     private navCtrl: NavController,
@@ -30,12 +30,12 @@ export class SearchPage implements OnInit {
       this.filterData = this.events;
       this.setFilter();
     });
-    
+
     // Get Data From URL
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params.q;
     });
-    
+
 
   }
   // initItem(): void{
@@ -60,7 +60,7 @@ export class SearchPage implements OnInit {
 //   }
 
 // }
-  
+
   search($event) {
     this.router.navigateByUrl('/search?q=' + $event.target.value);
     this.eventService.getEvents().subscribe(res => {
@@ -70,15 +70,15 @@ export class SearchPage implements OnInit {
       this.setFilter();
     });
   }
-  setFilter(){
-    this.filterData = this.events.filter((event)=>{
-      return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase())>-1;
+  setFilter() {
+    this.filterData = this.events.filter((event) => {
+      return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
     });
   }
-  setFilteredEvents(){
+  setFilteredEvents() {
     this.router.navigateByUrl('/search' );
-    this.filterData = this.events.filter((event)=>{
-      return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase())> -1;
+    this.filterData = this.events.filter((event) => {
+      return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
     });
   }
 }

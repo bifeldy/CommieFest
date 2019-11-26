@@ -12,13 +12,15 @@ export class SliderComponent implements OnInit {
   @Input() events: Event[];
 
   slidersConfig = {
-    slidesPerView: 3,
-    spaceBetween: 0,
+    slidesPerView: 4.5,
+    slidesOffsetBefore: 25,
+    slidesOffsetAfter: 25,
+    spaceBetween: 25,
     freeMode: true,
     grabCursor: true,
     autoplay: {
       delay: 2500,
-      disableOnInteraction: false,
+      disableOnInteraction: true,
     },
     navigation: {
       nextEl: '.swiper-button-next',
@@ -26,13 +28,16 @@ export class SliderComponent implements OnInit {
     },
     breakpoints: {
       576: {
-          slidesPerView: 1,
+          slidesPerView: 1.5,
         },
       768: {
-          slidesPerView: 2,
+          slidesPerView: 2.5,
         },
       992: {
-          slidesPerView: 3,
+          slidesPerView: 3.5,
+        },
+      1200: {
+          slidesPerView: 4.5,
         }
     }
   };
