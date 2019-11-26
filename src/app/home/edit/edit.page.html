@@ -1,9 +1,75 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>edit</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+    <ion-toolbar color="tertiary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Edit Event</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class='ion-padding'>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating" color="tertiary">Nama Event</ion-label>
+        <ion-input required type="text" placeholder="Name" [(ngModel)]="event.name">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+  
+        <ion-label position="floating" color="tertiary">Deskripsi</ion-label>
+        <ion-input required type="text" placeholder="Description" [(ngModel)]="event.description">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+  
+        <ion-label position="floating" color="tertiary">URL Gambar</ion-label>
+        <ion-input required type="text" placeholder="Image URL" [(ngModel)]="event.imageUrl">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+  
+        <ion-label position="floating" color="tertiary">Lokasi</ion-label>
+        <ion-input required type="text" placeholder="Location" [(ngModel)]="event.location">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+  
+        <ion-label position="floating" color="tertiary">Kategori</ion-label>
+        <ion-input required type="text" placeholder="Category" [(ngModel)]="event.category">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+  
+        <ion-label position="floating" color="tertiary">Harga Tiket</ion-label>
+        <ion-input required type="number" placeholder="Ticket Price" [(ngModel)]="event.ticketPrice">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating" color="tertiary">Harga Doorprize</ion-label>
+        <ion-input required type="number" placeholder="Price Pool" [(ngModel)]="event.pricePool">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+  
+        <ion-label position="floating" color="tertiary">Tanggal Mulai Event</ion-label>
+        <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateStart">
+        </ion-datetime>
+      </ion-item>
+  
+      <ion-item>
+  
+        <ion-label position="floating" color="tertiary">Tanggal Akhir Event</ion-label>
+        <ion-datetime required displayFormat="DD MMMM YYYY" placeholder="End Date" [(ngModel)]="event.dateEnd">
+        </ion-datetime>
+      </ion-item>
+  
+    </ion-list>
+    <ion-button expand="block" (click)="saveEvent()" color="tertiary">Update</ion-button>
+  </ion-content>

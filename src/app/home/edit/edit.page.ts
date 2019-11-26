@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../_shared/_services/event.service';
+import { EventService, Event } from 'src/app/_shared/_services/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+// import { Subscription } from 'rxjs';
+// import { Event } from 'src/app/_shared/_models/event';
 
 @Component({
   selector: 'app-edit',

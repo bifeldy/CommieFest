@@ -44,7 +44,7 @@ export class HomePage implements OnInit {
       }
     }
   };
-
+  scrollActive = false;
   isSearchBarOpened = false;
   showToolbar = false;
   searchQuery = '';
@@ -96,6 +96,7 @@ export class HomePage implements OnInit {
     this.router.navigateByUrl('/search?q=' + $event.target.value);
   }
 
+<<<<<<< HEAD
   setFilter() {
     this.filterData = this.events.filter((event) => {
       return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
@@ -110,3 +111,6 @@ export class HomePage implements OnInit {
   }
 
 }
+=======
+}
+>>>>>>> ade1800fbff8b336326492179bfaeb94880f8607
