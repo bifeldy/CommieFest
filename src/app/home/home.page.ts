@@ -64,7 +64,6 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.eventService.getEvents().subscribe(res => {
       this.nearbyEvents = res;
-      console.log(this.nearbyEvents);
       // const kalender: Timestamp = new Timestamp(res[0].dateStart.seconds, res[0].dateStart.nanoseconds);
       // console.log(kalender.to);
       // console.log(new Date(res[0].dateStart.seconds * 1000));

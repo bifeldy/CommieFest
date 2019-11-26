@@ -32,13 +32,11 @@ export class RegisterPage implements OnInit {
         loadingEl.present();
         this.authService.SignUp(f.value.email, f.value.password).then(res => {
           this.suksesInfo = 'Pendaftaran berhasil, silahkan login';
-          this.authService.SetUserData(res.user).then(result => {
+          this.authService.SendVerificationMail().then(result => {
             this.loading = false;
             loadingEl.dismiss();
-            setTimeout(() => {
-              this.authService.SendVerificationMail();
-              this.router.navigateByUrl('/login');
-            }, 1234);
+            this.router.navigateByUrl('/verify');
+            this.authService.SetUserData(res.user);
           });
         }).catch(err => {
           this.errorInfo = 'Harap periksa kembali data Anda!';

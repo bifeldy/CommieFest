@@ -33,6 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
     canActivate: [SecureInnerPagesGuard]
   },
+  {
+    path: 'verify',
+    loadChildren: () => import('./verify/verify.module').then(m => m.VerifyPageModule),
+    canActivate: [SecureInnerPagesGuard]
+  },
 
 
 
@@ -66,7 +71,8 @@ const routes: Routes = [
   {
     path: 'edit:/id',
     loadChildren: () => import('./home/edit/edit.module').then(m => m.EditPageModule)
-  },
+  }
+
 
 
 ];

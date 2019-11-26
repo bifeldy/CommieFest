@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FirebaseApp } from '@angular/fire';
 
 export interface Event {
   name: string;
@@ -22,12 +22,13 @@ export interface Event {
 
 export class EventService {
   private eventsCollection: AngularFirestoreCollection<Event>;
-  private events: Observable<Event[]>;
 
   constructor(db: AngularFirestore) {
     this.eventsCollection = db.collection<Event>('events');
+  }
 
-    this.events = this.eventsCollection.snapshotChanges().pipe(
+  getEvents(): Observable<Event[]> {
+    return this.eventsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -35,11 +36,7 @@ export class EventService {
           return { id, ...data };
         });
       })
-    )
-  }
-
-  getEvents() {
-    return this.events;
+    );;
   }
 
   getEvent(id) {
