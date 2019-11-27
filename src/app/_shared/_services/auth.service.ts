@@ -66,13 +66,21 @@ export class AuthService {
 
   SetUserData(user, manualRegistName = null, manualRegistPhoto = null) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const userData: User = {
+    const userData: any = {
       uid: user.uid,
       email: user.email,
-      displayName: manualRegistName ? manualRegistName : user.displayName,
-      photoURL: manualRegistPhoto ? manualRegistPhoto : user.photoURL,
       emailVerified: user.emailVerified
     };
+    if (manualRegistName) {
+      userData.displayName = manualRegistName;
+    } else if (userData.displayName) {
+      userData.displayName = user.displayName;
+    }
+    if (manualRegistPhoto) {
+      userData.photoURL = manualRegistPhoto;
+    } else if (userData.photoURL) {
+      userData.photoURL = user.photoURL;
+    }
     return userRef.set(userData, { merge: true });
   }
 

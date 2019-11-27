@@ -31,8 +31,8 @@ export class LoginPage implements OnInit {
   this.loadingCtrl.create({ keyboardClose: true, message: 'Harap menunggu sebentar ...' })
     .then(loadingEl => {
       loadingEl.present();
-      this.authService.SignIn(f.value.email, f.value.password).then(res => {
-        this.authService.SetUserData(res.user).then(result => {
+      this.authService.SignIn(f.value.email, f.value.password).then(resp => {
+        this.authService.SetUserData(resp.user).then(result => {
           this.loading = false;
           loadingEl.dismiss();
           this.reDirectSuccessLogin();
