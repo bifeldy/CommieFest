@@ -46,7 +46,7 @@
                 <img src="{{e.imageUrl}}" />
               </ion-thumbnail>
               <ion-label>
-                <h5>{{e.name}}</h5>
+                <ion-text color="primary">{{e.name}}</ion-text>
                 <p>{{e.dateStart | date}}</p>
               </ion-label>
             </ion-item>
@@ -63,7 +63,7 @@
     </ion-row>
   </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/add" routerDirection="forward" color="success">
+    <ion-fab-button routerLink="/add" routerDirection="forward" color="primary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

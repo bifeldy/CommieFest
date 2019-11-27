@@ -16,7 +16,7 @@ export class SearchPage implements OnInit {
 
   filterData = [];
   searchQuery = '';
-  searchTerm = '';
+  searchTerm: string = "";
 
   constructor(
     private router: Router,
@@ -38,8 +38,6 @@ export class SearchPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params.q;
     });
-
-
   }
   // initItem(): void{
   //   this.events = this.loadedEvent;
@@ -66,22 +64,22 @@ export class SearchPage implements OnInit {
 
   search($event) {
     this.router.navigateByUrl('/search?q=' + $event.target.value);
-    // this.eventService.getEvents().subscribe(res => {
-    //   this.events = res;
-    //   // this.loadedEvent = res;
-    //   // this.filterData = this.events;
-    //   // this.setFilter();
-    // });
+    this.eventService.getEvents().subscribe(res => {
+      this.events = res;
+      // this.loadedEvent = res;
+      this.filterData = this.events;
+      this.setFilter();
+    });
   }
   setFilter() {
     this.filterData = this.events.filter((event) => {
-      return event.name.indexOf(this.searchQuery) > -1;
+      return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
     });
   }
   setFilteredEvents() {
     this.router.navigateByUrl('/search');
     this.filterData = this.events.filter((event) => {
-      return event.name.indexOf(this.searchQuery) > -1;
+      return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
     });
   }
 }
