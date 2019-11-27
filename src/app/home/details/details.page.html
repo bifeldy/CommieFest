@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/list/my-events"></ion-back-button>
     </ion-buttons>
-    <ion-title>New Offer</ion-title>
-    <ion-buttons slot="primary">
+    <ion-title>Edit Event</ion-title>
+    <ion-buttons slot="end">
       <ion-button (click)="saveEvent()" [disabled]="!form.valid">
         <ion-icon name="checkmark" slot="icon-only"></ion-icon>
       </ion-button>
@@ -18,7 +18,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating">Nama Event</ion-label>
+            <ion-label position="floating" color="tertiary">Nama Event</ion-label>
             <ion-input type="text" autocomplete autocorrect formControlName="name" [(ngModel)]="event.name"
               value="{{ event.name }}"></ion-input>
           </ion-item>
@@ -33,7 +33,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating">Deskripsi</ion-label>
+            <ion-label position="floating" color="tertiary">Deskripsi</ion-label>
             <ion-textarea rows="3" formControlName="description" [(ngModel)]="event.description"
               value="{{ event.description }}"></ion-textarea>
           </ion-item>
@@ -48,7 +48,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating">Image URL</ion-label>
+            <ion-label position="floating" color="tertiary">Image URL</ion-label>
             <ion-input type="text" formControlName="image" [(ngModel)]="event.imageUrl" value="{{ event.imageUrl }}">
             </ion-input>
           </ion-item>
@@ -63,7 +63,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating">Lokasi</ion-label>
+            <ion-label position="floating" color="tertiary">Lokasi</ion-label>
             <ion-input type="text" formControlName="location" [(ngModel)]="event.location" value="{{ event.location }}">
             </ion-input>
           </ion-item>
@@ -78,7 +78,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating" color="success">Kategori</ion-label>
+            <ion-label position="floating" color="tertiary">Kategori</ion-label>
             <ion-input required type="text" placeholder="Category" formControlName="category"
               [(ngModel)]="event.category" value="{{ event.category }}">
             </ion-input>
@@ -94,7 +94,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating" color="success">Harga Tiket</ion-label>
+            <ion-label position="floating" color="tertiary">Harga Tiket</ion-label>
             <ion-input required type="number" placeholder="Ticket Price" [(ngModel)]="event.ticketPrice"
               formControlName="ticketprice" value="{{ event.ticketPrice }}">
             </ion-input>
@@ -110,7 +110,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating" color="success">Harga Tiket</ion-label>
+            <ion-label position="floating" color="tertiary">Harga Tiket</ion-label>
             <ion-input required type="number" placeholder="Price Pool" [(ngModel)]="event.pricePool"
               formControlName="pricepool" value="{{ event.pricePool }}">
             </ion-input>
@@ -126,7 +126,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating" color="success">Tanggal Mulai Event</ion-label>
+            <ion-label position="floating" color="tertiary">Tanggal Mulai Event</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateStart"
               formControlName="datestart" value="{{ event.dateStart }}">
             </ion-datetime>
@@ -136,7 +136,7 @@
         <!-- <ion-row> -->
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
-            <ion-label position="floating" color="success">Tanggal Akhir Event</ion-label>
+            <ion-label position="floating" color="tertiary">Tanggal Akhir Event</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateEnd"
               formControlName="dateend" value="{{ event.dateEnd }}">
             </ion-datetime>
