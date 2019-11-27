@@ -72,20 +72,13 @@ export class HomePage implements OnInit {
       this.geoCoordinates = res;
       this.geoService.getAddress(this.geoCoordinates.lat, this.geoCoordinates.lng, 'poi').subscribe(
         geoData => {
-          console.log(geoData);
           // https://docs.mapbox.com/api/search/#geocoding-response-object
           // country, region, postcode, district, place, locality, neighborhood, address, and poi
           this.currentLocation = geoData.features[0].place_name;
         }
       );
     });
-
-    this.eventService.getEvents().subscribe(res => {
-      this.nearbyEvents = res;
-      // const kalender: Timestamp = new Timestamp(res[0].dateStart.seconds, res[0].dateStart.nanoseconds);
-      // console.log(kalender.to);
-      // console.log(new Date(res[0].dateStart.seconds * 1000));
-    });
+    this.eventService.getEvents().subscribe(res => { this.nearbyEvents = res; });
   }
 
   onScroll($event: CustomEvent<ScrollDetail>) {
