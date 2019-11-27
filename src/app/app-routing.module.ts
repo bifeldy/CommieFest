@@ -12,16 +12,18 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
+  },
+  {
     path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
+    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule)
-  },
-  {
-    path: 'search',
-    loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
+    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',

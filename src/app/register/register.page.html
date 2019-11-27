@@ -14,9 +14,6 @@
       <ion-text color="danger" class="ion-text-center ion-padding-bottom" *ngIf="errorInfo != ''">
         {{ errorInfo }}
       </ion-text>
-      <ion-text color="success" class="ion-text-center ion-padding-bottom" *ngIf="suksesInfo != ''">
-        {{ suksesInfo }}
-      </ion-text>
     </div>
   </div>
   <form #f="ngForm" (ngSubmit)="onRegister(f)">

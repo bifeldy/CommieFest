@@ -75,13 +75,13 @@ export class SearchPage implements OnInit {
   }
   setFilter() {
     this.filterData = this.events.filter((event) => {
-      return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
+      return event.name.indexOf(this.searchQuery) > -1;
     });
   }
   setFilteredEvents() {
     this.router.navigateByUrl('/search');
     this.filterData = this.events.filter((event) => {
-      return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return event.name.indexOf(this.searchQuery) > -1;
     });
   }
 }

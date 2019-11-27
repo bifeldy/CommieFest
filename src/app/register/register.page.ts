@@ -14,7 +14,6 @@ export class RegisterPage implements OnInit {
 
   form: FormGroup;
   loading = false;
-  suksesInfo = '';
   errorInfo = '';
 
   constructor(
@@ -31,7 +30,6 @@ export class RegisterPage implements OnInit {
       .then(loadingEl => {
         loadingEl.present();
         this.authService.SignUp(f.value.email, f.value.password).then(res => {
-          this.suksesInfo = 'Pendaftaran berhasil, silahkan login';
           this.authService.SendVerificationMail().then(result => {
             this.loading = false;
             loadingEl.dismiss();
@@ -39,7 +37,7 @@ export class RegisterPage implements OnInit {
             this.authService.SetUserData(res.user);
           });
         }).catch(err => {
-          this.errorInfo = 'Harap periksa kembali data Anda!';
+          this.errorInfo = err.message;
           this.loading = false;
           loadingEl.dismiss();
         });
