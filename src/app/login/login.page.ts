@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
           this.reDirectSuccessLogin();
         });
       }).catch(err => {
-        this.errorInfo = 'Email / Kata Sandi Salah!';
+        this.errorInfo = err.message;
         this.loading = false;
         loadingEl.dismiss();
       });
