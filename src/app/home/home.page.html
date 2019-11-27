@@ -79,8 +79,8 @@
 
     <ng-template #haveData>
       <ion-title class="ion-padding-bottom ion-margin-bottom">Ada Di Sekitar Anda ..</ion-title>
-      <ion-list *ngFor="let event of nearbyEvents">
-        <ion-card button [routerLink]="['/details', event.id]">
+      <ion-list *ngFor="let event of nearbyEvents.slice(0,10)">
+        <ion-card>
           <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
           <ion-card-header>
             <ion-card-subtitle>
@@ -120,7 +120,8 @@
 
       <!-- infinite Scroll -->
       <ion-infinite-scroll (ionInfinite)="loadMoreData($event)" class="ion-padding-top ion-margin-top">
-        <ion-infinite-scroll-content class="ion-padding-top" loadingSpinner="bubbles" loadingText="Sedang Memuat ..."></ion-infinite-scroll-content>
+        <ion-infinite-scroll-content class="ion-padding-top" loadingSpinner="bubbles" loadingText="Sedang Memuat ...">
+        </ion-infinite-scroll-content>
       </ion-infinite-scroll>
 
     </ng-template>

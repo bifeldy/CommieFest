@@ -50,4 +50,8 @@ export class EventService {
   addEvent(event: Event) {
     return this.eventsCollection.add(event);
   }
+
+  removeBike(id) {
+    return this.eventsCollection.doc(id).delete();
+  }
 }
