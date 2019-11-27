@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { EventService, Event } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
+import { GeolocationService } from '../_shared/_services/geolocation.service';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,10 @@ import { AuthService } from '../_shared/_services/auth.service';
 })
 export class HomePage implements OnInit {
 
+  geoCoordinates = {
+    lat: null,
+    lng: null
+  };
   currentLocation = 'Your Location ...';
   nearbyEvents: Event[] = [];
 
@@ -58,10 +63,28 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private eventService: EventService
+    private eventService: EventService,
+    private geoService: GeolocationService
   ) { }
 
   ngOnInit() {
+    this.geoService.getPosition().then(res => {
+      this.geoCoordinates = res;
+      this.currentLocation = `lat: ${this.geoCoordinates.lat} -- lng: ${this.geoCoordinates.lng}`;
+      this.geoService.getAddress(this.geoCoordinates.lat, this.geoCoordinates.lng).subscribe(
+        geoData => {
+          console.log(geoData);
+          try {
+            this.currentLocation = geoData.results[0].formatted_address;
+          } catch (e) {
+            this.currentLocation = 'Nyalain Billing Payment Oiy!';
+          }
+        }
+      );
+    }).catch(err => {
+      this.currentLocation = err.message;
+    });
+
     this.eventService.getEvents().subscribe(res => {
       this.nearbyEvents = res;
       // const kalender: Timestamp = new Timestamp(res[0].dateStart.seconds, res[0].dateStart.nanoseconds);

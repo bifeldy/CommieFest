@@ -12,6 +12,9 @@ export const environment = {
     storageBucket: 'commiefest.appspot.com',
     messagingSenderId: '639042436654',
     appId: '1:639042436654:web:085c0501230426dbf669bf'
+  },
+  maps: {
+    apiKey: ''
   }
 };
 
