@@ -1,75 +1,148 @@
 <ion-header>
-  <ion-toolbar color="tertiary">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/list/my-events"></ion-back-button>
     </ion-buttons>
-    <ion-title>Edit Event</ion-title>
+    <ion-title>New Offer</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="saveEvent()" [disabled]="!form.valid">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class='ion-padding'>
-  <ion-list>
-    <ion-item>
-      <ion-label position="floating" color="tertiary">Nama Event</ion-label>
-      <ion-input required type="text" placeholder="Name" [(ngModel)]="event.name">
-      </ion-input>
-    </ion-item>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Nama Event</ion-label>
+            <ion-input type="text" autocomplete autocorrect formControlName="name" [(ngModel)]="event.name"
+              value="{{ event.name }}"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf=" !form.get('name').valid && form.get('name').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Judul event tidak boleh kosong</p>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Deskripsi</ion-label>
+            <ion-textarea rows="3" formControlName="description" [(ngModel)]="event.description"
+              value="{{ event.description }}"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('description').valid && form.get('description').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Deskripsi event tidak boleh kosong</p>
+        </ion-col>
+      </ion-row>
 
-      <ion-label position="floating" color="tertiary">Deskripsi</ion-label>
-      <ion-input required type="text" placeholder="Description" [(ngModel)]="event.description">
-      </ion-input>
-    </ion-item>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Image URL</ion-label>
+            <ion-input type="text" formControlName="image" [(ngModel)]="event.imageUrl" value="{{ event.imageUrl }}">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('image').valid && form.get('image').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Link gambar tidak boleh kosong</p>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Lokasi</ion-label>
+            <ion-input type="text" formControlName="location" [(ngModel)]="event.location" value="{{ event.location }}">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('location').valid && form.get('location').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Lokasi tidak boleh kosong</p>
+        </ion-col>
+      </ion-row>
 
-      <ion-label position="floating" color="tertiary">URL Gambar</ion-label>
-      <ion-input required type="text" placeholder="Image URL" [(ngModel)]="event.imageUrl">
-      </ion-input>
-    </ion-item>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating" color="success">Kategori</ion-label>
+            <ion-input required type="text" placeholder="Category" formControlName="category"
+              [(ngModel)]="event.category" value="{{ event.category }}">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('category').valid && form.get('category').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Kategori tidak boleh kosong</p>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating" color="success">Harga Tiket</ion-label>
+            <ion-input required type="number" placeholder="Ticket Price" [(ngModel)]="event.ticketPrice"
+              formControlName="ticketprice" value="{{ event.ticketPrice }}">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('ticketprice').valid && form.get('ticketprice').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Harga tiket tidak boleh kosong</p>
+        </ion-col>
+      </ion-row>
 
-      <ion-label position="floating" color="tertiary">Lokasi</ion-label>
-      <ion-input required type="text" placeholder="Location" [(ngModel)]="event.location">
-      </ion-input>
-    </ion-item>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating" color="success">Harga Tiket</ion-label>
+            <ion-input required type="number" placeholder="Price Pool" [(ngModel)]="event.pricePool"
+              formControlName="pricepool" value="{{ event.pricePool }}">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('pricepool').valid && form.get('pricepool').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Doorprize tidak boleh kosong</p>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-
-      <ion-label position="floating" color="tertiary">Kategori</ion-label>
-      <ion-input required type="text" placeholder="Category" [(ngModel)]="event.category">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-
-      <ion-label position="floating" color="tertiary">Harga Tiket</ion-label>
-      <ion-input required type="number" placeholder="Ticket Price" [(ngModel)]="event.ticketPrice">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating" color="tertiary">Harga Doorprize</ion-label>
-      <ion-input required type="number" placeholder="Price Pool" [(ngModel)]="event.pricePool">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-
-      <ion-label position="floating" color="tertiary">Tanggal Mulai Event</ion-label>
-      <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateStart">
-      </ion-datetime>
-    </ion-item>
-
-    <ion-item>
-
-      <ion-label position="floating" color="tertiary">Tanggal Akhir Event</ion-label>
-      <ion-datetime required displayFormat="DD MMMM YYYY" placeholder="End Date" [(ngModel)]="event.dateEnd">
-      </ion-datetime>
-    </ion-item>
-
-  </ion-list>
-  <ion-button expand="block" (click)="saveEvent()" color="tertiary">Update</ion-button>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating" color="success">Tanggal Mulai Event</ion-label>
+            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateStart"
+              formControlName="datestart" value="{{ event.dateStart }}">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- </ion-row> -->
+        <!-- <ion-row> -->
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating" color="success">Tanggal Akhir Event</ion-label>
+            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateEnd"
+              formControlName="dateend" value="{{ event.dateEnd }}">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
