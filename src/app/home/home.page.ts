@@ -70,19 +70,14 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.geoService.getPosition().then(res => {
       this.geoCoordinates = res;
-      this.currentLocation = `lat: ${this.geoCoordinates.lat} -- lng: ${this.geoCoordinates.lng}`;
-      this.geoService.getAddress(this.geoCoordinates.lat, this.geoCoordinates.lng).subscribe(
+      this.geoService.getAddress(this.geoCoordinates.lat, this.geoCoordinates.lng, 'poi').subscribe(
         geoData => {
           console.log(geoData);
-          try {
-            this.currentLocation = geoData.results[0].formatted_address;
-          } catch (e) {
-            this.currentLocation = 'Nyalain Billing Payment Oiy!';
-          }
+          // https://docs.mapbox.com/api/search/#geocoding-response-object
+          // country, region, postcode, district, place, locality, neighborhood, address, and poi
+          this.currentLocation = geoData.features[0].place_name;
         }
       );
-    }).catch(err => {
-      this.currentLocation = err.message;
     });
 
     this.eventService.getEvents().subscribe(res => {

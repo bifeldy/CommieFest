@@ -27,9 +27,9 @@ export class GeolocationService {
     });
   }
 
-  getAddress(lat: number, lng: number) {
+  getAddress(lat: number, lng: number, types: string) {
     return this.http.get<any>(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.firebase.apiKey}`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?types=${types}&access_token=${environment.mapbox.apiKey}`
     ).pipe(map(geoData => {
       return geoData;
     }));
