@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
   googleLogin() {
     this.authService.GoogleAuth().then(res => {
       this.reDirectSuccessLogin();
-    })
+    });
   }
 
   reDirectSuccessLogin() {
