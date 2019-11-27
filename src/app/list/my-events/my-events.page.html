@@ -15,23 +15,22 @@
 
 <ion-content>
 
-    <ion-list>
-      <ion-item>
-        <ion-thumbnail slot="start">
-          <img src="/assets/shapes.svg" />
-        </ion-thumbnail>
-        <ion-label>
-          <h3>Judul Event</h3>
-          <p>Tanggal</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="/assets/shapes.svg" />
+      </ion-thumbnail>
+      <ion-label>
+        <h3>Judul Event</h3>
+        <p>Tanggal</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button routerLink="#" routerDirection="forward" color="primary">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/add" routerDirection="forward" color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-  </ion-content>
-  
+</ion-content>
