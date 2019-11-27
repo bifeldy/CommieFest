@@ -34,7 +34,7 @@ export class RegisterPage implements OnInit {
             this.loading = false;
             loadingEl.dismiss();
             this.router.navigateByUrl('/verify');
-            this.authService.SetUserData(res.user);
+            this.authService.SetUserData(res.user, f.value.name, f.value.photo);
           });
         }).catch(err => {
           this.errorInfo = err.message;
