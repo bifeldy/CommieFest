@@ -4,6 +4,7 @@ import { LoadingController } from '@ionic/angular';
 import { NgForm, FormGroup } from '@angular/forms';
 
 import { AuthService } from '../_shared/_services/auth.service';
+import { CameraService } from '../_shared/_services/camera.service';
 
 @Component({
   selector: 'app-register',
@@ -13,13 +14,17 @@ import { AuthService } from '../_shared/_services/auth.service';
 export class RegisterPage implements OnInit {
 
   form: FormGroup;
+
   loading = false;
   errorInfo = '';
+
+  photoUrl = 'https://www.simplicitysofas.com/img/placeholder.png';
 
   constructor(
     private router: Router,
     private loadingCtrl: LoadingController,
-    private authService: AuthService
+    private authService: AuthService,
+    private cameraService: CameraService
   ) { }
 
   ngOnInit() { }
@@ -34,13 +39,30 @@ export class RegisterPage implements OnInit {
             this.loading = false;
             loadingEl.dismiss();
             this.router.navigateByUrl('/verify');
-            this.authService.SetUserData(res.user, f.value.name, f.value.photo);
+            this.authService.SetUserData(res.user, f.value.name, this.photoUrl);
           });
         }).catch(err => {
           this.errorInfo = err.message;
           this.loading = false;
           loadingEl.dismiss();
         });
-      });
-    }
+      }
+    );
+  }
+
+  openCamera() {
+    this.cameraService.openCamera().then((imageData) => {
+      this.photoUrl = `data:image/jpeg;base64,${imageData}`;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  openGallery() {
+    this.cameraService.openGallery().then((imageData) => {
+      this.photoUrl = `data:image/jpeg;base64,${imageData}`;
+    }, (err) => {
+      console.log(err);
+    });
+  }
 }

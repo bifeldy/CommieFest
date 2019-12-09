@@ -46,33 +46,19 @@ const routes: Routes = [
 
 
   {
-    path: 'details',
-    loadChildren: () => import('./home/details/details.module').then(m => m.DetailsPageModule)
+    path: 'add',
+    loadChildren: () => import('./list/my-events/add/add.module').then(m => m.AddPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit/:id',
+    loadChildren: () => import('./list/my-events/edit/edit.module').then(m => m.EditPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'details/:id',
-    loadChildren: () => import('./home/details/details.module').then(m => m.DetailsPageModule)
-  },
-
-
-  {
-    path: 'add',
-    loadChildren: () => import('./home/add/add.module').then(m => m.AddPageModule)
-  },
-
-  {
-    path: 'add:/id',
-    loadChildren: () => import('./home/add/add.module').then(m => m.AddPageModule)
-  },
-
-  {
-    path: 'edit',
-    loadChildren: () => import('./home/edit/edit.module').then(m => m.EditPageModule)
-  },
-
-  {
-    path: 'edit/:id',
-    loadChildren: () => import('./home/edit/edit.module').then(m => m.EditPageModule)
+    loadChildren: () => import('./list/my-events/details/details.module').then(m => m.DetailsPageModule),
+    canActivate: [AuthGuard]
   }
 
 

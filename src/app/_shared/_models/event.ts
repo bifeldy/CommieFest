@@ -1,5 +1,5 @@
 export interface Event {
-    id: number;
+    id: string;
     name: string;
     description: string;
     imageUrl: string;
@@ -7,13 +7,7 @@ export interface Event {
     category: string;
     ticketPrice: number;
     pricePool: number;
-    dateStart: {
-        seconds: number,
-        nanoseconds: number;
-    };
-    dateEnd: {
-        seconds: number,
-        nanoseconds: number;
-    };
+    dateStart: string;
+    dateEnd: string;
+    createdBy: string;
 }
-

@@ -35,7 +35,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item *ngIf="!authService.isLoggedIn" routerLinkActive="active" routerLink="/register">
+            <ion-item *ngIf="!authService.isLoggedIn" routerLinkActive="active" routerLink="/register" style="cursor: pointer;">
               <ion-icon slot="start" name="person-add" routerLinkActive="active"></ion-icon>
               <ion-label>Register</ion-label>
             </ion-item>
@@ -50,7 +50,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item *ngIf="authService.isLoggedIn" routerLinkActive="active" (click)="logout()">
+            <ion-item *ngIf="authService.isLoggedIn" routerLinkActive="active" (click)="logout()" style="cursor: pointer;">
               <ion-icon slot="start" name="log-out" routerLinkActive="active"></ion-icon>
               <ion-label>Logout</ion-label>
             </ion-item>

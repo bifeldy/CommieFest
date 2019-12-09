@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService, Event } from 'src/app/_shared/_services/event.service';
+import { EventService } from 'src/app/_shared/_services/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
-// import { Subscription } from 'rxjs';
-// import { Event } from 'src/app/_shared/_models/event';
+
+import { Event } from 'src/app/_shared/_models/event';
 
 @Component({
   selector: 'app-details',
@@ -12,17 +12,18 @@ import { LoadingController, NavController } from '@ionic/angular';
 })
 export class DetailsPage implements OnInit {
 
-
   event: Event = {
-    name: '',
-    description: '',
-    imageUrl: '',
-    location: '',
-    category: '',
-    ticketPrice: 0,
-    pricePool: 0,
-    dateStart: '',
-    dateEnd: ''
+    id: null,
+    name: null,
+    description: null,
+    imageUrl: null,
+    location: null,
+    category: null,
+    ticketPrice: null,
+    pricePool: null,
+    dateStart: null,
+    dateEnd: null,
+    createdBy: null
   };
 
   eventId = null;
@@ -35,7 +36,7 @@ export class DetailsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.eventId = this.route.snapshot.params['id'];
+    this.eventId = this.route.snapshot.params.id;
     if (this.eventId) {
       this.loadEvent();
     }
@@ -46,14 +47,10 @@ export class DetailsPage implements OnInit {
       message: 'Loading Event'
     });
     await loading.present();
-
-    this.eventSvc.getEvent(this.eventId).subscribe(res => {
+    this.eventSvc.getEventById(this.eventId).subscribe(res => {
       loading.dismiss();
-      console.log("ini res", res);
       this.event = res;
     });
   }
-
-
 
 }

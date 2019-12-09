@@ -10,7 +10,7 @@
       <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
         <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>
       </ion-button>
-      <ion-button routerLink="/notifications" *ngIf="authService.currentUserValue != null && !isSearchBarOpened">
+      <ion-button routerLink="/notifications" *ngIf="authService.userData != null && !isSearchBarOpened">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
         <ion-badge class="notifications-badge" color="danger">5</ion-badge>
       </ion-button>
@@ -21,8 +21,8 @@
 <ion-content fullscreen="true" [scrollEvents]="true" (ionScroll)="onScroll($event)">
 
   <div class="home-banner-image ion-margin-bottom" [ngStyle]="bannerImgStyle">
-    <div class="home-banner-content">
-      <div class="home-banner-content-data">
+    <ion-row class="home-banner-content ion-align-items-center">
+      <ion-col class="home-banner-content-data">
         <ion-text style="color: whitesmoke;">
           <h1>Hi,
             {{ authService.isLoggedIn ? (authService.userData.displayName ? authService.userData.displayName : 'User') : 'Pengunjung' }}!
@@ -32,8 +32,8 @@
             <ion-icon name="pin"></ion-icon> {{ currentLocation }}
           </p>
         </ion-text>
-      </div>
-    </div>
+      </ion-col>
+    </ion-row>
   </div>
 
   <div class="ion-padding-top ion-padding-bottom">

@@ -1,5 +1,7 @@
 {
   "name": "CommieFest",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

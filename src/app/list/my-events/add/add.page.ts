@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService, Event } from 'src/app/_shared/_services/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { Event } from 'src/app/_shared/_models/event';
+
+import { EventService } from 'src/app/_shared/_services/event.service';
+import { CameraService } from 'src/app/_shared/_services/camera.service';
 
 @Component({
   selector: 'app-add',
@@ -10,34 +14,32 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./add.page.scss'],
 })
 export class AddPage implements OnInit {
+
   form: FormGroup;
 
   event: Event = {
-    name: '',
-    description: '',
-    imageUrl: '',
-    location: '',
-    category: '',
-    ticketPrice: 0,
-    pricePool: 0,
-    dateStart: '',
-    dateEnd: ''
+    id: null,
+    name: null,
+    description: null,
+    imageUrl: 'https://cnet4.cbsistatic.com/fly/bundles/cnetcss/images/placeholder/image_placeholder.png',
+    location: null,
+    category: null,
+    ticketPrice: null,
+    pricePool: null,
+    dateStart: null,
+    dateEnd: null,
+    createdBy: null
   };
 
-  eventId = null;
   constructor(
     private eventSvc: EventService,
     private route: ActivatedRoute,
     private loadCtrl: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private cameraService: CameraService
   ) { }
 
   ngOnInit() {
-    this.eventId = this.route.snapshot.params['id'];
-    if (this.eventId) {
-      this.loadEvent();
-    }
-
     this.form = new FormGroup({
       name: new FormControl(null, {
         updateOn: 'blur',
@@ -75,18 +77,6 @@ export class AddPage implements OnInit {
         updateOn: 'blur',
         validators: [Validators.required]
       })
-    })
-  }
-
-  async loadEvent() {
-    const loading = await this.loadCtrl.create({
-      message: 'Loading Event'
-    });
-    await loading.present();
-
-    this.eventSvc.getEvent(this.eventId).subscribe(res => {
-      loading.dismiss();
-      this.event = res;
     });
   }
 
@@ -95,18 +85,26 @@ export class AddPage implements OnInit {
       message: 'Saving Event'
     });
     await loading.present();
+    this.eventSvc.addEvent(this.event).then(() => {
+      loading.dismiss();
+      this.navCtrl.navigateBack('list/my-events');
+    });
+  }
 
-    if (this.eventId) {
-      this.eventSvc.updateEvent(this.event, this.eventId).then(() => {
-        loading.dismiss();
-        this.navCtrl.navigateBack('home');
-      })
-    } else {
-      this.eventSvc.addEvent(this.event).then(() => {
-        loading.dismiss();
-        this.navCtrl.navigateBack('home');
-      });
-    }
+  openCamera() {
+    this.cameraService.openCamera(360, 271).then((imageData) => {
+      this.event.imageUrl = `data:image/jpeg;base64,${imageData}`;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  openGallery() {
+    this.cameraService.openGallery(360, 271).then((imageData) => {
+      this.event.imageUrl = `data:image/jpeg;base64,${imageData}`;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }

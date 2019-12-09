@@ -4,17 +4,7 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export interface Event {
-  name: string;
-  description: string;
-  imageUrl: string;
-  location: string;
-  category: string;
-  ticketPrice: number;
-  pricePool: number;
-  dateStart: string;
-  dateEnd: string;
-}
+import { Event } from '../_models/event';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +13,9 @@ export interface Event {
 export class EventService {
   private eventsCollection: AngularFirestoreCollection<Event>;
 
-  constructor(db: AngularFirestore) {
+  constructor(
+    private db: AngularFirestore
+  ) {
     this.eventsCollection = db.collection<Event>('events');
   }
 
@@ -39,8 +31,22 @@ export class EventService {
     );
   }
 
-  getEvent(id) {
+  getEventById(id) {
     return this.eventsCollection.doc<Event>(id).valueChanges();
+  }
+
+  getEventsWithQuery(where1 = '', where2 = '', orderBy = '') {
+    return this.db.collection<Event>('events',
+      ref => ref.where(where1, '==', where2).orderBy(orderBy)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
 
   updateEvent(event: Event, id: string) {
