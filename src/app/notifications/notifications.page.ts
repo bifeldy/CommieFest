@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from '../_shared/_models/event';
-import { EventService } from '../_shared/_services/event.service';
 import { IonItemSliding, AlertController } from '@ionic/angular';
+
+import { Event } from '../_shared/_models/event';
+
+import { EventService } from '../_shared/_services/event.service';
 
 @Component({
   selector: 'app-notifications',
@@ -9,13 +11,16 @@ import { IonItemSliding, AlertController } from '@ionic/angular';
   styleUrls: ['./notifications.page.scss'],
 })
 export class NotificationsPage implements OnInit {
-  loadedEvents: Event[];
 
-  constructor(private eventService: EventService,
-    private alertCtrl: AlertController) { }
+  loadedEvents: Event[] = [];
+
+  constructor(
+    private eventService: EventService,
+    private alertCtrl: AlertController
+  ) { }
 
   ngOnInit() {
-    // this.loadedEvents = this.eventService.getAllEvents();
+    // this.loadedEvents = this.eventService.getEvents();
   }
 
   // async presentAlert(id: number, slidingEl: IonItemSliding) {
