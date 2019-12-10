@@ -17,25 +17,25 @@ export class AppComponent {
 
   public appPages = [
     {
-      title: 'Beranda',
+      title: 'Home',
       url: '/home',
       icon: 'home',
       shouldLogin: false
     },
     {
-      title: 'Cari Event',
+      title: 'Search Event',
       url: '/search',
       icon: 'search',
       shouldLogin: false
     },
     {
-      title: 'Event Saya',
+      title: 'My Event',
       url: '/list',
       icon: 'list',
       shouldLogin: true
     },
     {
-      title: 'Pemberitahuan',
+      title: 'Notifications',
       url: '/notifications',
       icon: 'notifications',
       shouldLogin: true
@@ -53,7 +53,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService
+    public authService: AuthService
   ) {
     this.initializeApp();
   }

@@ -7,6 +7,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { auth } from 'firebase/app';
 import { User } from '../_models/user';
 
+import { UserService } from './user.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,16 +18,28 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    public afs: AngularFirestore,
-    public afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private afAuth: AngularFireAuth,
+    private userService: UserService
   ) {
     if (JSON.parse(localStorage.getItem('user'))) {
       this.userData = JSON.parse(localStorage.getItem('user'));
     }
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        this.userService.getUser(user.uid).subscribe(res => {
+          const usr: User = {
+            displayName: res.displayName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            phoneNumber: res.phoneNumber,
+            photoURL: res.photoURL,
+            uid: user.uid,
+            createdAt: new Date(user.metadata.creationTime).getTime()
+          };
+          this.userData = usr;
+          localStorage.setItem('user', JSON.stringify(this.userData));
+        });
       } else {
         localStorage.setItem('user', null);
       }

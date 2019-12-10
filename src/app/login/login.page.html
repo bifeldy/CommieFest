@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Masuk</ion-title>
+    <ion-title>Sign In</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class='ion-padding'>
   <div class="ion-padding-bottom">
-    <h1 class="ion-text-center">Hai! Selamat Datang Kembali~</h1>
+    <h1 class="ion-text-center">Hello! Welcome Back!~</h1>
     <div class="ion-text-center">
       <ion-text color="danger" class="ion-text-center ion-padding-bottom" *ngIf="errorInfo != ''">
         {{ errorInfo }}
@@ -24,7 +24,7 @@
           <ion-input required ngModel name="email" type="email" placeholder="Alamat email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="fixed">Kata Sandi</ion-label>
+          <ion-label position="fixed">Password</ion-label>
           <ion-input required ngModel name="password" type="password" minlength='6' placeholder="Password ..."></ion-input>
         </ion-item>
       </ion-list>
@@ -32,16 +32,16 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button expand="block" [disabled]="!f.valid" type="submit">Masuk</ion-button>
+          <ion-button expand="block" [disabled]="!f.valid" type="submit">Sign In!</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button expand="block" fill="clear" color="primary" routerLink="/register">Daftar</ion-button>
+          <ion-button expand="block" fill="clear" color="primary" routerLink="/register">Sign Up</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-button expand="block" fill="outline" color="primary" (click)="googleLogin()">
       <ion-icon name="logo-google"></ion-icon>
-      &nbsp; Login Dengan Akun Google!
+      &nbsp; Login with Google Account!
     </ion-button>
   </form>
 </ion-content>

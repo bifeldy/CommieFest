@@ -4,6 +4,7 @@ import { LoadingController } from '@ionic/angular';
 import { NgForm, FormGroup } from '@angular/forms';
 
 import { AuthService } from '../_shared/_services/auth.service';
+import { UserService } from '../_shared/_services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private loadingCtrl: LoadingController,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit() { }
@@ -32,10 +34,12 @@ export class LoginPage implements OnInit {
     .then(loadingEl => {
       loadingEl.present();
       this.authService.SignIn(f.value.email, f.value.password).then(resp => {
-        this.authService.SetUserData(resp.user).then(result => {
-          this.loading = false;
-          loadingEl.dismiss();
-          this.reDirectSuccessLogin();
+        this.userService.getUser(resp.user.uid).subscribe(res => {
+          this.authService.SetUserData(resp.user, res.displayName, res.photoURL).then(result => {
+            this.loading = false;
+            loadingEl.dismiss();
+            this.reDirectSuccessLogin();
+          });
         });
       }).catch(err => {
         this.errorInfo = err.message;
@@ -48,7 +52,7 @@ export class LoginPage implements OnInit {
   googleLogin() {
     this.authService.GoogleAuth().then(res => {
       this.reDirectSuccessLogin();
-    })
+    });
   }
 
   reDirectSuccessLogin() {

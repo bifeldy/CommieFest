@@ -19,6 +19,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AuthService } from './_shared/_services/auth.service';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -37,6 +40,8 @@ import { AuthService } from './_shared/_services/auth.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Geolocation,
+    Camera
   ],
   bootstrap: [AppComponent]
 })

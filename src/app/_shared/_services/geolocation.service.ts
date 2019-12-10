@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -10,21 +12,16 @@ import { map } from 'rxjs/operators';
 export class GeolocationService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private geolocation: Geolocation
   ) { }
 
-  getPosition(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resp => {
-          resolve({
-            lng: resp.coords.longitude,
-            lat: resp.coords.latitude
-          });
-        },
-        err => {
-          reject(err);
-        });
-    });
+  getCurrentPosition() {
+    return this.geolocation.getCurrentPosition();
+  }
+
+  watchPosition() {
+    return this.geolocation.watchPosition();
   }
 
   getAddress(lat: number, lng: number, types: string) {

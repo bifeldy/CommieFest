@@ -3,7 +3,9 @@ import { ScrollDetail } from '@ionic/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { EventService, Event } from '../_shared/_services/event.service';
+import { Event } from '../_shared/_models/event';
+
+import { EventService } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
 import { GeolocationService } from '../_shared/_services/geolocation.service';
 
@@ -14,10 +16,6 @@ import { GeolocationService } from '../_shared/_services/geolocation.service';
 })
 export class HomePage implements OnInit {
 
-  geoCoordinates = {
-    lat: null,
-    lng: null
-  };
   currentLocation = 'Your Location ...';
   nearbyEvents: Event[] = [];
 
@@ -62,15 +60,14 @@ export class HomePage implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private eventService: EventService,
     private geoService: GeolocationService
   ) { }
 
   ngOnInit() {
-    this.geoService.getPosition().then(res => {
-      this.geoCoordinates = res;
-      this.geoService.getAddress(this.geoCoordinates.lat, this.geoCoordinates.lng, 'poi').subscribe(
+    this.geoService.getCurrentPosition().then(resp => {
+      this.geoService.getAddress(resp.coords.latitude, resp.coords.longitude, 'poi').subscribe(
         geoData => {
           // https://docs.mapbox.com/api/search/#geocoding-response-object
           // country, region, postcode, district, place, locality, neighborhood, address, and poi
