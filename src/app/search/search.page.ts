@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventService, Event } from '../_shared/_services/event.service';
+import { EventService } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
+import { Event } from '../_shared/_models/event';
 
 @Component({
   selector: 'app-search',
