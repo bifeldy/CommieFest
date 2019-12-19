@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Pencarian</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/notifications" *ngIf="authService.currentUserValue != null">
+      <ion-button routerLink="/notifications" *ngIf="authService.userData != null">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
         <ion-badge class="notifications-badge" color="danger">5</ion-badge>
       </ion-button>
@@ -17,16 +17,14 @@
 
   <ion-row class="ion-margin-bottom">
     <ion-col>
-      <ion-searchbar showCancelButton="never" [value]="searchQuery" [(ngModel)]="searchTerm" animated
-        placeholder="Cari Event" (ionChange)="setFilteredEvents()">
-      </ion-searchbar>
+      <ion-searchbar showCancelButton="never" [(ngModel)]="searchQuery" animated placeholder="Cari Event" (search)="search($event)"></ion-searchbar>
       <!-- <ion-searchbar showCancelButton="never" [(ngModel)]="searchTerm" (ionChange)="setFilteredEvents()" display>
       </ion-searchbar> -->
     </ion-col>
   </ion-row>
 
   <!-- TODO: List Kategori -->
-  <ion-row class="ion-margin-bottom">
+  <!-- <ion-row class="ion-margin-bottom">
     <ion-chip color="primary">
       <ion-label>Kategori 0</ion-label>
     </ion-chip>
@@ -45,7 +43,7 @@
     <ion-chip color="danger">
       <ion-label>Kategori 5</ion-label>
     </ion-chip>
-  </ion-row>
+  </ion-row> -->
 
   <!-- TODO: Hasil Pencarian -->
   <!-- <ion-list class="ion-margin-bottom"> -->
@@ -125,7 +123,7 @@
       </ion-item>
 
     </ion-item-group> -->
-  <ion-list *ngFor="let event of filterData">
+  <ion-list *ngFor="let event of searchResult">
     <ion-card button [routerLink]="['/details', event.id]" name="detail">
       <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
       <ion-card-header>
