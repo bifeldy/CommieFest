@@ -8,6 +8,8 @@ import { Event } from '../_shared/_models/event';
 import { EventService } from '../_shared/_services/event.service';
 import { AuthService } from '../_shared/_services/auth.service';
 import { GeolocationService } from '../_shared/_services/geolocation.service';
+import {SecondPage} from "../modals/second/second.page";
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -62,7 +64,8 @@ export class HomePage implements OnInit {
     private router: Router,
     public authService: AuthService,
     private eventService: EventService,
-    private geoService: GeolocationService
+    private geoService: GeolocationService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -83,6 +86,13 @@ export class HomePage implements OnInit {
       const scrollTop = $event.detail.scrollTop;
       this.showToolbar = scrollTop >= 225;
     }
+  }
+
+  async openModal(){
+    const modal = await this.modalController.create({
+      component: SecondPage
+    });
+    return await modal.present();
   }
 
   search($event) {

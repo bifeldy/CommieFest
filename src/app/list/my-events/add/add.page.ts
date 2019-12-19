@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
+
 import { Event } from 'src/app/_shared/_models/event';
 
 import { EventService } from 'src/app/_shared/_services/event.service';
@@ -20,6 +23,12 @@ export class AddPage implements OnInit, AfterViewInit {
 
   form: FormGroup;
   directionForm: FormGroup;
+  geocoder:any;
+  markers:any;
+  selfLatitude=22.572645;
+  selfLongitude=88.363892;
+  lats;
+  lont;
 
   event: Event = {
     id: null,
@@ -41,7 +50,8 @@ export class AddPage implements OnInit, AfterViewInit {
     private loadCtrl: LoadingController,
     private navCtrl: NavController,
     private cameraService: CameraService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private geolocation: Geolocation
   ) { this.createDirectionForm();}
 
   ngOnInit() {
@@ -95,6 +105,16 @@ export class AddPage implements OnInit, AfterViewInit {
       loading.dismiss();
       this.navCtrl.navigateBack('list/my-events');
     });
+  }
+
+  getSelfLocationDetail(){
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.selfLatitude= resp.coords.latitude;
+      this.selfLongitude = resp.coords.longitude;
+      // resp.coords.longitude
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
   }
 
   createDirectionForm() {
@@ -157,21 +177,28 @@ export class AddPage implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
+    this.getSelfLocationDetail();
+    //Set latitude and longitude of some place
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+     
+    
     const map = new google.maps.Map(this.mapNativeElement.nativeElement, {
-      center: {lat: -33.8688, lng: 151.2195},
-      zoom: 13
+      center: {lat: data.coords.latitude, lng: data.coords.longitude },
+      zoom: 17
     });
     const infowindow = new google.maps.InfoWindow();
     const infowindowContent = document.getElementById('infowindow-content');
     infowindow.setContent(infowindowContent);
     const marker = new google.maps.Marker({
       map: map,
-      anchorPoint: new google.maps.Point(0, -29)
+      anchorPoint: new google.maps.Point(0, -29),
+      draggable: true
     });
     const autocomplete = new google.maps.places.Autocomplete(this.inputNativeElement.nativeElement as HTMLInputElement);
     autocomplete.addListener('place_changed', () => {
       infowindow.close();
-      marker.setVisible(false);
+      marker.setVisible(true);
       const place = autocomplete.getPlace();
       if (!place.geometry) {
         // User entered the name of a Place that was not suggested and
@@ -187,6 +214,13 @@ export class AddPage implements OnInit, AfterViewInit {
       }
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
+      // marker.addListener('dragend', function () {
+      //   //this.inputLat.val(marker.getPosition().lat());
+      //   //this.inputLng.val(marker.getPosition().lng());
+      //   this.geocodePosition(marker.getPosition());
+      //   this.map.setCenter(marker.getPosition());
+      // })
+
       let address = '';
       if (place.address_components) {
         address = [
@@ -200,6 +234,7 @@ export class AddPage implements OnInit, AfterViewInit {
       infowindowContent.children['place-address'].textContent = address;
       infowindow.open(map, marker);
     });
+  });
 
   }
 }

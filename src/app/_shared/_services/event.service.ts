@@ -49,6 +49,14 @@ export class EventService {
     );
   }
 
+  lisiE(){
+    return new Promise<any>((resolve, reject)=>{
+      this.eventsCollection.snapshotChanges().subscribe(data=>{
+        resolve(data);
+      });
+    });
+  }
+
   updateEvent(event: Event, id: string) {
     return this.eventsCollection.doc(id).update(event);
   }
