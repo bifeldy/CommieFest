@@ -57,19 +57,16 @@
         </ion-col>
       </ion-row>
 
+      
       <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label position="floating" color="primary">Location</ion-label>
-            <ion-input type="text" formControlName="location" placeholder="Event Location" [(ngModel)]="event.location"></ion-input>
-          </ion-item>
-        </ion-col>
+        
       </ion-row>
       <ion-row *ngIf="!form.get('location').valid && form.get('location').touched">
         <ion-col>
           <p>Location can't be empty!</p>
         </ion-col>
       </ion-row>
+      
 
       <ion-row>
         <ion-col>
@@ -129,6 +126,25 @@
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Location</ion-label>
+            <ion-row>
+              
+            </ion-row>
+            <input class="input" #autoCompleteInput formControlName="placeName" [(ngModel)]="event.location"/>
+            
+          </ion-item>
+        </ion-col>
+      </ion-row>
     </ion-grid>
   </form>
+  <div #mapElement class="map"></div>
+
+            <div id="infowindow-content">
+              <img src="" width="16" height="16" id="place-icon">
+              <span id="place-name"  class="title"></span><br>
+              <span id="place-address"></span>
+            </div>
 </ion-content>
