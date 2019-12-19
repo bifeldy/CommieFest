@@ -21,8 +21,9 @@ export class SecondPage implements OnInit, AfterViewInit {
   geocoder: any;
   markers: any;
   nearbyEvents: Event[] = [];
-  selfLatitude;
-  selfLongitude;
+  selfLatitude=90;
+  selfLongitude=101;
+  adre;
 
   constructor(
     private eventService: EventService,
@@ -45,18 +46,21 @@ export class SecondPage implements OnInit, AfterViewInit {
       useLocale: true,
       maxResults: 5
     };
-    this.eventService.lisiE().then(res => { 
-      if(res){
+    this.eventService.lisiE().then(data => { 
+      if(data){
         
-        this.nearbyEvents=res;
+        //this.nearbyEvents=res;
         
         var gSizeIns= new google.maps.Size(30, 20);
-        res.map(e => {
-          this.nativeGeocoder.forwardGeocode(e.payload.doc.res()['location'], options)
+        data.map(e => {
+          
+          this.adre=(e.payload.doc.data().location).replace('NaN','');
+          console.log('The coordinates are latitude=' +this.adre)
+          this.nativeGeocoder.forwardGeocode(this.adre, options)
           .then((result: NativeGeocoderResult[]) => {
             console.log('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude+e.payload.doc.res()['location'])
-            this.selfLatitude=result[0].latitude;
-            this.selfLongitude=result[0].longitude;
+            this.selfLatitude=parseFloat(result[0].latitude);
+            this.selfLongitude=parseFloat(result[0].longitude);
           }).catch((error: any) => console.log(error));
           let marker = new google.maps.Marker({
             position: {
@@ -67,8 +71,8 @@ export class SecondPage implements OnInit, AfterViewInit {
             title:e.payload.doc.data()['name']
           });
           this.markers.push(marker);
-          this.map.setCenter({ lat:this.selfLongitude,
-            lng:this.selfLongitude});
+          // this.map.setCenter({ lat:this.selfLongitude,
+          //   lng:this.selfLongitude});
 
         });
       }
@@ -79,9 +83,10 @@ export class SecondPage implements OnInit, AfterViewInit {
     let watch = this.geolocation.watchPosition();
     watch.subscribe((data) => {
      
-    
+    this.selfLatitude=data.coords.latitude;
+    this.selfLongitude=data.coords.longitude;
     const map = new google.maps.Map(this.mapNativeElement.nativeElement, {
-      center: {lat: data.coords.latitude, lng: data.coords.longitude },
+      center: {lat: this.selfLatitude, lng: this.selfLongitude },
       zoom: 17
     });
   });
