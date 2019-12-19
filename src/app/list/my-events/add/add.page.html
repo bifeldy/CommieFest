@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>New Offer</ion-title>
     <ion-buttons slot="primary">
-      <ion-button (click)="saveEvent()" [disabled]="!form.valid">
+      <ion-button (click)="saveEvent()">
         <ion-icon name="checkmark" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -63,8 +63,13 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Location</ion-label>
-            <!-- <ion-input type="text" formControlName="location" placeholder="Event Location" [(ngModel)]="event.location"></ion-input> -->
-            <app-location-picker></app-location-picker>
+            <ion-input type="text" formControlName="location" placeholder="Event Location" [(ngModel)]="event.location">
+              <ion-button color="primary" (click)="onPickLocation()">
+                <ion-icon name="map" slot="start"></ion-icon>
+                <ion-label>Select Location</ion-label>
+              </ion-button>
+              <ion-label *ngIf="address">{{address}}</ion-label>
+            </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Event } from '../_models/event';
@@ -12,6 +12,7 @@ import { Event } from '../_models/event';
 
 export class EventService {
   private eventsCollection: AngularFirestoreCollection<Event>;
+  currAddress = new BehaviorSubject<string>('');
 
   constructor(
     private db: AngularFirestore
@@ -59,5 +60,13 @@ export class EventService {
 
   removeBike(id) {
     return this.eventsCollection.doc(id).delete();
+  }
+
+  getAddress() {
+    return this.currAddress.asObservable();
+  }
+
+  setAddress(address: string) {
+    this.currAddress.next(address);
   }
 }

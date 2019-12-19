@@ -10,11 +10,9 @@ import { environment } from 'src/environments/environment';
   declarations: [LocationPickerComponent],
   imports: [
     CommonModule,
-    IonicModule,
-    AgmCoreModule.forRoot({
-      // apiKey: ''
-    })
+    IonicModule
   ],
-  exports: [LocationPickerComponent]
+  exports: [LocationPickerComponent],
+  entryComponents: [LocationPickerComponent]
 })
 export class SharedModule { }
