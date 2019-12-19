@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   firebase: {
+    mapsAPIKey: 'AIzaSyA6CPcDAI6f5rn2e0gCUq7XIIEKpjqnGdE',
     apiKey: 'AIzaSyA-iyL5g5eVBPIqDQY3Mu4ZF0qUWJuy5IA',
     authDomain: 'commiefest.firebaseapp.com',
     databaseURL: 'https://commiefest.firebaseio.com',

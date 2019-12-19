@@ -33,7 +33,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Event Name</ion-label>
-            <ion-input type="text" autocomplete autocorrect formControlName="name" placeholder="Event Name" [(ngModel)]="event.name"></ion-input>
+            <ion-input type="text" autocomplete autocorrect formControlName="name" placeholder="Event Name"
+              [(ngModel)]="event.name"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -47,7 +48,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Description</ion-label>
-            <ion-textarea rows="3" formControlName="description" placeholder="Event Description" [(ngModel)]="event.description"></ion-textarea>
+            <ion-textarea rows="3" formControlName="description" placeholder="Event Description"
+              [(ngModel)]="event.description"></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -61,7 +63,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Location</ion-label>
-            <ion-input type="text" formControlName="location" placeholder="Event Location" [(ngModel)]="event.location"></ion-input>
+            <!-- <ion-input type="text" formControlName="location" placeholder="Event Location" [(ngModel)]="event.location"></ion-input> -->
+            <app-location-picker></app-location-picker>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -75,7 +78,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Category</ion-label>
-            <ion-input required type="text" formControlName="category" placeholder="Event Category"  [(ngModel)]="event.category"></ion-input>
+            <ion-input required type="text" formControlName="category" placeholder="Event Category"
+              [(ngModel)]="event.category"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -89,7 +93,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Entry Price</ion-label>
-            <ion-input required type="number" placeholder="Event Ticket Price" [(ngModel)]="event.ticketPrice" formControlName="ticketprice"></ion-input>
+            <ion-input required type="number" placeholder="Event Ticket Price" [(ngModel)]="event.ticketPrice"
+              formControlName="ticketprice"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -103,7 +108,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Price Pool</ion-label>
-            <ion-input required type="number" placeholder="Event Price Pool" [(ngModel)]="event.pricePool" formControlName="pricepool"></ion-input>
+            <ion-input required type="number" placeholder="Event Price Pool" [(ngModel)]="event.pricePool"
+              formControlName="pricepool"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -117,7 +123,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Event Start Date</ion-label>
-            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateStart" formControlName="datestart"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateStart"
+              formControlName="datestart"></ion-datetime>
           </ion-item>
         </ion-col>
         <!-- </ion-row> -->
@@ -125,7 +132,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating" color="primary">Event End Date</ion-label>
-            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateEnd" formControlName="dateend"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateEnd"
+              formControlName="dateend"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
