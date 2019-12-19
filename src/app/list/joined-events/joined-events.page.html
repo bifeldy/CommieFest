@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Event Yang Saya Ikuti</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/notifications">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        <ion-badge class="notifications-badge" color="danger">5</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="/assets/shapes.svg" />
+      </ion-thumbnail>
+      <ion-label>
+        <h3>Judul Event</h3>
+        <p>Tanggal</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="/assets/shapes.svg" />
+      </ion-thumbnail>
+      <ion-label>
+        <h3>Judul Event</h3>
+        <p>Tanggal</p>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/search" routerDirection="forward" color="primary">
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

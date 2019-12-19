@@ -1,0 +1,15 @@
+<ion-item class="red">
+  <ion-thumbnail slot="start">
+    <ion-img [src]="e.imageUrl">
+    </ion-img>
+  </ion-thumbnail>
+  <ion-label>
+    <ion-text>{{e.name}}</ion-text> <br>
+    <ion-icon name="pin" color="secondary"></ion-icon>
+    <ion-text> {{e.location}} </ion-text> <br>
+    <div class="event-details">
+      <ion-icon name="calendar" color="success"></ion-icon>
+      <ion-text class="space-left" color="success"> {{getDummyDate() | date }}</ion-text>
+    </div>
+  </ion-label>
+</ion-item>

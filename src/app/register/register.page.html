@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary" translucent="true">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Pendaftaran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="ion-padding-bottom">
+    <h1 class="ion-text-center ion-padding-bottom">Hi! Welcome to Our Community!~</h1>
+    <div class="ion-text-center">
+      <ion-text color="danger" class="ion-text-center ion-padding-bottom" *ngIf="errorInfo != ''">
+        {{ errorInfo }}
+      </ion-text>
+    </div>
+  </div>
+  <form #f="ngForm" (ngSubmit)="onRegister(f)">
+    <div class="ion-padding-bottom">
+      <ion-list>
+        <ion-grid class="ion-padding">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="3" (click)="openCamera()">
+              <img src="{{ photoUrl }}" style="border: 1px solid gray; border-radius: 50%;" />
+            </ion-col>
+            <ion-col size="9" class="text-center">
+              <ion-label>Take A New Picture .. OR</ion-label>
+              <ion-button expand="block" type="button" color="medium" (click)="openGallery()">Open Gallery!</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item>
+          <ion-label position="floating">Full Name</ion-label>
+          <ion-input required ngModel name="name" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">E-Mail</ion-label>
+          <ion-input required ngModel name="email" type="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Phone Number</ion-label>
+          <ion-input required ngModel name="phoneNumber" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input required ngModel name="password" type="password" minlength="6"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-input required ngModel name="confirmPwd" type="password" minlength="6"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <ion-button class="ion-margin-bottom" expand="block" [disabled]="!f.valid" type="submit">Register</ion-button>
+    <ion-button expand="block" fill="outline" color="primary" routerLink="/login">Sign In!</ion-button>
+  </form>
+</ion-content>

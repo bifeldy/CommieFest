@@ -3,12 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="showToolbar">Hi, {{ user['id'] }}!</ion-title>
+    <ion-title *ngIf="showToolbar && !isSearchBarOpened">{{ currentLocation }}</ion-title>
+    <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
+      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar>
     <ion-buttons slot="end">
-      <ion-button routerLink="/search">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
+      <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
+        <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>
       </ion-button>
-      <ion-button routerLink="/notifications">
+      <ion-button routerLink="/notifications" *ngIf="authService.userData != null && !isSearchBarOpened">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
         <ion-badge class="notifications-badge" color="danger">5</ion-badge>
       </ion-button>
@@ -19,102 +21,111 @@
 <ion-content fullscreen="true" [scrollEvents]="true" (ionScroll)="onScroll($event)">
 
   <div class="home-banner-image ion-margin-bottom" [ngStyle]="bannerImgStyle">
-    <div class="home-banner-content">
-      <div class="home-banner-content-data">
+    <ion-row class="home-banner-content ion-align-items-center">
+      <ion-col class="home-banner-content-data">
         <ion-text style="color: whitesmoke;">
-          <h1>Hi, {{ user['name'] }}!</h1>
-          Yuk Cari Event Disekitarmu Sekarang~
+          <h1>Hi,
+            {{ authService.isLoggedIn ? (authService.userData.displayName ? authService.userData.displayName : 'User') : 'Pengunjung' }}!
+          </h1>
+          Yuk Cari Event Disekitarmu Sekarang~ <br />
+          <p>
+            <ion-icon name="pin"></ion-icon> {{ currentLocation }}
+          </p>
         </ion-text>
-      </div>
-    </div>
+        <ion-button (click)="openModal()" color="primary" expand="full">Open in Map</ion-button>
+      </ion-col>
+    </ion-row>
   </div>
 
   <div class="ion-padding-top ion-padding-bottom">
-    <ion-label class="ion-float-right ion-padding-end" color="primary" routerLink="/nearby">
-      Lihat Semua!
-    </ion-label>
-    <ion-title>Ada Di Sekitar Anda ..</ion-title>
-    <ion-card routerLink="/event/1">
-      <img src="/assets/shapes.svg" alt="" />
-      <ion-card-header>
-        <ion-card-subtitle>
-          <ion-row>
-            <ion-col>
-              <ion-icon name="pin"></ion-icon>
-              <ion-label> Lokasi</ion-label>
-            </ion-col>
-            <ion-col class="ion-text-end">
-              <ion-icon name="calendar"></ion-icon>
-              <ion-label> Sabtu, 26-10-2019</ion-label>
-            </ion-col>
-          </ion-row>
-        </ion-card-subtitle>
-        <ion-card-title>Judul Event Yang Agak Panjang</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Deskripsi Singkat Maksimal 2 Baris
-      </ion-card-content>
-      <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" fill="none">
-              <ion-icon name="wallet"></ion-icon> &nbsp;
-              <ion-text color="danger">Rp 1.234.567.890,-</ion-text>
-            </ion-button>
-          </ion-col>
-          <ion-col class="ion-text-end">
-            <ion-button expand="block">
-              <ion-icon name="add"></ion-icon> &nbsp;
-              <ion-text>Ikuti</ion-text>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </div>
 
-  <div class="ion-padding-top ion-padding-bottom">
-    <ion-label class="ion-float-right ion-padding-end" color="primary" routerLink="/nearby">
-      Lihat Semua!
-    </ion-label>
-    <ion-title>Paling Ramai ..</ion-title>
-    <ion-card routerLink="/event/1">
-      <img src="/assets/shapes.svg" alt="" />
-      <ion-card-header>
-        <ion-card-subtitle>
-          <ion-row>
-            <ion-col>
-              <ion-icon name="pin"></ion-icon>
-              <ion-label> Lokasi</ion-label>
-            </ion-col>
-            <ion-col class="ion-text-end">
-              <ion-icon name="calendar"></ion-icon>
-              <ion-label> Sabtu, 26-10-2019</ion-label>
-            </ion-col>
-          </ion-row>
-        </ion-card-subtitle>
-        <ion-card-title>Judul Event Yang Agak Panjang</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Deskripsi Singkat Maksimal 2 Baris
-      </ion-card-content>
-      <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" fill="none">
-              <ion-icon name="wallet"></ion-icon> &nbsp;
-              <ion-text color="danger">Rp 1.234.567.890,-</ion-text>
-            </ion-button>
-          </ion-col>
-          <ion-col class="ion-text-end">
-            <ion-button expand="block">
-              <ion-icon name="add"></ion-icon> &nbsp;
-              <ion-text>Ikuti</ion-text>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
+    <div *ngIf="nearbyEvents.length == 0; then noData; else haveData"></div>
+
+    <ng-template #noData>
+      <ion-title class="ion-padding-bottom ion-margin-bottom">
+        <ion-skeleton-text animated style="height: 16px; width: 256px;"></ion-skeleton-text>
+      </ion-title>
+      <ion-list>
+        <ion-card button>
+          <ion-skeleton-text animated class="ion-no-margin" style="width: 100%; height: 256px;"></ion-skeleton-text>
+          <ion-card-header>
+            <ion-card-subtitle>
+              <ion-row>
+                <ion-col>
+                  <ion-skeleton-text animated style="width: 75%;"></ion-skeleton-text>
+                </ion-col>
+                <ion-col class="ion-float-right">
+                  <ion-skeleton-text animated class="ion-float-right" style="width: 50%;"></ion-skeleton-text>
+                </ion-col>
+              </ion-row>
+            </ion-card-subtitle>
+            <ion-card-title>
+              <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-skeleton-text animated style="width: 75%;"></ion-skeleton-text>
+            <ion-row>
+              <ion-col>
+                <ion-skeleton-text animated style="width: 100%; height: 24px;"></ion-skeleton-text>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-skeleton-text animated style="width: 100%; height: 24px;"></ion-skeleton-text>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+    </ng-template>
+
+    <ng-template #haveData>
+      <ion-title class="ion-padding-bottom ion-margin-bottom">Ada Di Sekitar Anda ..</ion-title>
+      <ion-list *ngFor="let event of nearbyEvents.slice(0,10)">
+        <ion-card>
+          <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
+          <ion-card-header>
+            <ion-card-subtitle>
+              <ion-row>
+                <ion-col class="ion-text-start">
+                  <ion-icon name="pin" color="danger"></ion-icon>
+                  <ion-label> {{ event.location }} </ion-label>
+                </ion-col>
+                <ion-col class="ion-text-end">
+                  <ion-icon name="calendar" color="warning"></ion-icon>
+                  <ion-label> {{ event.dateStart | date }}</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-card-subtitle>
+            <ion-card-title class="ion-text-start">{{ event.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="ion-no-padding ion-padding-start ion-padding-end ion-padding-bottom">
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" fill="none">
+                  <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
+                  <ion-text color="success" *ngIf="event.ticketPrice <= 0">GRATIS</ion-text>
+                  <ion-text *ngIf="event.ticketPrice > 0">
+                    {{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
+                </ion-button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-button expand="block">
+                  <ion-icon name="add"></ion-icon> &nbsp;
+                  <ion-text>Ikuti</ion-text>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+
+      <!-- infinite Scroll -->
+      <ion-infinite-scroll (ionInfinite)="loadMoreData($event)" class="ion-padding-top ion-margin-top">
+        <ion-infinite-scroll-content class="ion-padding-top" loadingSpinner="bubbles" loadingText="Sedang Memuat ...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </ng-template>
   </div>
 
 </ion-content>

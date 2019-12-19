@@ -32,3 +32,14 @@
     right: 5px;
     border-radius: 100%;
 }
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.map{
+    position: relative;
+    height: 100%;
+  }

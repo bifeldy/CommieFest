@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/list/my-events"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Event</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveEvent()" [disabled]="!form.valid">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-grid class="ion-padding">
+        <ion-row>
+          <ion-col (click)="openCamera()">
+            <img src="{{ event.imageUrl }}" style="border: 1px solid gray;" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col class="text-center">
+            <ion-label>Take A New Picture .. OR</ion-label>
+            <ion-button expand="block" type="button" color="medium" (click)="openGallery()">Open Gallery!</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Event Name</ion-label>
+            <ion-input type="text" autocomplete autocorrect formControlName="name" placeholder="Event Name" [(ngModel)]="event.name"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('name').valid && form.get('name').touched">
+        <ion-col>
+          <p>Event Name can't be empty!</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Description</ion-label>
+            <ion-textarea rows="3" formControlName="description" placeholder="Event Description" [(ngModel)]="event.description"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('description').valid && form.get('description').touched">
+        <ion-col>
+          <p>Description can't be empty!</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Location</ion-label>
+            <ion-input type="text" formControlName="location" placeholder="Event Location" [(ngModel)]="event.location"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('location').valid && form.get('location').touched">
+        <ion-col>
+          <p>Location can't be empty!</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Category</ion-label>
+            <ion-input required type="text" formControlName="category" placeholder="Event Category"  [(ngModel)]="event.category"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('category').valid && form.get('category').touched">
+        <ion-col>
+          <p>Category can't be empty!</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Entry Price</ion-label>
+            <ion-input required type="number" placeholder="Event Ticket Price" [(ngModel)]="event.ticketPrice" formControlName="ticketprice"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('ticketprice').valid && form.get('ticketprice').touched">
+        <ion-col>
+          <p>Entry Price can't be empty!</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Price Pool</ion-label>
+            <ion-input required type="number" placeholder="Event Price Pool" [(ngModel)]="event.pricePool" formControlName="pricepool"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('pricepool').valid && form.get('pricepool').touched">
+        <ion-col>
+          <p>Total Price can't be empty!</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Event Start Date</ion-label>
+            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateStart" formControlName="datestart"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- </ion-row> -->
+        <!-- <ion-row> -->
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating" color="primary">Event End Date</ion-label>
+            <ion-datetime displayFormat="DD MMMM YYYY" required placeholder="Start Date" [(ngModel)]="event.dateEnd" formControlName="dateend"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

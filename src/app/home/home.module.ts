@@ -5,12 +5,14 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-
+import { SliderModule } from '../_shared/_components/slider/slider.module';
+import {SecondPage} from "../modals/second/second.page";
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SliderModule,
     RouterModule.forChild([
       {
         path: '',
@@ -18,6 +20,7 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, SecondPage],
+  entryComponents: [SecondPage]
 })
 export class HomePageModule {}
