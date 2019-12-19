@@ -40,9 +40,10 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
     AuthService,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
     NativeGeocoder,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    
     Camera
   ],
   bootstrap: [AppComponent]
