@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule)
   },
   {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then(m => m.AboutPageModule)
+  },
+  {
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule),
     canActivate: [AuthGuard]
@@ -60,6 +64,7 @@ const routes: Routes = [
     loadChildren: () => import('./list/my-events/details/details.module').then(m => m.DetailsPageModule),
     canActivate: [AuthGuard]
   }
+
 
 
 
