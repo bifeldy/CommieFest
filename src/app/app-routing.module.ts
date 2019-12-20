@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './_shared/_guard/auth.guard';
 import { SecureInnerPagesGuard } from './_shared/_guard/secure-inner-pages.guard';
+import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -59,7 +60,8 @@ const routes: Routes = [
     path: 'details/:id',
     loadChildren: () => import('./list/my-events/details/details.module').then(m => m.DetailsPageModule),
     canActivate: [AuthGuard]
-  },  { path: 'second', loadChildren: './modals/second/second.module#SecondPageModule' }
+  },
+  { path: 'second', loadChildren: './modals/second/second.module#SecondPageModule' }
 
 
 

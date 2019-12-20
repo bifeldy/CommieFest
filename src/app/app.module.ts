@@ -22,6 +22,7 @@ import { AuthService } from './_shared/_services/auth.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,10 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA6CPcDAI6f5rn2e0gCUq7XIIEKpjqnGdE'
+    })
   ],
   providers: [
     AuthService,
