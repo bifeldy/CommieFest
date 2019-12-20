@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
 
   currentLocation = 'Your Location ...';
   nearbyEvents: Event[] = [];
+  followedEvents: Event[] = [];
 
   slidersConfig = {
     slidesPerView: 3,
@@ -79,6 +80,7 @@ export class HomePage implements OnInit {
       );
     });
     this.eventService.getEvents().subscribe(res => { this.nearbyEvents = res; });
+    this.eventService.getFollowEvent().subscribe(res => { this.followedEvents = res; });
   }
 
   onScroll($event: CustomEvent<ScrollDetail>) {
@@ -100,4 +102,16 @@ export class HomePage implements OnInit {
   }
 
   loadMoreData($event) { }
+
+  addFollowEvent(event) {
+    this.eventService.addFollowEvent(event);
+  }
+
+  deleteFollowEvent(event) {
+    this.eventService.removeFollowEvent(event.id);
+  }
+
+  findFollowing(event: Event) {
+    return (this.followedEvents.findIndex(fe => fe.id === event.id) < 0) ? true : false;
+  }
 }
