@@ -5,10 +5,10 @@
     </ion-buttons>
     <ion-title>Pencarian</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/notifications" *ngIf="authService.userData != null">
+      <!-- <ion-button routerLink="/notifications" *ngIf="authService.userData != null">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
         <ion-badge class="notifications-badge" color="danger">5</ion-badge>
-      </ion-button>
+      </ion-button> -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -123,8 +123,9 @@
       </ion-item>
 
     </ion-item-group> -->
+
   <ion-list *ngFor="let event of searchResult">
-    <ion-card button [routerLink]="['/details', event.id]" name="detail">
+    <ion-card [routerLink]="['/details', event.id]">
       <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
       <ion-card-header>
         <ion-card-subtitle>
@@ -139,16 +140,26 @@
             </ion-col>
           </ion-row>
         </ion-card-subtitle>
-        <ion-row>
-          <ion-col class="ion-text-start">
-            <ion-card-title class="ion-text-start">{{ event.name }}</ion-card-title>
-          </ion-col>
-          <!-- <ion-col class="ion-text-end">
-            <ion-icon button [routerLink]="['/details', event.id]" name="create" size="default"></ion-icon>
-          </ion-col> -->
-        </ion-row>
+        <ion-card-title class="ion-text-start">{{ event.name }}</ion-card-title>
       </ion-card-header>
-
+      <ion-card-content class="ion-no-padding ion-padding-start ion-padding-end ion-padding-bottom">
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" fill="none">
+              <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
+              <ion-text color="success" *ngIf="event.ticketPrice <= 0">GRATIS</ion-text>
+              <ion-text *ngIf="event.ticketPrice > 0">
+                {{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
+            </ion-button>
+          </ion-col>
+          <ion-col class="ion-text-end">
+            <ion-button expand="block">
+              <ion-icon name="add"></ion-icon> &nbsp;
+              <ion-text>Ikuti</ion-text>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
     </ion-card>
   </ion-list>
 
