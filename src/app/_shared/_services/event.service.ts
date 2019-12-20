@@ -4,20 +4,27 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AuthService } from './auth.service';
+
 import { Event } from '../_models/event';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class EventService {
+
   private eventsCollection: AngularFirestoreCollection<Event>;
+  private usersCollection: AngularFirestoreCollection<User>;
   currAddress = new BehaviorSubject<string>('');
 
   constructor(
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private auth: AuthService
   ) {
     this.eventsCollection = db.collection<Event>('events');
+    this.usersCollection = db.collection<User>('users');
   }
 
   getEvents(): Observable<Event[]> {
@@ -82,5 +89,29 @@ export class EventService {
 
   setAddress(address: string) {
     this.currAddress.next(address);
+  }
+
+  addFollowEvent(event: Event) {
+    return this.usersCollection.doc<any>(this.auth.userData.uid).collection<Event>('followEvent').doc(event.id).set({event});
+  }
+
+  getFollowEventById(id) {
+    return this.usersCollection.doc<any>(this.auth.userData.uid).collection<Event>('followEvent').doc(id).valueChanges();
+  }
+
+  removeFollowEvent(id) {
+    return this.usersCollection.doc<any>(this.auth.userData.uid).collection<Event>('followEvent').doc(id).delete();
+  }
+
+  getFollowEvent(): Observable<Event[]> {
+    return this.usersCollection.doc<any>(this.auth.userData.uid).collection<Event>('followEvent').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
 }
