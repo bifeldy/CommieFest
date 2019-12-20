@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title *ngIf="showToolbar && !isSearchBarOpened">{{ currentLocation }}</ion-title>
     <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
-      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar>
+      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (search)="search($event)"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
         <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>

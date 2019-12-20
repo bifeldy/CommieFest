@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from 'src/app/_shared/_services/event.service';
+import { AuthService } from 'src/app/_shared/_services/auth.service';
 
 @Component({
   selector: 'app-joined-events',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinedEventsPage implements OnInit {
 
-  constructor() { }
+  joinedEvent = [];
+
+  constructor(
+    private authService: AuthService,
+    private eventSvc: EventService
+  ) { }
 
   ngOnInit() {
+    // this.eventSvc.getEventsWithQuery(
+    //   'uid',
+    //   this.authService.userData.uid).subscribe(
+    //     res => { this.joinedEvent = res; })
+    //   ;
   }
 
 }

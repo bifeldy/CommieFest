@@ -1,25 +1,30 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Event } from 'src/app/_shared/_models/event';
-
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { ModalController } from '@ionic/angular';
 import { EventService } from 'src/app/_shared/_services/event.service';
 import { CameraService } from 'src/app/_shared/_services/camera.service';
-declare var google;
+
+import { LocationPickerComponent } from 'src/app/_shared/_components/_pickers/location-picker/location-picker.component';
+import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/_shared/_services/auth.service';
+
+
 @Component({
   selector: 'app-add',
   templateUrl: './add.page.html',
   styleUrls: ['./add.page.scss'],
 })
-export class AddPage implements OnInit, AfterViewInit {
+export class AddPage implements OnInit {
+  // lat = 51.678418;
+  // lng = 7.809007;
 
-  @ViewChild('mapElement',{static: false}) mapNativeElement: ElementRef;
-  @ViewChild('autoCompleteInput', {static: false}) inputNativeElement: any;
 
   form: FormGroup;
   directionForm: FormGroup;
@@ -43,83 +48,28 @@ export class AddPage implements OnInit, AfterViewInit {
     dateEnd: null,
     createdBy: null
   };
+  address = '';
 
   constructor(
     private eventSvc: EventService,
     private route: ActivatedRoute,
+    private http: HttpClient,
     private loadCtrl: LoadingController,
     private navCtrl: NavController,
     private cameraService: CameraService,
-    private fb: FormBuilder,
-    private geolocation: Geolocation
-  ) { this.createDirectionForm();}
+    private modalctrl: ModalController,
+    private authSvc: AuthService
+  ) { }
 
   ngOnInit() {
-    // this.form = new FormGroup({
-    //   name: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   description: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   image: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   location: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   category: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   ticketprice: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   pricepool: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   datestart: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   }),
-    //   dateend: new FormControl(null, {
-    //     updateOn: 'blur',
-    //     validators: [Validators.required]
-    //   })
-    // });
-  }
+    this.eventSvc.getAddress().subscribe(
+      currAddress => {
+        this.address = currAddress;
+      }
+    );
 
-  async saveEvent() {
-    const loading = await this.loadCtrl.create({
-      
-      message: 'Saving Event'
-    });
-    await loading.present();
-    this.eventSvc.addEvent(this.event).then(() => {
-      loading.dismiss();
-      this.navCtrl.navigateBack('list/my-events');
-    });
-  }
+    this.form = new FormGroup({
 
-  getSelfLocationDetail(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.selfLatitude= resp.coords.latitude;
-      this.selfLongitude = resp.coords.longitude;
-      // resp.coords.longitude
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
-  }
-
-  createDirectionForm() {
-    this.form = this.fb.group({
-      placeName: [''],
       name: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
@@ -157,7 +107,33 @@ export class AddPage implements OnInit, AfterViewInit {
         validators: [Validators.required]
       })
     });
+    this.event.createdBy = this.authSvc.userData.uid;
   }
+
+  async saveEvent() {
+    const loading = await this.loadCtrl.create({
+      message: 'Saving Event'
+    });
+    await loading.present();
+
+    this.form.get('location').patchValue(this.address);
+    // this.form.get('name').patchValue(this.event.name);
+    // this.form.get('description').patchValue(this.event.description);
+    // this.form.get('ticketprice').patchValue(this.event.ticketPrice);
+    // this.form.get('pricepool').patchValue(this.event.pricePool);
+    // this.form.get('dateStart').patchValue(this.event.dateStart);
+    // this.form.get('dateEnd').patchValue(this.event.dateEnd);
+    // this.form.get('imageUrl').patchValue(this.event.imageUrl);
+    // this.form.get('createdBy').patchValue(this.event.createdBy);
+
+    delete this.event.id;
+    console.log(this.event)
+    this.eventSvc.addEvent(this.event).then(() => {
+      loading.dismiss();
+      this.navCtrl.navigateBack('list/my-events');
+    });
+  }
+
 
   openCamera() {
     this.cameraService.openCamera(360, 271).then((imageData) => {
@@ -175,66 +151,33 @@ export class AddPage implements OnInit, AfterViewInit {
     });
   }
 
-
-  ngAfterViewInit(): void {
-    this.getSelfLocationDetail();
-    //Set latitude and longitude of some place
-    let watch = this.geolocation.watchPosition();
-    watch.subscribe((data) => {
-     
-    
-    const map = new google.maps.Map(this.mapNativeElement.nativeElement, {
-      center: {lat: data.coords.latitude, lng: data.coords.longitude },
-      zoom: 17
+  async onPickLocation() {
+    const modal = await this.modalctrl.create({
+      component: LocationPickerComponent
     });
-    const infowindow = new google.maps.InfoWindow();
-    const infowindowContent = document.getElementById('infowindow-content');
-    infowindow.setContent(infowindowContent);
-    const marker = new google.maps.Marker({
-      map: map,
-      anchorPoint: new google.maps.Point(0, -29),
-      draggable: true
+    modal.onDidDismiss().then((modalData) => {
+      console.log(modalData.data);
+      this.getAddress(modalData.data.lat, modalData.data.lng).subscribe(
+        (address) => {
+          this.eventSvc.setAddress(address);
+          console.log(address);
+        }
+      );
     });
-    const autocomplete = new google.maps.places.Autocomplete(this.inputNativeElement.nativeElement as HTMLInputElement);
-    autocomplete.addListener('place_changed', () => {
-      infowindow.close();
-      marker.setVisible(true);
-      const place = autocomplete.getPlace();
-      if (!place.geometry) {
-        // User entered the name of a Place that was not suggested and
-        // pressed the Enter key, or the Place Details request failed.
-        window.alert('No details available for input: ' + place.name );
-        return;
-      }
-      if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-      } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);  // Why 17? Because it looks good.
-      }
-      marker.setPosition(place.geometry.location);
-      marker.setVisible(true);
-      // marker.addListener('dragend', function () {
-      //   //this.inputLat.val(marker.getPosition().lat());
-      //   //this.inputLng.val(marker.getPosition().lng());
-      //   this.geocodePosition(marker.getPosition());
-      //   this.map.setCenter(marker.getPosition());
-      // })
-
-      let address = '';
-      if (place.address_components) {
-        address = [
-          (place.address_components[0] && place.address_components[0].short_name || ''),
-          (place.address_components[1] && place.address_components[1].short_name || ''),
-          (place.address_components[2] && place.address_components[2].short_name || '')
-        ].join(' ');
-      }
-      infowindowContent.children['place-icon'].src = place.icon;
-      infowindowContent.children['place-name'].textContent = place.name;
-      infowindowContent.children['place-address'].textContent = address;
-      infowindow.open(map, marker);
-    });
-  });
-
+    return await modal.present();
   }
+
+  private getAddress(lat: number, lng: number) {
+    return this.http.get<any>(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.firebase.mapsAPIKey}`)
+      .pipe(
+        map(geoData => {
+          if (!geoData || !geoData.results || !geoData.results.length) {
+            return null;
+          }
+          return geoData.results[0].formatted_address;
+        })
+      );
+  }
+
+
 }
