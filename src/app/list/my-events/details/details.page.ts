@@ -5,6 +5,8 @@ import { LoadingController, NavController } from '@ionic/angular';
 
 import { Event } from 'src/app/_shared/_models/event';
 
+import { AuthService } from 'src/app/_shared/_services/auth.service';
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -26,14 +28,15 @@ export class DetailsPage implements OnInit {
     createdBy: null
   };
 
-
+  myEvents: Event[] = [];
   eventId = null;
 
   constructor(
     private eventSvc: EventService,
     private route: ActivatedRoute,
     private loadCtrl: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public authSrv: AuthService
   ) { }
 
   ngOnInit() {
@@ -41,6 +44,7 @@ export class DetailsPage implements OnInit {
     if (this.eventId) {
       this.loadEvent();
     }
+    this.eventSvc.getEventsWithQuery('createdBy', this.authSrv.userData.uid).subscribe(res => { this.myEvents = res; });
   }
 
   async loadEvent() {
@@ -52,6 +56,10 @@ export class DetailsPage implements OnInit {
       loading.dismiss();
       this.event = res;
     });
+  }
+
+  checkCreator() {
+    return (this.myEvents.findIndex(fe => fe.id === this.eventId) < 0) ? false : true;
   }
 
 }
