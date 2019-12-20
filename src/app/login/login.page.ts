@@ -36,9 +36,19 @@ export class LoginPage implements OnInit {
       this.authService.SignIn(f.value.email, f.value.password).then(resp => {
         this.userService.getUser(resp.user.uid).subscribe(res => {
           this.authService.SetUserData(resp.user, res.displayName, res.photoURL).then(result => {
-            this.loading = false;
-            loadingEl.dismiss();
-            this.reDirectSuccessLogin();
+            if(resp.user.emailVerified == false){
+              this.errorInfo = ("Email Not Verified");
+              this.loading = false;
+              loadingEl.dismiss();
+            }
+            else if(resp.user.emailVerified == true){
+              this.loading = false;
+              loadingEl.dismiss();
+              this.reDirectSuccessLogin();
+            }
+            // this.loading = false;
+            // loadingEl.dismiss();
+            // this.reDirectSuccessLogin();
           });
         });
       }).catch(err => {

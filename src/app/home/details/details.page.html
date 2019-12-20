@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <!-- <ion-button color="secondary" button [routerLink]="['/edit', eventId]">
+        <ion-icon name="create" slot="icon-only"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-title>{{ event.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-img [src]="event.imageUrl"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <!-- <ion-col> -->
+          <ion-button expand="block" fill="none" slot = "start">
+            <ion-icon name="wallet" color="success"></ion-icon> &nbsp;
+            <ion-text color="success" *ngIf="event.ticketPrice <= 0">GRATIS</ion-text>
+            <ion-text *ngIf="event.ticketPrice > 0">
+              {{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
+          </ion-button>
+          
+        <!-- </ion-col> -->
+        <ion-col class="ion-text-start">
+          <ion-label>Rp. {{event.pricePool}}</ion-label>
+        </ion-col>
+      <ion-col class="ion-text-end">
+        <!-- <br><br>  -->
+        <ion-icon name="pin" color="danger"></ion-icon>
+        <ion-label> {{ event.location }} </ion-label>
+        <br><br>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-label>Date Start : {{event.dateStart | date}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>Date End : {{event.dateEnd | date}}</ion-label>
+      </ion-col>
+    </ion-row>
+    
+    <p>
+      <ion-label>{{event.description}}</ion-label>
+      <br><br>
+    </p>
+    <ion-row>
+
+<!-- 
+      <ion-col>
+        <ion-label>{{event.category}}</ion-label>
+      </ion-col> -->
+
+      <!-- <ion-col>
+        <ion-label>{{event.dateStart | date}}</ion-label>
+      </ion-col>
+
+      <ion-col>
+        <ion-label>{{event.dateEnd | date}}</ion-label>
+      </ion-col> -->
+
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button button [routerLink]="['/edit', eventId]" routerDirection="forward" color="primary">
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
