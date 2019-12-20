@@ -40,7 +40,7 @@
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-item-sliding *ngFor="let e of nearbyEvents" #slidingItem>
+          <ion-item-sliding *ngFor="let e of myEvents" #slidingItem>
             <ion-item button [routerLink]="['/details', e.id]">
               <ion-thumbnail slot="start">
                 <img src="{{e.imageUrl}}" />
