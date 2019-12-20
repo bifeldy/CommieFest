@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { ModalController } from '@ionic/angular';
 
 import { Event } from 'src/app/_shared/_models/event';
-
+import { LocationPickerComponent } from 'src/app/_shared/_components/_pickers/location-picker/location-picker.component';
+import { environment } from 'src/environments/environment';
 import { EventService } from 'src/app/_shared/_services/event.service';
 import { CameraService } from 'src/app/_shared/_services/camera.service';
-
+import { AuthService } from 'src/app/_shared/_services/auth.service';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.page.html',
@@ -15,6 +19,8 @@ import { CameraService } from 'src/app/_shared/_services/camera.service';
 })
 export class EditPage implements OnInit {
   form: FormGroup;
+
+  address = '';
 
   // private placeSub: Subscription;
 
@@ -39,12 +45,21 @@ export class EditPage implements OnInit {
     private route: ActivatedRoute,
     private loadCtrl: LoadingController,
     private navCtrl: NavController,
-    private cameraService: CameraService
+    private cameraService: CameraService,
+    private modalctrl: ModalController,
+    private http: HttpClient,
+    private authsvc: AuthService
   ) {
 
   }
 
   ngOnInit() {
+    this.eventSvc.getAddress().subscribe(
+      currAddress => {
+        this.address = currAddress;
+      }
+    );
+
     this.eventId = this.route.snapshot.params.id;
     if (this.eventId) {
       this.loadEvent();
@@ -87,6 +102,8 @@ export class EditPage implements OnInit {
         validators: [Validators.required]
       })
     });
+
+    this.event.createdBy = this.authsvc.userData.uid;
   }
 
   async loadEvent() {
@@ -104,6 +121,11 @@ export class EditPage implements OnInit {
     const loading = await this.loadCtrl.create({
       message: 'Updating Event'
     });
+
+
+    this.form.get('location').patchValue(this.address);
+
+    delete this.event.id;
     await loading.present();
     this.eventSvc.updateEvent(this.event, this.eventId).then(() => {
       loading.dismiss();
@@ -125,6 +147,34 @@ export class EditPage implements OnInit {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  async onPickLocation() {
+    const modal = await this.modalctrl.create({
+      component: LocationPickerComponent
+    });
+    modal.onDidDismiss().then((modalData) => {
+      console.log(modalData.data);
+      this.getAddress(modalData.data.lat, modalData.data.lng).subscribe(
+        (address) => {
+          this.eventSvc.setAddress(address);
+          console.log(address);
+        }
+      );
+    });
+    return await modal.present();
+  }
+
+  private getAddress(lat: number, lng: number) {
+    return this.http.get<any>(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.firebase.mapsAPIKey}`)
+      .pipe(
+        map(geoData => {
+          if (!geoData || !geoData.results || !geoData.results.length) {
+            return null;
+          }
+          return geoData.results[0].formatted_address;
+        })
+      );
   }
 
 }
