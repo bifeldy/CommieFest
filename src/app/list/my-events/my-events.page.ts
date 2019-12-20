@@ -20,10 +20,10 @@ export class MyEventsPage implements OnInit {
     private authService: AuthService
   ) { }
 
-  nearbyEvents: Event[] = [];
+  myEvents: Event[] = [];
 
   ngOnInit() {
-    this.eventSvc.getEventsWithQuery('createdBy', this.authService.userData.uid, 'name').subscribe(res => { this.nearbyEvents = res; });
+    this.eventSvc.getEventsWithQuery('createdBy', this.authService.userData.uid).subscribe(res => { this.myEvents = res; });
   }
 
   async remove(e, slidingItem: IonItemSliding) {
@@ -42,7 +42,7 @@ export class MyEventsPage implements OnInit {
           text: 'Yakin',
           handler: () => {
             slidingItem.close();
-            this.eventSvc.removeBike(e.id);
+            this.eventSvc.removeEvent(e.id);2
           }
         }
       ]
