@@ -77,6 +77,8 @@ export class HomePage implements OnInit {
       );
     });
     this.eventService.getEvents().subscribe(res => { this.nearbyEvents = res; });
+
+    if (!this.authService.userData) { return; }
     this.eventService.getFollowEvent().subscribe(res => { this.followedEvents = res; });
   }
 
