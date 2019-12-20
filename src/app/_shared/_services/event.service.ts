@@ -35,9 +35,21 @@ export class EventService {
     return this.eventsCollection.doc<Event>(id).valueChanges();
   }
 
-  getEventsWithQuery(where1 = '', where2 = '', orderBy = '') {
+  updateEvent(event: Event, id: string) {
+    return this.eventsCollection.doc(id).update(event);
+  }
+
+  addEvent(event: Event) {
+    return this.eventsCollection.add(event);
+  }
+
+  removeEvent(id) {
+    return this.eventsCollection.doc(id).delete();
+  }
+
+  getEventsWithQuery(where1 = '', where2 = '') {
     return this.db.collection<Event>('events',
-      ref => ref.where(where1, '==', where2).orderBy(orderBy)
+      ref => ref.where(where1, '==', where2)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -49,15 +61,17 @@ export class EventService {
     );
   }
 
-  updateEvent(event: Event, id: string) {
-    return this.eventsCollection.doc(id).update(event);
-  }
-
-  addEvent(event: Event) {
-    return this.eventsCollection.add(event);
-  }
-
-  removeBike(id) {
-    return this.eventsCollection.doc(id).delete();
+  getEventsWithQuery2(where1 = '', where2 = '', where3 = '', where4 = '', orderBy = '') {
+    return this.db.collection<Event>('events',
+      ref => ref.where(where1, '==', where2).where(where3, '==', where4).orderBy(orderBy)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
 }
