@@ -102,8 +102,19 @@ export class AddPage implements OnInit {
       message: 'Saving Event'
     });
     await loading.present();
+
     this.form.get('location').patchValue(this.address);
-    console.log(this.form.value)
+    // this.form.get('name').patchValue(this.event.name);
+    // this.form.get('description').patchValue(this.event.description);
+    // this.form.get('ticketprice').patchValue(this.event.ticketPrice);
+    // this.form.get('pricepool').patchValue(this.event.pricePool);
+    // this.form.get('dateStart').patchValue(this.event.dateStart);
+    // this.form.get('dateEnd').patchValue(this.event.dateEnd);
+    // this.form.get('imageUrl').patchValue(this.event.imageUrl);
+    // this.form.get('createdBy').patchValue(this.event.createdBy);
+
+    delete this.event.id;
+    console.log(this.event)
     this.eventSvc.addEvent(this.event).then(() => {
       loading.dismiss();
       this.navCtrl.navigateBack('list/my-events');
