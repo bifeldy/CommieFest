@@ -12,34 +12,51 @@ import { Event } from '../_shared/_models/event';
 })
 export class SearchPage implements OnInit {
 
-  events: Event[] = [];
-  public loadedEvent: any[];
-
-  filterData = [];
   searchQuery = '';
-  searchTerm: string = "";
+  searchResult = [];
+
+  // public loadedEvent: any[];
+
+  // filterData = [];
+  // searchTerm: string = "";
 
   constructor(
     private router: Router,
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    private authService: AuthService,
+    public authService: AuthService,
     private eventService: EventService
   ) { }
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe(res => {
-      this.events = res;
-      // this.loadedEvent = res;
-      this.filterData = this.events;
-      this.setFilter();
-    });
-
     // Get Data From URL
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params.q;
+      this.search();
     });
   }
+
+  search() {
+    this.eventService.getEventsWithQuery('name', this.searchQuery).subscribe(
+      res => {
+        console.log(res);
+        this.searchResult = res;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
+
+    // this.eventService.getEvents().subscribe(res => {
+    //   this.events = res;
+    //   // this.loadedEvent = res;
+    //   this.filterData = this.events;
+    //   this.setFilter();
+    // });
+  // }
   // initItem(): void{
   //   this.events = this.loadedEvent;
   // }
@@ -63,24 +80,24 @@ export class SearchPage implements OnInit {
 
   // }
 
-  search($event) {
-    this.router.navigateByUrl('/search?q=' + $event.target.value);
-    this.eventService.getEvents().subscribe(res => {
-      this.events = res;
-      // this.loadedEvent = res;
-      this.filterData = this.events;
-      this.setFilter();
-    });
-  }
-  setFilter() {
-    this.filterData = this.events.filter((event) => {
-      return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
-    });
-  }
-  setFilteredEvents() {
-    this.router.navigateByUrl('/search');
-    this.filterData = this.events.filter((event) => {
-      return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-    });
-  }
+  // search($event) {
+  //   this.router.navigateByUrl('/search?q=' + $event.target.value);
+  //   this.eventService.getEvents().subscribe(res => {
+  //     this.events = res;
+  //     // this.loadedEvent = res;
+  //     this.filterData = this.events;
+  //     this.setFilter();
+  //   });
+  // }
+  // setFilter() {
+  //   this.filterData = this.events.filter((event) => {
+  //     return event.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1;
+  //   });
+  // }
+  // setFilteredEvents() {
+  //   this.router.navigateByUrl('/search');
+  //   this.filterData = this.events.filter((event) => {
+  //     return event.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+  //   });
+  // }
 }

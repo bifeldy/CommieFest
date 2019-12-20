@@ -34,12 +34,12 @@ export class AppComponent {
       icon: 'list',
       shouldLogin: true
     },
-    {
-      title: 'Notifications',
-      url: '/notifications',
-      icon: 'notifications',
-      shouldLogin: true
-    }
+    // {
+    //   title: 'Notifications',
+    //   url: '/notifications',
+    //   icon: 'notifications',
+    //   shouldLogin: true
+    // }
   ];
 
   public darkMode;

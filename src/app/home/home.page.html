@@ -5,15 +5,15 @@
     </ion-buttons>
     <ion-title *ngIf="showToolbar && !isSearchBarOpened">{{ currentLocation }}</ion-title>
     <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="focus" animated placeholder="Cari Event"
-      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar>
+      (ionCancel)="isSearchBarOpened=false" [(ngModel)]="searchTerm" (search)="search($event)"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button ion button slot="icon-only" *ngIf="!isSearchBarOpened" (click)="isSearchBarOpened=true">
         <ion-icon slot="icon-only" size="medium" name="search"></ion-icon>
       </ion-button>
-      <ion-button routerLink="/notifications" *ngIf="authService.userData != null && !isSearchBarOpened">
+      <!-- <ion-button routerLink="/notifications" *ngIf="authService.userData != null && !isSearchBarOpened">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
         <ion-badge class="notifications-badge" color="danger">5</ion-badge>
-      </ion-button>
+      </ion-button> -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -81,7 +81,7 @@
       <ion-title class="ion-padding-bottom ion-margin-bottom">Ada Di Sekitar Anda ..</ion-title>
       <ion-list *ngFor="let event of nearbyEvents.slice(0,10)">
         <ion-card>
-          <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
+          <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" [routerLink]="['/details', event.id]" />
           <ion-card-header>
             <ion-card-subtitle>
               <ion-row>
@@ -107,10 +107,14 @@
                     {{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
                 </ion-button>
               </ion-col>
-              <ion-col class="ion-text-end">
-                <ion-button expand="block">
+              <ion-col class="ion-text-end" *ngIf="authService.userData">
+                <ion-button expand="block" (click)="addFollowEvent(event)" *ngIf="findFollowing(event)">
                   <ion-icon name="add"></ion-icon> &nbsp;
                   <ion-text>Ikuti</ion-text>
+                </ion-button>
+                <ion-button expand="block" color="danger" (click)="deleteFollowEvent(event)" *ngIf="!findFollowing(event)">
+                  <ion-icon name="trash"></ion-icon> &nbsp;
+                  <ion-text>Batal Ikuti</ion-text>
                 </ion-button>
               </ion-col>
             </ion-row>

@@ -26,6 +26,7 @@ export class DetailsPage implements OnInit {
     createdBy: null
   };
 
+
   eventId = null;
 
   constructor(
