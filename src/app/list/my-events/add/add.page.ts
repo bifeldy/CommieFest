@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { Event } from 'src/app/_shared/_models/event';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { ModalController } from '@ionic/angular';
 import { EventService } from 'src/app/_shared/_services/event.service';
 import { CameraService } from 'src/app/_shared/_services/camera.service';
+
 import { LocationPickerComponent } from 'src/app/_shared/_components/_pickers/location-picker/location-picker.component';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/_shared/_services/auth.service';
+
 
 @Component({
   selector: 'app-add',
@@ -21,7 +25,15 @@ export class AddPage implements OnInit {
   // lat = 51.678418;
   // lng = 7.809007;
 
+
   form: FormGroup;
+  directionForm: FormGroup;
+  geocoder:any;
+  markers:any;
+  selfLatitude=22.572645;
+  selfLongitude=88.363892;
+  lats;
+  lont;
 
   event: Event = {
     id: null,
@@ -57,6 +69,7 @@ export class AddPage implements OnInit {
     );
 
     this.form = new FormGroup({
+
       name: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
@@ -121,6 +134,7 @@ export class AddPage implements OnInit {
     });
   }
 
+
   openCamera() {
     this.cameraService.openCamera(360, 271).then((imageData) => {
       this.event.imageUrl = `data:image/jpeg;base64,${imageData}`;
@@ -164,5 +178,6 @@ export class AddPage implements OnInit {
         })
       );
   }
+
 
 }

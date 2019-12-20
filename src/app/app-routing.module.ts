@@ -59,7 +59,8 @@ const routes: Routes = [
     path: 'details/:id',
     loadChildren: () => import('./list/my-events/details/details.module').then(m => m.DetailsPageModule),
     canActivate: [AuthGuard]
-  }
+  },  { path: 'second', loadChildren: './modals/second/second.module#SecondPageModule' }
+
 
 
 

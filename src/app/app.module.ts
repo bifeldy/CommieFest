@@ -21,6 +21,7 @@ import { AuthService } from './_shared/_services/auth.service';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,8 +40,10 @@ import { Camera } from '@ionic-native/camera/ngx';
     AuthService,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
+    NativeGeocoder,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    
     Camera
   ],
   bootstrap: [AppComponent]
