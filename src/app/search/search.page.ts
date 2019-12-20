@@ -15,6 +15,8 @@ export class SearchPage implements OnInit {
   searchQuery = '';
   searchResult = [];
 
+  followedEvents: Event[] = [];
+
   // public loadedEvent: any[];
 
   // filterData = [];
@@ -34,6 +36,9 @@ export class SearchPage implements OnInit {
       this.searchQuery = params.q;
       this.search();
     });
+
+    if (!this.authService.userData) { return; }
+    this.eventService.getFollowEvent().subscribe(res => { this.followedEvents = res; });
   }
 
   search() {
@@ -48,7 +53,17 @@ export class SearchPage implements OnInit {
     );
   }
 
+  addFollowEvent(event) {
+    this.eventService.addFollowEvent(event);
+  }
 
+  deleteFollowEvent(event) {
+    this.eventService.removeFollowEvent(event.id);
+  }
+
+  findFollowing(event: Event) {
+    return (this.followedEvents.findIndex(fe => fe.id === event.id) < 0) ? true : false;
+  }
 
     // this.eventService.getEvents().subscribe(res => {
     //   this.events = res;
