@@ -4,8 +4,12 @@
       <ion-content>
 
         <ion-card class="hide-card ion-padding ion-no-margin" [ngStyle]="userCoverImgStyle">
-          <img src="{{ (authService.isLoggedIn ? (authService.userData.photoURL ? authService.userData.photoURL : 'http://placehold.it/64x64') : 'http://placehold.it/64x64') }}" class="custom-avatar" />
-          <h6 class="ion-no-margin">{{ authService.isLoggedIn ? (authService.userData.displayName ? authService.userData.displayName : 'User') : 'Pengunjung' }}</h6>
+          <img
+            src="{{ (authService.isLoggedIn ? (authService.userData.photoURL ? authService.userData.photoURL : 'http://placehold.it/64x64') : 'http://placehold.it/64x64') }}"
+            class="custom-avatar" />
+          <h6 class="ion-no-margin">
+            {{ authService.isLoggedIn ? (authService.userData.displayName ? authService.userData.displayName : 'User') : 'Pengunjung' }}
+          </h6>
           {{ authService.isLoggedIn ? authService.userData.email : 'pengunjung@email.com' }}
         </ion-card>
 
@@ -35,7 +39,15 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item *ngIf="!authService.isLoggedIn" routerLinkActive="active" routerLink="/register" style="cursor: pointer;">
+            <ion-item routerLinkActive="active" routerLink="/about" style="cursor: pointer;">
+              <ion-icon slot="start" name="information-circle" routerLinkActive="active">
+              </ion-icon>
+              <ion-label>About</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item *ngIf="!authService.isLoggedIn" routerLinkActive="active" routerLink="/register"
+              style="cursor: pointer;">
               <ion-icon slot="start" name="person-add" routerLinkActive="active"></ion-icon>
               <ion-label>Register</ion-label>
             </ion-item>
@@ -50,7 +62,8 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item *ngIf="authService.isLoggedIn" routerLinkActive="active" (click)="logout()" style="cursor: pointer;">
+            <ion-item *ngIf="authService.isLoggedIn" routerLinkActive="active" (click)="logout()"
+              style="cursor: pointer;">
               <ion-icon slot="start" name="log-out" routerLinkActive="active"></ion-icon>
               <ion-label>Logout</ion-label>
             </ion-item>
