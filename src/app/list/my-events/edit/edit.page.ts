@@ -104,6 +104,15 @@ export class EditPage implements OnInit {
     });
 
     this.event.createdBy = this.authsvc.userData.uid;
+
+    // this.form.get('location').patchValue(this.address);
+    // this.form.get('name').patchValue(this.event.name);
+    // this.form.get('description').patchValue(this.event.description);
+    // this.form.get('ticketprice').patchValue(this.event.ticketPrice);
+    // this.form.get('pricepool').patchValue(this.event.pricePool);
+    // this.form.get('datestart').patchValue(this.event.dateStart);
+    // this.form.get('dateend').patchValue(this.event.dateEnd);
+    // this.form.get('image').patchValue(this.event.imageUrl);
   }
 
   async loadEvent() {

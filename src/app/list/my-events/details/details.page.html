@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid class="ion-padding">
 
     <ion-row>
       <ion-col class="ion-no-padding">
@@ -23,7 +23,7 @@
       </ion-col>
     </ion-row><br>
 
-    <ion-title>Location</ion-title>
+    <ion-title color="primary">Lokasi</ion-title>
     <ion-row style="border:2px solid;">
       <ion-col size="1">
         <ion-icon style="color:red;" name="pin"></ion-icon>
@@ -36,7 +36,7 @@
     </ion-row><br>
 
 
-    <ion-title>Deskripsi</ion-title>
+    <ion-title color="primary">Deskripsi</ion-title>
     <ion-row>
       <ion-col style="text-align: justify;">
 
@@ -44,7 +44,7 @@
       </ion-col>
 
     </ion-row>
-
+    <!-- 
 
 
     <ion-row align-items-center>
@@ -55,19 +55,33 @@
             {{ event.ticketPrice | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-text>
         </ion-title>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
 
 
 
     <h1 style="border:1px solid; color:blue;">
-      <h1 style="background-color:blue; border: 2px solid; color:white; text-align: center;">Price Pool</h1>
+      <h1 style="background-color:blue; border: 2px solid; color:white; text-align: center;">Total Hadiah</h1>
       <h1 style="text-align: center;">
         <ion-label>{{event.pricePool | currency:'IDR':'symbol-narrow':'4.2-2' }}</ion-label>
       </h1>
     </h1>
 
 
+    <ion-row>
+      <ion-col>
+        <ion-title>
+          <ion-label color="primary" style="text-align: left;">Kategori</ion-label>
+        </ion-title>
+      </ion-col>
+
+      <ion-col>
+        <ion-title color="primary" style="text-align: right;">
+          Biaya Pendaftaran
+
+        </ion-title>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col>
         <ion-title>
@@ -84,24 +98,37 @@
       </ion-col>
     </ion-row>
 
-
-
-
+    <br />
 
 
 
     <ion-row>
       <ion-col>
-        <h4 style="text-align: left;">
-          <ion-label>{{event.dateStart | date}}</ion-label>
-        </h4>
+        <ion-title style="text-align: left;">
+          <ion-label color="primary">Mulai</ion-label>
+        </ion-title>
 
       </ion-col>
 
       <ion-col>
-        <h4 style="text-align: right;">
+        <ion-title style="text-align: right;">
+          <ion-label color="primary">Selesai</ion-label>
+        </ion-title>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-title style="text-align: left;">
+          <ion-label>{{event.dateStart | date}}</ion-label>
+        </ion-title>
+
+      </ion-col>
+
+      <ion-col>
+        <ion-title style="text-align: right;">
           <ion-label>{{event.dateEnd | date}}</ion-label>
-        </h4>
+        </ion-title>
       </ion-col>
     </ion-row>
 
