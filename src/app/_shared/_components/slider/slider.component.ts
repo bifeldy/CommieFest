@@ -8,7 +8,7 @@ import { Event } from '../../_models/event';
 	styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit {
-	@Input() data = [];
+	@Input() events = [];
 
 	slidersConfig = {
 		slidesPerView: 4.5,
