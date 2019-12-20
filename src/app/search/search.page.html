@@ -125,8 +125,8 @@
     </ion-item-group> -->
 
   <ion-list *ngFor="let event of searchResult">
-    <ion-card [routerLink]="['/details', event.id]">
-      <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" />
+    <ion-card>
+      <img src="{{ event.imageUrl }}" alt="{{ event.name }}" style="width: 100%; height:256px;" [routerLink]="['/details', event.id]" />
       <ion-card-header>
         <ion-card-subtitle>
           <ion-row>
@@ -153,9 +153,13 @@
             </ion-button>
           </ion-col>
           <ion-col class="ion-text-end">
-            <ion-button expand="block">
+            <ion-button expand="block" (click)="addFollowEvent(event)" *ngIf="findFollowing(event)">
               <ion-icon name="add"></ion-icon> &nbsp;
               <ion-text>Ikuti</ion-text>
+            </ion-button>
+            <ion-button expand="block" color="danger" (click)="deleteFollowEvent(event)" *ngIf="!findFollowing(event)">
+              <ion-icon name="trash"></ion-icon> &nbsp;
+              <ion-text>Batal Ikuti</ion-text>
             </ion-button>
           </ion-col>
         </ion-row>
